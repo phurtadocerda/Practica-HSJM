@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#f4f7f6] text-[#2c3e50] antialiased; /* Fondo gris claro profesional */
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
