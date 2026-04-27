@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronLeft, FileText, Download, X, ZoomIn } from 'lucide-react'; 
+import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
 
 // === IMPORTACIÓN DE LAS 20 FOTOS EXACTAS ===
 import reacre1 from '../assets/reacreditacion1.png';
@@ -23,14 +24,16 @@ import reacre18 from '../assets/reacreditacion18.png';
 import reacre19 from '../assets/reacreditacion19.png';
 import reacre20 from '../assets/reacreditacion20.png';
 
-const Reacreditacion = ({ onNavigate }) => {
+const Reacreditacion = () => { // 2. Quitamos el prop onNavigate antiguo
+  const navigate = useNavigate(); // 3. Inicializamos el hook para navegar
+  
   // ESTADO para controlar la foto agrandada
   const [selectedPhoto, setSelectedPhoto] = useState(null);
 
   // Enlaces de descarga de los PDFs
   const descargas = [
-    { name: "GRÁFICAS_REACREDITACIÓN", url: "http://10.5.131.63/intranet/wp-content/uploads/2023/07/GRAFICAS_REACREDITACION.pdf" }, // <-- Pon tu link real aquí
-    { name: "GRÁFICAS_REACREDITACIÓN2", url: "http://10.5.131.63/intranet/wp-content/uploads/2023/07/GRAFICAS_REACREDITACION2.pdf" }, // <-- Pon tu link real aquí
+    { name: "GRÁFICAS_REACREDITACIÓN", url: "http://10.5.131.63/intranet/wp-content/uploads/2023/07/GRAFICAS_REACREDITACION.pdf" },
+    { name: "GRÁFICAS_REACREDITACIÓN2", url: "http://10.5.131.63/intranet/wp-content/uploads/2023/07/GRAFICAS_REACREDITACION2.pdf" },
   ];
 
   // Grilla de las 20 fotos
@@ -64,7 +67,7 @@ const Reacreditacion = ({ onNavigate }) => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10 border-b pb-8">
         <div>
           <button 
-            onClick={() => onNavigate('accesos')} 
+            onClick={() => navigate('/accesos')} // 4. Cambiamos onNavigate por navigate('/ruta')
             className="bg-slate-100 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-4 text-sm shadow-sm"
           >
             <ChevronLeft size={18} /> VOLVER A ACCESOS
@@ -120,7 +123,6 @@ const Reacreditacion = ({ onNavigate }) => {
                     alt={foto.alt} 
                     className="w-full h-full object-contain p-1 group-hover:scale-105 transition-transform duration-300"
                   />
-                  {/* Lupa al hacer hover */}
                   <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                       <ZoomIn className="text-white bg-black/50 p-3 rounded-full" size={48} />
                   </div>
@@ -131,16 +133,12 @@ const Reacreditacion = ({ onNavigate }) => {
         </div>
       </div>
 
-      {/* ============================================================
-          VISOR DE IMAGEN (MODAL) - Agrandado
-          ============================================================ */}
+      {/* VISOR DE IMAGEN (MODAL) */}
       {selectedPhoto && (
         <div 
-          // Fondo oscuro: p-2 sm:p-4 md:p-6 (Márgenes mucho más pequeños)
           className="fixed inset-0 bg-black/90 z-[999] flex items-center justify-center p-2 sm:p-4 md:p-6 animate-in fade-in duration-300 backdrop-blur-sm cursor-zoom-out"
           onClick={() => setSelectedPhoto(null)}
         >
-          {/* Botón X posicionado más cerca de la esquina */}
           <button 
             onClick={() => setSelectedPhoto(null)} 
             className="absolute top-4 right-4 text-white bg-black/50 hover:bg-red-600 rounded-full p-2.5 transition-colors shadow-lg z-10"
@@ -150,21 +148,18 @@ const Reacreditacion = ({ onNavigate }) => {
           </button>
 
           <div 
-            // Contenedor intermedio: max-w-full max-h-full (Para usar todo el espacio)
             className="relative max-w-full max-h-full flex items-center justify-center gap-4 animate-in zoom-in duration-300 cursor-default overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             <img 
               src={selectedPhoto.src} 
               alt={selectedPhoto.alt} 
-              // Imagen: max-h-[92vh] (Aumentada para usar casi todo el alto de la pantalla)
               className="max-w-full max-h-[92vh] object-contain rounded-xl shadow-2xl border-2 border-white/20 select-none cursor-zoom-out"
               onClick={() => setSelectedPhoto(null)}
             />
           </div>
         </div>
       )}
-
     </section>
   );
 };

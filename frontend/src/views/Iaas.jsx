@@ -1,9 +1,11 @@
 import React from 'react';
 import { ChevronLeft, ShieldCheck } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
 
-const Iaas = ({ onNavigate }) => {
+const Iaas = () => { // 2. Quitamos el prop onNavigate antiguo
+  const navigate = useNavigate(); // 3. Inicializamos el hook para navegar
+
   // === CONFIGURACIÓN DEL VIDEO ===
-  // Reemplaza esta URL por la ruta real de tu archivo .mp4 en el servidor
   const urlVideoIaas = "http://10.5.131.63/intranet/wp-content/uploads/2025/02/iaas-final_1CPdjwZy.mp4?_=1";
 
   return (
@@ -13,7 +15,7 @@ const Iaas = ({ onNavigate }) => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12 border-b pb-8">
         <div>
           <button 
-            onClick={() => onNavigate('accesos')} 
+            onClick={() => navigate('/accesos')} // 4. Cambiamos a navigate('/ruta')
             className="bg-slate-100 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-4 text-sm shadow-sm"
           >
             <ChevronLeft size={18} strokeWidth={3} /> VOLVER A ACCESOS
@@ -37,13 +39,12 @@ const Iaas = ({ onNavigate }) => {
             src={urlVideoIaas} 
             controls 
             className="w-full h-full object-cover"
-            // controlsList="nodownload" // Descomenta esto si quieres bloquear la descarga
-            poster="https://via.placeholder.com/1920x1080/003876/FFFFFF?text=Video+IAAS" // Imagen opcional antes de reproducir
+            poster="https://via.placeholder.com/1920x1080/003876/FFFFFF?text=Video+IAAS"
           >
             Tu navegador no soporta la reproducción de video.
           </video>
 
-          {/* Superposición decorativa al hacer hover (opcional) */}
+          {/* Superposición decorativa */}
           <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none flex items-center justify-center">
             <div className="bg-white/20 p-6 rounded-full backdrop-blur-sm">
                 <ShieldCheck className="text-white" size={60} strokeWidth={1}/>
@@ -51,7 +52,7 @@ const Iaas = ({ onNavigate }) => {
           </div>
         </div>
 
-        {/* Breve texto descriptivo opcional debajo del video */}
+        {/* Texto descriptivo */}
         <div className="mt-8 text-center bg-slate-50 p-6 rounded-2xl border border-slate-100 max-w-3xl mx-auto">
             <p className="text-slate-700 font-medium text-lg">
                 Visualiza el video instructivo sobre los protocolos y medidas de prevención de Infecciones Asociadas a la Atención de Salud (IAAS) en nuestro establecimiento.

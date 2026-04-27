@@ -1,12 +1,15 @@
 import React from 'react';
 import { ChevronLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; // <-- 1. Agregamos el Hook de React Router
 
 // === AQUÍ IMPORTAS TUS FOTOS DIRECTAMENTE ===
-import foto1 from '../assets/afiche_bpso.png'; // Cambia 'afiche_bpso.png' por tu nombre real
-import foto2 from '../assets/foto_bpso_2.png'; // Cambia 'foto_bpso_2.png' por tu nombre real
-import foto3 from '../assets/foto_bpso_3.png'; // Cambia 'foto_bpso_3.png' por tu nombre real
+import foto1 from '../assets/afiche_bpso.png'; 
+import foto2 from '../assets/foto_bpso_2.png'; 
+import foto3 from '../assets/foto_bpso_3.png'; 
 
-const ProgramaBPSO = ({ onNavigate }) => {
+const ProgramaBPSO = () => { // <-- 2. Quitamos el onNavigate de aquí
+  const navigate = useNavigate(); // <-- 3. Inicializamos el Hook
+
   return (
     <section className="bg-white rounded-[3rem] p-6 md:p-10 shadow-2xl border border-slate-100 min-h-[600px] animate-in fade-in zoom-in duration-500 w-full font-sans">
       
@@ -14,7 +17,7 @@ const ProgramaBPSO = ({ onNavigate }) => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b pb-4">
         <div>
           <button 
-            onClick={() => onNavigate('accesos')} 
+            onClick={() => navigate('/accesos')} // <-- 4. Actualizamos el botón a navigate('/ruta')
             className="bg-slate-100 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all text-sm shadow-sm"
           >
             <ChevronLeft size={18} strokeWidth={3} /> VOLVER A ACCESOS
@@ -57,7 +60,7 @@ const ProgramaBPSO = ({ onNavigate }) => {
         {/* ENLACE FINAL DESTACADO - Letra y relleno más pequeños */}
         <div className="w-full pt-8 pb-4 border-t border-slate-200 flex justify-center mt-2">
           <a 
-            href="http://10.5.131.63/intranet/wp-content/uploads/2024/10/SISTEMA-DE-CLASIFICACION-LESIONES-POR-PRESION-1.pdf" // <-- Pega tu link real aquí
+            href="http://10.5.131.63/intranet/wp-content/uploads/2024/10/SISTEMA-DE-CLASIFICACION-LESIONES-POR-PRESION-1.pdf" 
             target="_blank" 
             rel="noreferrer"
             className="bg-slate-50 px-6 py-4 rounded-2xl w-full max-w-xl text-center text-[#003876] font-bold text-lg md:text-xl underline underline-offset-4 hover:text-[#00a19a] hover:bg-slate-100 transition-all uppercase shadow-sm border border-slate-200 block"

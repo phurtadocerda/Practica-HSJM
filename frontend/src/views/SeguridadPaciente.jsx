@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { ChevronLeft, X, ZoomIn, PlayCircle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
 
 // === IMPORTA TUS 4 FOTOS ===
-import foto1 from '../assets/seguridad_foto1.png'; // Reemplaza con tus nombres reales
+import foto1 from '../assets/seguridad_foto1.png'; 
 import foto2 from '../assets/seguridad_foto2.png';
 import foto3 from '../assets/seguridad_foto3.png';
 import foto4 from '../assets/seguridad_foto4.png';
 
-const SeguridadPaciente = ({ onNavigate }) => {
+const SeguridadPaciente = () => { // 2. Quitamos el prop onNavigate
+  const navigate = useNavigate(); // 3. Inicializamos el hook
   const [selectedPhoto, setSelectedPhoto] = useState(null);
 
   // Lista de tus 4 fotos
@@ -35,7 +37,7 @@ const SeguridadPaciente = ({ onNavigate }) => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10 border-b pb-8">
         <div>
           <button 
-            onClick={() => onNavigate('accesos')} 
+            onClick={() => navigate('/accesos')} // 4. Actualizamos a navigate
             className="bg-slate-100 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-4 text-sm shadow-sm"
           >
             <ChevronLeft size={18} strokeWidth={3} /> VOLVER A ACCESOS
@@ -58,7 +60,7 @@ const SeguridadPaciente = ({ onNavigate }) => {
           </a>
         </div>
 
-        {/* SECCIÓN FOTOS (Grilla de 2x2) */}
+        {/* SECCIÓN FOTOS */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {fotos.map((foto) => (
             <div 
@@ -74,7 +76,7 @@ const SeguridadPaciente = ({ onNavigate }) => {
           ))}
         </div>
 
-        {/* SECCIÓN VIDEOS (Grilla de 3 columnas) */}
+        {/* SECCIÓN VIDEOS */}
         <div className="pt-10">
           <div className="border-l-4 border-red-500 pl-4 mb-8">
             <h3 className="text-3xl font-black text-slate-800 uppercase italic">Galería de Videos</h3>

@@ -1,8 +1,11 @@
 import React from 'react';
 import { ChevronLeft, FileText } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; // 1. Hook importado
 
-const Tuberculosis = ({ onNavigate }) => {
-  // Primer bloque de documentos (sin viñetas en tu imagen)
+const Tuberculosis = () => {
+  const navigate = useNavigate(); // 2. Hook inicializado
+
+  // Primer bloque de documentos
   const bloqueUno = [
     { name: "ACUALIZACION DEL ESQUEMA DE TRATAMIENTO DE LA TBC RESISTENTE A FARMACOS", link: "http://10.5.131.63/intranet/wp-content/uploads/2025/07/ACUALIZACION-DEL-ESQUEMA-DE-TRATAMIENTO-DE-LA-TBC-RESISTENTE-A-FARMACOS.pdf" },
     { name: "NOTIFICACION Y SEGUIMIENTO TB DR Y PACIENTES COMITÉ 2025", link: "http://10.5.131.63/intranet/wp-content/uploads/2025/07/NOTIFICACION-Y-SEGUIMIENTO-TB-DR-Y-PACIENTES-COMITE-2025.xlsx" },
@@ -16,7 +19,7 @@ const Tuberculosis = ({ onNavigate }) => {
     { name: "Plan Trabajo PROCET 2025", link: "http://10.5.131.63/intranet/wp-content/uploads/2025/03/Plan-Trabajo-PROCET-2025.pdf" },
   ];
 
-  // Segundo bloque de documentos (con viñetas circulares en tu imagen)
+  // Segundo bloque de documentos
   const bloqueDos = [
     { name: "SOLICITUD-COMITE-TERAPEUTICA_v2", link: "http://10.5.131.63/intranet/wp-content/uploads/2024/10/SOLICITUD-COMITE-TERAPEUTICA_v2.pdf" },
     { name: "Flujograma PROCET HSJM 2024", link: "http://10.5.131.63/intranet/wp-content/uploads/2024/08/Flujograma-PROCET-HSJM-2024.pdf" },
@@ -42,7 +45,7 @@ const Tuberculosis = ({ onNavigate }) => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10 border-b pb-8">
         <div>
           <button 
-            onClick={() => onNavigate('accesos')} 
+            onClick={() => navigate('/accesos')} // 3. ¡CORRECCIÓN AQUÍ!
             className="bg-slate-100 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-4 text-sm"
           >
             <ChevronLeft size={18} /> VOLVER A ACCESOS
@@ -54,7 +57,7 @@ const Tuberculosis = ({ onNavigate }) => {
 
       <div className="max-w-5xl mx-auto space-y-12 pt-4">
         
-        {/* BLOQUE 1 (Sin viñetas, más espaciado) */}
+        {/* BLOQUE 1 */}
         <div className="space-y-6">
           {bloqueUno.map((doc, index) => (
             <div key={index}>
@@ -73,7 +76,7 @@ const Tuberculosis = ({ onNavigate }) => {
         {/* SEPARADOR VISUAL */}
         <hr className="border-slate-200" />
 
-        {/* ENLACE SUELTO (Formulario de traslado) */}
+        {/* ENLACE SUELTO */}
         <div>
           <a 
             href="http://10.5.131.63/intranet/wp-content/uploads/2025/03/TRASLADO-NACIONAL_QUIMIOPROFILAXIS.pdf" 
@@ -85,12 +88,11 @@ const Tuberculosis = ({ onNavigate }) => {
           </a>
         </div>
 
-        {/* BLOQUE 2 (Con viñetas de círculo vacío) */}
+        {/* BLOQUE 2 */}
         <div className="pl-4">
           <ul className="space-y-4">
             {bloqueDos.map((doc, index) => (
               <li key={index} className="flex items-center gap-3 group">
-                {/* Viñeta de círculo */}
                 <div className="w-1.5 h-1.5 rounded-full border-2 border-slate-500 group-hover:border-[#00a19a] shrink-0 transition-colors"></div>
                 <a 
                   href={doc.link} 

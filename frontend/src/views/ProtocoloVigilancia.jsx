@@ -1,7 +1,10 @@
 import React from 'react';
 import { ChevronLeft, PlayCircle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
 
-const ProtocoloVigilancia = ({ onNavigate }) => {
+const ProtocoloVigilancia = () => { // 2. Quitamos el prop onNavigate
+  const navigate = useNavigate(); // 3. Inicializamos el hook
+
   // Aquí están tus 2 videos MP4 directos del servidor
   const videos = [
     {
@@ -21,7 +24,7 @@ const ProtocoloVigilancia = ({ onNavigate }) => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10 border-b pb-8">
         <div>
           <button 
-            onClick={() => onNavigate('accesos')} 
+            onClick={() => navigate('/accesos')} // 4. Actualizamos el botón a navigate('/ruta')
             className="bg-slate-100 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-4 text-sm"
           >
             <ChevronLeft size={18} /> VOLVER A ACCESOS

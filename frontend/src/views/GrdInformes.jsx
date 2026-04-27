@@ -1,7 +1,10 @@
 import React from 'react';
 import { ChevronLeft, Microscope, BookOpen, FolderOpen } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
 
-const GrdInformes = ({ onNavigate }) => {
+const GrdInformes = () => { // 2. Quitamos onNavigate
+  const navigate = useNavigate(); // 3. Inicializamos el hook
+
   const informes2024 = [
     { titulo: "Informe Estandar diciembre 2024", link: "http://10.5.131.63/intranet/wp-content/uploads/2025/02/Informe-Estandar-diciembre-2024.xlsx" },
     { titulo: "Informe Estandar noviembre 2024.", link: "http://10.5.131.63/intranet/wp-content/uploads/2025/02/Informe-Estandar-noviembre-2024.xlsx" },
@@ -36,7 +39,10 @@ const GrdInformes = ({ onNavigate }) => {
     <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[600px] w-full font-sans">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12 border-b pb-8">
         <div>
-          <button onClick={() => onNavigate('inicio')} className="bg-[#003876]/5 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 mb-6 text-xs">
+          <button 
+            onClick={() => navigate('/inicio')} // 4. CORRECCIÓN: Usamos navigate('/inicio')
+            className="bg-[#003876]/5 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 mb-6 text-xs"
+          >
             <ChevronLeft size={18} /> VOLVER AL INICIO
           </button>
           <div className="flex items-center gap-4">

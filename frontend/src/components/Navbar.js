@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom'; 
 import { 
-  Home, FileText, Phone, Map, Key, LogOut, User, 
-  ChevronDown, Menu, X, ShieldCheck, History, Pill, Calendar, 
-  UserCircle, FolderTree, BarChart3, Microscope, Activity, 
-  Scale, LayoutList, ClipboardCheck, Heart, FileWarning, AlertTriangle, HelpCircle,
-  Newspaper // <-- NUEVO ICONO AGREGADO AQUÍ
+  Home, FileText, Phone, Map, LogOut, ChevronDown, Menu, X, 
+  ShieldCheck, History, Pill, Calendar, UserCircle, FolderTree, 
+  BarChart3, Microscope, Activity, Scale, LayoutList, ClipboardCheck, 
+  Heart, FileWarning, HelpCircle, Newspaper, AlertTriangle 
 } from 'lucide-react';
 import logoHospital from '../assets/logo.png';
-
-const Navbar = ({ onLogout, userName, onNavigate, currentPage }) => {
+const Navbar = ({ onLogout, userName }) => {
+  const navigate = useNavigate(); // Hook para navegar
+  const location = useLocation(); // Hook para saber en qué página estamos (reemplaza a currentPage)
+  
   const [isBibliotecaOpen, setIsBibliotecaOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showDocsExtra, setShowDocsExtra] = useState(false);
@@ -58,12 +60,14 @@ const Navbar = ({ onLogout, userName, onNavigate, currentPage }) => {
     },
   ];
 
+  // NUEVA FUNCIÓN DE NAVEGACIÓN
   const handleNavegar = (e, opcion) => {
     if (e) { e.preventDefault(); e.stopPropagation(); }
     if (opcion.external) {
       window.open(opcion.link, '_blank');
     } else {
-      onNavigate(opcion.route || opcion);
+      // Usamos el navigate de React Router
+      navigate(`/${opcion.route || opcion}`);
     }
     setIsMobileMenuOpen(false);
     setIsBibliotecaOpen(false);
@@ -71,15 +75,13 @@ const Navbar = ({ onLogout, userName, onNavigate, currentPage }) => {
 
   return (
     <nav className="fixed top-0 w-full z-[1000] font-sans shadow-md">
-      {/* NIVEL SUPERIOR */}
       <div className="bg-white px-3 md:px-6 h-20 flex items-center justify-between border-b">
-        {/* LOGO E IDENTIDAD */}
         <div className="flex items-center gap-2 md:gap-4 shrink-0 overflow-hidden">
           <img 
             src={logoHospital} 
             alt="Logo" 
             className="h-8 xs:h-10 md:h-14 w-auto object-contain cursor-pointer transition-all" 
-            onClick={() => onNavigate('inicio')} 
+            onClick={() => navigate('/inicio')} // <-- Cambio aquí
           />
           <div className="flex flex-col min-w-0">
             <h1 className="text-[#003876] font-black text-[10px] xs:text-xs sm:text-sm md:text-xl leading-none uppercase italic truncate">
@@ -91,7 +93,6 @@ const Navbar = ({ onLogout, userName, onNavigate, currentPage }) => {
           </div>
         </div>
 
-        {/* SALUDO Y BOTONES */}
         <div className="flex items-center gap-3 md:gap-6">
           <div className="hidden sm:flex flex-col items-end">
             <span className="text-[10px] uppercase font-bold text-slate-400 leading-none">Bienvenido(a)</span>
@@ -112,14 +113,11 @@ const Navbar = ({ onLogout, userName, onNavigate, currentPage }) => {
         </div>
       </div>
 
-      {/* NAVBAR AZUL (Escritorio) */}
       <div className="hidden lg:block bg-[#003876] border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4">
           <ul className="flex items-center justify-center gap-2 xl:gap-8 py-3">
-            <NavItem icon={<Home size={22}/>} text="INICIO" active={currentPage === 'inicio'} onClick={() => onNavigate('inicio')} />
-            
-            {/* NUEVO BOTÓN DE NOTICIAS AQUÍ */}
-            {/* <NavItem icon={<Newspaper size={22}/>} text="NOTICIAS" active={currentPage === 'noticias'} onClick={() => onNavigate('noticias')} /> */}
+            {/* COMPROBACIÓN DE RUTA ACTUAL CON LOCATION */}
+            <NavItem icon={<Home size={22}/>} text="INICIO" active={location.pathname === '/inicio'} onClick={() => navigate('/inicio')} />
             
             <li 
               className="relative"
@@ -147,7 +145,7 @@ const Navbar = ({ onLogout, userName, onNavigate, currentPage }) => {
                           {showDocsExtra && (
                             <div className="px-10 pb-2 flex flex-col">
                               {op.items.map((sub, si) => (
-                                <button key={si} onClick={() => onNavigate(sub.route)} className="text-left py-1.5 text-xs text-slate-500 hover:text-[#00a19a] font-bold">• {sub.name}</button>
+                                <button key={si} onClick={() => navigate(`/${sub.route}`)} className="text-left py-1.5 text-xs text-slate-500 hover:text-[#00a19a] font-bold">• {sub.name}</button>
                               ))}
                             </div>
                           )}
@@ -160,20 +158,16 @@ const Navbar = ({ onLogout, userName, onNavigate, currentPage }) => {
             </li>
 
             <NavItem icon={<UserCircle size={22}/>} text="AUTOCONSULTA" onClick={() => window.open('http://10.8.64.31/autoconsulta', '_blank')} />
-            <NavItem icon={<Phone size={22}/>} text="ANEXOS" active={currentPage === 'anexos'} onClick={() => onNavigate('anexos')} />
-            <NavItem icon={<Map size={22}/>} text="PLANOS" active={currentPage === 'planos'} onClick={() => onNavigate('planos')} />
+            <NavItem icon={<Phone size={22}/>} text="ANEXOS" active={location.pathname === '/anexos'} onClick={() => navigate('/anexos')} />
+            <NavItem icon={<Map size={22}/>} text="PLANOS" active={location.pathname === '/planos'} onClick={() => navigate('/planos')} />
           </ul>
         </div>
       </div>
 
-      {/* MENÚ MÓVIL */}
       {isMobileMenuOpen && (
         <div className="lg:hidden bg-[#003876] fixed inset-0 top-20 z-50 overflow-y-auto animate-in fade-in zoom-in duration-300">
           <div className="p-4 space-y-2">
             <MobileNavItem icon={<Home size={24}/>} text="INICIO" onClick={() => handleNavegar(null, 'inicio')} />
-            
-            {/* NUEVO BOTÓN DE NOTICIAS EN MÓVIL */}
-            <MobileNavItem icon={<Newspaper size={24}/>} text="NOTICIAS" onClick={() => handleNavegar(null, 'noticias')} />
             
             <div className="bg-white/5 rounded-2xl overflow-hidden">
               <button onClick={() => setIsBibliotecaOpen(!isBibliotecaOpen)} className="w-full flex justify-between items-center p-5 text-white font-black uppercase text-base">
@@ -201,7 +195,7 @@ const Navbar = ({ onLogout, userName, onNavigate, currentPage }) => {
                           {isMobileDocsOpen && (
                             <div className="pl-6 border-l-2 border-[#ffb81c]/30 pb-2">
                               {op.items.map((sub, si) => (
-                                <button key={si} onClick={() => onNavigate(sub.route)} className="w-full text-left p-3 pl-8 text-white/60 text-xs font-bold uppercase">
+                                <button key={si} onClick={() => navigate(`/${sub.route}`)} className="w-full text-left p-3 pl-8 text-white/60 text-xs font-bold uppercase">
                                   - {sub.name}
                                 </button>
                               ))}

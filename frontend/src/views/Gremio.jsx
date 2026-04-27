@@ -1,197 +1,172 @@
-import React, { useState } from 'react';
-import { ChevronLeft, Users, Newspaper, Calendar, ArrowRight, Clock, Tag } from 'lucide-react';
-import logoHospital from '../assets/logo.png'; // Asegúrate de que la ruta sea correcta
+import React, { useState, useEffect, useRef } from 'react';
+import { ChevronLeft, Users, Newspaper, Calendar, ArrowRight, Clock, Tag, Plus, Trash2, Pencil, Save, X, Upload, Image as ImageIcon } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import logoHospital from '../assets/logo.png'; 
 
-const Gremio = ({ onNavigate }) => {
-  // Estado para controlar qué noticia se está viendo: null (listado) o id de la noticia (detalle)
+const Gremio = ({ userRole }) => { // Recibe el rol desde App.js -> AppRoutes
+  const navigate = useNavigate();
+  
+  // VERIFICACIÓN: Si el rol que viene es 'jefe', activamos los poderes
+  const isJefe = userRole === 'jefe';
+  
+  const fileInputRef = useRef(null);
+
+  // --- ESTADO DE NOTICIAS ---
+  const [noticias, setNoticias] = useState(() => {
+    const saved = localStorage.getItem('noticias_gremiales');
+    return saved ? JSON.parse(saved) : [];
+  });
+  
   const [selectedNoticeId, setSelectedNoticeId] = useState(null);
+  const [showForm, setShowForm] = useState(false);
+  const [editingId, setEditingId] = useState(null);
+  const [formData, setFormData] = useState({ titulo: '', categoria: '', resumen: '', imagen: '', cuerpo: '' });
 
-  // --- DATOS: LISTA DE NOTICIAS (Maqueta con datos de ejemplo) ---
-  // Cuando tengas las noticias reales, solo debes editar este arreglo.
-  const noticiasGremiales = [
-    {
-      id: 1,
-      titulo: "seleccionado chileno le da un portazo a Colo Colo para ser su refuerzo",
-      fecha: "30 de Marzo, 2026",
-      hora: "10:30 AM",
-      categoria: "Acuerdos",
-      resumen: "El Cacique busca refuerzos y uno de los jugadores de la Roja apareció como alternativa. Sin embargo, cuando lo fueron a buscar no recibieron la respuesta que querían.",
-      imagen: "https://via.placeholder.com/800x600?text=Reunión+Gremial+1",
-      // Aquí irá el cuerpo completo de la noticia (puedes usar HTML básico si quieres)
-      cuerpo: [
-        "Colo Colo ha estado mirando refuerzos en el mercado de fichajes del fútbol chileno. A días del cierre del libro, el Cacique está buscando alternativas para potenciar su plantel y así pelear todos los desafíos que se le vienen por delante.",
-        "La reunión, que contó con la participación de las directivas de FENATS, ASENF y la Subdirección de Recursos Humanos, abordó los criterios de evaluación y los plazos para la presentación de antecedentes.",
-        "Según lo informado por los dirigentes, el proceso se iniciará formalmente la tercera semana de abril, para lo cual se habilitará una plataforma digital de carga de documentos. 'Nuestro objetivo es asegurar un proceso transparente y justo para todos los funcionarios que llevan años esperando su reconocimiento', señaló un vocero gremial.",
-        "Se espera que en los próximos días se publique la resolución oficial con los detalles técnicos del proceso. El gremio hace un llamado a todos los asociados a mantener sus antecedentes actualizados en el sistema SIRH."
-      ]
-    },
-    {
-      id: 2,
-      titulo: "Exitosa Jornada de Capacitación en Liderazgo y Trabajo en Equipo",
-      fecha: "25 de Marzo, 2026",
-      hora: "15:00 PM",
-      categoria: "Formación",
-      resumen: "Más de 50 funcionarios de diversas unidades participaron en el taller impartido por psicólogos organizacionales de la Mutual de Seguridad...",
-      imagen: "https://via.placeholder.com/800x600?text=Capacitación+Gremial+2",
-      cuerpo: [
-        "Con gran convocatoria se realizó el pasado martes el taller 'Liderazgo Situacional y Cohesión de Equipo', organizado por la asociación gremial en colaboración con la Mutual de Seguridad.",
-        "La actividad, que tuvo lugar en el auditorio del nuevo hospital, buscó entregar herramientas prácticas para mejorar la comunicación interna y el clima laboral en las unidades clínicas y administrativas.",
-        "Los asistentes valoraron la instancia de encuentro y aprendizaje. 'Estas actividades nos permiten desconectarnos un momento de la presión asistencial y fortalecernos como equipo', comentó una enfermera supervisora.",
-        "La directiva gremial confirmó que esta es la primera de un ciclo de capacitaciones que se impartirán durante el primer semestre, abordando temas como manejo del estrés y derechos laborales."
-      ]
-    },
-    {
-      id: 3,
-      titulo: "Día del Trabajador de la Salud: Gran Convocatoria en Actividad de Camaradería",
-      fecha: "20 de Marzo, 2026",
-      hora: "09:00 AM",
-      categoria: "Social",
-      resumen: "Funcionarios y sus familias disfrutaron de una jornada de esparcimiento en el complejo deportivo municipal, con actividades recreativas y un almuerzo...",
-      imagen: "https://via.placeholder.com/800x600?text=Actividad+Social+3",
-      cuerpo: [
-        "En un ambiente de alegría y compañerismo, el gremio celebró el Día del Trabajador de la Salud con una masiva jornada recreativa en el complejo deportivo municipal de Melipilla.",
-        "La actividad, que se extendió durante todo el día sábado, contó con la participación de más de 300 personas, incluyendo funcionarios de planta, contrata y honorarios junto a sus familias.",
-        "Hubo campeonatos de fútbol, juegos inflables para los niños y un almuerzo de camaradería. 'Es fundamental generar estos espacios de integración para recargar energías y reconocernos como la gran familia que somos', expresó la presidenta del gremio.",
-        "La directiva agradeció el apoyo de la Caja de Compensación y de los comercios locales que colaboraron con premios para las rifas. Se espera repetir esta experiencia para las Fiestas Patrias."
-      ]
+  useEffect(() => {
+    localStorage.setItem('noticias_gremiales', JSON.stringify(noticias));
+  }, [noticias]);
+
+  const selectedNotice = noticias.find(n => n.id === selectedNoticeId);
+
+  // --- FUNCIONES DE JEFE ---
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => setFormData({ ...formData, imagen: reader.result });
+      reader.readAsDataURL(file);
     }
-  ];
+  };
 
-  // Obtener la noticia seleccionada
-  const selectedNotice = noticiasGremiales.find(n => n.id === selectedNoticeId);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const cuerpoArray = formData.cuerpo.split('\n').filter(p => p.trim() !== '');
+    
+    if (editingId) {
+      setNoticias(noticias.map(n => n.id === editingId ? { ...n, ...formData, cuerpo: cuerpoArray } : n));
+    } else {
+      const nueva = {
+        id: Date.now(),
+        ...formData,
+        fecha: new Date().toLocaleDateString('es-CL'),
+        cuerpo: cuerpoArray
+      };
+      setNoticias([nueva, ...noticias]);
+    }
+    closeForm();
+  };
 
-  // --- SUB-VISTA: DETALLE DE LA NOTICIA EXPANDIDA ---
-  const renderDetalleNoticia = () => (
-    <div className="animate-in fade-in duration-500 max-w-4xl mx-auto font-sans">
-      
-      {/* Botón de volver */}
-      <button 
-        onClick={() => setSelectedNoticeId(null)} 
-        className="bg-slate-100 hover:bg-slate-200 text-[#003876] px-4 py-1.5 rounded-full font-bold flex items-center gap-2 mb-10 text-xs transition-all border border-slate-200 shadow-sm"
-      >
-        <ChevronLeft size={16} /> Volver al Listado de Noticias
-      </button>
+  const closeForm = () => {
+    setShowForm(false);
+    setEditingId(null);
+    setFormData({ titulo: '', categoria: '', resumen: '', imagen: '', cuerpo: '' });
+  };
 
-      {/* Cabecera de la noticia */}
-      <header className="mb-10">
-        <div className="flex items-center gap-4 mb-4 text-slate-500 font-bold text-xs uppercase tracking-wider">
-          <div className="flex items-center gap-1.5"><Calendar size={14} className="text-orange-500" /> {selectedNotice.fecha}</div>
-          <div className="flex items-center gap-1.5"><Clock size={14} /> {selectedNotice.hora}</div>
-          <div className="flex items-center gap-1.5 bg-orange-50 text-orange-600 px-3 py-1 rounded-full"><Tag size={14} /> {selectedNotice.categoria}</div>
+  const handleEdit = (e, noticia) => {
+    e.stopPropagation();
+    setEditingId(noticia.id);
+    setFormData({ ...noticia, cuerpo: noticia.cuerpo.join('\n') });
+    setShowForm(true);
+  };
+
+  const handleDelete = (e, id) => {
+    e.stopPropagation();
+    if (window.confirm("¿Deseas eliminar esta noticia definitivamente?")) {
+      setNoticias(noticias.filter(n => n.id !== id));
+    }
+  };
+
+  // --- RENDERIZADO ---
+  if (showForm) {
+    return (
+      <div className="max-w-4xl mx-auto bg-slate-50 p-8 rounded-3xl border border-slate-200 mt-6 shadow-inner animate-in fade-in">
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-2xl font-black text-[#003876]">{editingId ? 'EDITAR NOTICIA' : 'NUEVA PUBLICACIÓN'}</h2>
+          <button onClick={closeForm} className="text-slate-400 hover:text-red-500 transition-colors"><X /></button>
         </div>
-        <h1 className="text-4xl md:text-5xl font-black text-[#003876] mb-6 leading-tight tracking-tighter">
-          {selectedNotice.titulo}
-        </h1>
-        <p className="text-lg md:text-xl font-medium text-slate-600 border-l-4 border-orange-400 pl-6 leading-relaxed italic bg-slate-50/50 py-4 rounded-r-xl">
-          {selectedNotice.resumen}
-        </p>
-      </header>
-
-      {/* Imagen principal */}
-      <div className="aspect-[16/10] bg-slate-100 rounded-3xl overflow-hidden mb-12 shadow-xl border-4 border-white">
-        <img 
-          src={selectedNotice.imagen} 
-          alt={selectedNotice.titulo} 
-          className="w-full h-full object-cover"
-        />
-      </div>
-
-      {/* Cuerpo de la noticia */}
-      <div className="space-y-6 text-slate-700 leading-relaxed text-base md:text-lg pl-0 md:pl-4">
-        {selectedNotice.cuerpo.map((parrafo, index) => (
-          <p key={index}>{parrafo}</p>
-        ))}
-      </div>
-
-      {/* Firma del gremio */}
-      <footer className="mt-16 pt-8 border-t border-slate-100 flex flex-col items-center gap-3 text-center">
-        <img src={logoHospital} alt="Logo Hospital Melipilla" className="h-16 w-auto object-contain opacity-50" />
-        <p className="font-bold text-sm text-slate-400 uppercase tracking-widest">Comunicación Gremial - HSJM</p>
-      </footer>
-    </div>
-  );
-
-
-  // --- SUB-VISTA: LISTADO DE NOTICIAS (Principal) ---
-  const renderListadoNoticias = () => (
-    <div className="max-w-5xl mx-auto space-y-10">
-      {noticiasGremiales.map((noticia) => (
-        <article 
-          key={noticia.id}
-          className="group flex flex-col md:flex-row bg-slate-50 rounded-[2.5rem] overflow-hidden border border-slate-100 hover:bg-white hover:shadow-2xl hover:border-orange-200 transition-all duration-500"
-        >
-          {/* Foto de la noticia */}
-          <div className="md:w-2/5 h-64 md:h-auto overflow-hidden">
-            <img 
-              src={noticia.imagen} 
-              alt={noticia.titulo} 
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-            />
-          </div>
-
-          {/* Contenido de la noticia */}
-          <div className="md:w-3/5 p-8 md:p-10 flex flex-col justify-center">
-            <div className="flex items-center gap-2 text-orange-500 mb-4">
-              <Calendar size={16} />
-              <span className="text-xs font-black uppercase tracking-tighter">{noticia.fecha}</span>
-            </div>
-            
-            <h3 className="text-2xl md:text-3xl font-black text-[#003876] mb-4 group-hover:text-orange-600 transition-colors leading-tight tracking-tighter">
-              {noticia.titulo}
-            </h3>
-            
-            <p className="text-slate-500 font-medium leading-relaxed mb-6">
-              {noticia.resumen}
-            </p>
-
-            <button 
-              onClick={() => setSelectedNoticeId(noticia.id)}
-              className="flex items-center gap-2 text-[#003876] font-black text-sm uppercase tracking-wider group-hover:gap-4 transition-all"
-            >
-              Leer noticia completa <ArrowRight size={18} className="text-orange-500" />
-            </button>
-          </div>
-        </article>
-      ))}
-    </div>
-  );
-
-
-  // --- RENDERIZADO RAÍZ DE LA PÁGINA ---
-  return (
-    <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[600px] animate-in fade-in zoom-in duration-500 w-full font-sans">
-      
-      {/* HEADER DE LA SECCIÓN (Solo visible si NO estamos en el detalle) */}
-      {!selectedNoticeId && (
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12 border-b pb-8 animate-in fade-in duration-300">
-          <div>
-            <button 
-              onClick={() => onNavigate('inicio')} 
-              className="bg-slate-100 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-4 text-xs shadow-sm"
-            >
-              <ChevronLeft size={18} /> VOLVER AL INICIO
-            </button>
-            <div className="flex items-center gap-4">
-              <Users className="text-[#003876] hidden md:block" size={48} />
-              <div>
-                <h2 className="text-4xl md:text-5xl font-black text-[#003876] uppercase italic tracking-tighter leading-none">
-                  Noticias <span className="text-orange-500">Gremiales</span>
-                </h2>
-                <p className="text-slate-400 font-bold uppercase tracking-widest mt-2 text-sm">
-                  Comunicación Directa con el Funcionario
-                </p>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <input required placeholder="Título" value={formData.titulo} onChange={e => setFormData({...formData, titulo: e.target.value})} className="w-full p-4 rounded-2xl border-none shadow-sm focus:ring-2 focus:ring-orange-500 outline-none" />
+          <div className="flex items-center gap-6 p-4 bg-white rounded-2xl shadow-sm border-2 border-dashed border-slate-100">
+              <div className="w-24 h-24 bg-slate-50 rounded-xl overflow-hidden border flex items-center justify-center">
+                  {formData.imagen ? <img src={formData.imagen} className="w-full h-full object-cover" /> : <ImageIcon className="text-slate-200" size={40}/>}
               </div>
-            </div>
+              <button type="button" onClick={() => fileInputRef.current.click()} className="bg-[#003876] text-white px-5 py-2 rounded-xl font-bold text-xs flex items-center gap-2">
+                  <Upload size={16}/> SELECCIONAR FOTO
+              </button>
+              <input type="file" ref={fileInputRef} hidden onChange={handleImageUpload} accept="image/*" />
           </div>
-          <div className="hidden lg:flex items-center gap-2 text-[#003876] bg-orange-50 px-4 py-2 rounded-full text-xs font-bold border border-orange-100">
-            <Newspaper size={16} className="text-orange-500" /> Informativo HSJM
+          <textarea required placeholder="Resumen corto..." rows="2" value={formData.resumen} onChange={e => setFormData({...formData, resumen: e.target.value})} className="w-full p-4 rounded-2xl border-none shadow-sm outline-none" />
+          <textarea required placeholder="Contenido (Enter para nuevos párrafos)..." rows="8" value={formData.cuerpo} onChange={e => setFormData({...formData, cuerpo: e.target.value})} className="w-full p-4 rounded-2xl border-none shadow-sm outline-none" />
+          <button type="submit" className="w-full bg-orange-500 text-white p-4 rounded-2xl font-black shadow-lg flex items-center justify-center gap-2 uppercase">
+              <Save /> PUBLICAR
+          </button>
+        </form>
+      </div>
+    );
+  }
+
+  if (selectedNoticeId) {
+    return (
+      <div className="max-w-4xl mx-auto animate-in fade-in duration-500">
+        <button onClick={() => setSelectedNoticeId(null)} className="mb-8 bg-slate-100 text-[#003876] px-4 py-2 rounded-full font-bold flex items-center gap-2 text-xs border shadow-sm">
+          <ChevronLeft size={16} /> VOLVER
+        </button>
+        <h1 className="text-4xl font-black text-[#003876] mb-6">{selectedNotice.titulo}</h1>
+        <div className="aspect-video bg-slate-100 rounded-3xl overflow-hidden mb-8 shadow-xl">
+          <img src={selectedNotice.imagen} alt="News" className="w-full h-full object-cover" />
+        </div>
+        <div className="space-y-6 text-slate-700 text-lg leading-relaxed">
+          {selectedNotice.cuerpo.map((p, i) => <p key={i}>{p}</p>)}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[600px] w-full font-sans relative">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12 border-b pb-8">
+        <div>
+          <button onClick={() => navigate('/inicio')} className="bg-slate-100 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 mb-4 text-xs transition-all shadow-sm">
+            <ChevronLeft size={18} /> INICIO
+          </button>
+          <div className="flex items-center gap-4">
+            <Users className="text-[#003876] hidden md:block" size={48} />
+            <h2 className="text-4xl md:text-5xl font-black text-[#003876] uppercase italic tracking-tighter">Noticias <span className="text-orange-500">Gremiales</span></h2>
           </div>
         </div>
-      )}
+        {/* BOTÓN SOLO PARA EL JEFE (RUT 21245882-1) */}
+        {isJefe && (
+          <button onClick={() => setShowForm(true)} className="bg-[#003876] text-white px-6 py-3 rounded-full font-black flex items-center gap-2 shadow-lg hover:scale-105 transition-all">
+            <Plus size={20} /> AÑADIR NOTICIA
+          </button>
+        )}
+      </div>
 
-      {/* CONTROL DE VISTAS (Listado o Detalle) */}
-      {selectedNoticeId ? renderDetalleNoticia() : renderListadoNoticias()}
-
+      <div className="max-w-5xl mx-auto space-y-10">
+        {noticias.length === 0 ? (
+          <p className="text-center text-slate-400 font-bold py-20 uppercase tracking-widest border-2 border-dashed rounded-3xl">No hay noticias publicadas</p>
+        ) : (
+          noticias.map((noticia) => (
+            <article key={noticia.id} onClick={() => setSelectedNoticeId(noticia.id)} className="group flex flex-col md:flex-row bg-slate-50 rounded-[2.5rem] overflow-hidden border hover:bg-white hover:shadow-2xl transition-all duration-500 relative cursor-pointer">
+              {isJefe && (
+                <div className="absolute top-4 right-4 flex gap-2 z-10">
+                  <button onClick={(e) => handleEdit(e, noticia)} className="bg-white/90 p-2 rounded-full text-blue-600 shadow-sm border hover:bg-blue-600 hover:text-white transition-all"><Pencil size={18} /></button>
+                  <button onClick={(e) => handleDelete(e, noticia.id)} className="bg-white/90 p-2 rounded-full text-red-600 shadow-sm border hover:bg-red-600 hover:text-white transition-all"><Trash2 size={18} /></button>
+                </div>
+              )}
+              <div className="md:w-2/5 h-64 md:h-auto overflow-hidden">
+                <img src={noticia.imagen} alt="News" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+              </div>
+              <div className="md:w-3/5 p-8 flex flex-col justify-center">
+                <span className="text-orange-500 text-xs font-black uppercase mb-2">{noticia.fecha}</span>
+                <h3 className="text-2xl font-black text-[#003876] mb-4 group-hover:text-orange-600 transition-colors leading-tight">{noticia.titulo}</h3>
+                <p className="text-slate-500 line-clamp-3 mb-6 font-medium">{noticia.resumen}</p>
+                <div className="flex items-center gap-2 text-[#003876] font-black text-sm uppercase">Leer más <ArrowRight size={18} className="text-orange-500" /></div>
+              </div>
+            </article>
+          ))
+        )}
+      </div>
     </section>
   );
 };

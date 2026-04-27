@@ -1,28 +1,22 @@
 import React from 'react';
 import { ChevronLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; //
 
 // === IMPORTA AQUÍ TODAS LAS IMÁGENES DE LAS TABLAS ===
-// Tabla 1: Accidentes y Enfermedades
 import imgProcedimiento from '../assets/foto_procedimiento.jpg'; 
 import imgCarpeta from '../assets/foto_carpeta.png'; 
 import imgMutual from '../assets/foto_mutual.png'; 
+import imgCeal from '../assets/foto_ceal.jpg'; 
+import imgTmert from '../assets/foto_tmert.jpg'; 
+import imgPrexor from '../assets/foto_prexor.png'; 
+import imgPlanEmergencia from '../assets/foto_plan_emergencia.png'; 
+import imgLeyKarinInterno from '../assets/foto_karin_interno.jpg'; 
+import imgLeyKarinExterno from '../assets/foto_karin_externo.png'; 
+import imgLeyKarinPrevencion from '../assets/foto_karin_prevencion.png'; 
 
-// Tabla 2: Protocolos Minsal
-import imgCeal from '../assets/foto_ceal.jpg'; // Reemplaza con tu foto
-import imgTmert from '../assets/foto_tmert.jpg'; // Reemplaza con tu foto
-import imgPrexor from '../assets/foto_prexor.png'; // Reemplaza con tu foto
+const PrevencionRiesgos = () => { // Se elimina onNavigate de los props
+  const navigate = useNavigate(); //
 
-// Tabla 3: COGRID
-import imgPlanEmergencia from '../assets/foto_plan_emergencia.png'; // Reemplaza con tu foto
-
-// Tabla 4: Prevención Violencia (Ley Karin)
-import imgLeyKarinInterno from '../assets/foto_karin_interno.jpg'; // Reemplaza con tu foto
-import imgLeyKarinExterno from '../assets/foto_karin_externo.png'; // Reemplaza con tu foto
-import imgLeyKarinPrevencion from '../assets/foto_karin_prevencion.png'; // Reemplaza con tu foto
-
-
-const PrevencionRiesgos = ({ onNavigate }) => {
-  // Lista superior de descargas
   const descargasSuperiores = [
     { name: "Política de Seguridad y Salud en el trabajo SSMMOCC 2025", url: "http://10.5.131.63/intranet/wp-content/uploads/2025/08/Politica_de_seguridad_y_Salud_en_el_trabajo_SSMOCC_20251.pdf" },
     { name: "REGLAMENTO-INTERNO-2026-Nº994", url: "http://10.5.131.63/intranet/wp-content/uploads/2026/01/994-Reglamento-Interno-Higiene-y-Seguridad.pdf" },
@@ -36,7 +30,7 @@ const PrevencionRiesgos = ({ onNavigate }) => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 border-b pb-6">
         <div>
           <button 
-            onClick={() => onNavigate('accesos')} 
+            onClick={() => navigate('/accesos')} // Se actualiza a navigate
             className="bg-slate-100 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all text-sm shadow-sm"
           >
             <ChevronLeft size={18} strokeWidth={3} /> VOLVER A ACCESOS
@@ -69,20 +63,18 @@ const PrevencionRiesgos = ({ onNavigate }) => {
           </ul>
         </div>
 
-        {/* ========================================================== */}
         {/* TABLA 1: ACCIDENTES Y ENFERMEDADES PROFESIONALES */}
-        {/* ========================================================== */}
         <div>
           <div className="text-center mb-6">
-            <h3 className="text-xl md:text-2xl text-slate-700">Accidentes y Enfermedades Profesionales</h3>
+            <h3 className="text-xl md:text-2xl text-slate-700 font-bold uppercase tracking-tight">Accidentes y Enfermedades Profesionales</h3>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full border-collapse border border-slate-300 min-w-[800px]">
               <thead>
-                <tr>
-                  <th className="border border-slate-300 p-4 text-left text-slate-700 font-bold bg-white w-1/3 align-top">Procedimientos accidentes de trabajo</th>
-                  <th className="border border-slate-300 p-4 text-left text-slate-700 font-bold bg-white w-1/3 align-top">Documentos en caso de accidente y/o enfermedad profesional</th>
-                  <th className="border border-slate-300 p-4 text-left text-slate-700 font-bold bg-white w-1/3 align-top">Horarios de atencion y Flujo de derivacion a Mutual</th>
+                <tr className="bg-slate-50">
+                  <th className="border border-slate-300 p-4 text-left text-slate-700 font-bold w-1/3 align-top">Procedimientos accidentes de trabajo</th>
+                  <th className="border border-slate-300 p-4 text-left text-slate-700 font-bold w-1/3 align-top">Documentos en caso de accidente y/o enfermedad profesional</th>
+                  <th className="border border-slate-300 p-4 text-left text-slate-700 font-bold w-1/3 align-top">Horarios de atencion y Flujo de derivacion a Mutual</th>
                 </tr>
               </thead>
               <tbody>
@@ -126,20 +118,18 @@ const PrevencionRiesgos = ({ onNavigate }) => {
           </div>
         </div>
 
-        {/* ========================================================== */}
         {/* TABLA 2: PROTOCOLOS MINSAL */}
-        {/* ========================================================== */}
         <div>
           <div className="text-center mb-6">
-            <h3 className="text-xl md:text-2xl text-slate-700">Protocolos Minsal</h3>
+            <h3 className="text-xl md:text-2xl text-slate-700 font-bold uppercase tracking-tight">Protocolos Minsal</h3>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full border-collapse border border-slate-300 min-w-[800px]">
               <thead>
-                <tr>
-                  <th className="border border-slate-300 p-4 text-left text-slate-700 font-bold bg-white w-1/3 align-top">Protocolo Psicosocial</th>
-                  <th className="border border-slate-300 p-4 text-left text-slate-700 font-bold bg-white w-1/3 align-top">Protocolo TMERT (Trastornos musculoesquelético relacionado al trabajo)</th>
-                  <th className="border border-slate-300 p-4 text-left text-slate-700 font-bold bg-white w-1/3 align-top"></th>
+                <tr className="bg-slate-50">
+                  <th className="border border-slate-300 p-4 text-left text-slate-700 font-bold w-1/3 align-top">Protocolo Psicosocial</th>
+                  <th className="border border-slate-300 p-4 text-left text-slate-700 font-bold w-1/3 align-top">Protocolo TMERT</th>
+                  <th className="border border-slate-300 p-4 text-left text-slate-700 font-bold w-1/3 align-top">Protocolo PREXOR</th>
                 </tr>
               </thead>
               <tbody>
@@ -181,36 +171,29 @@ const PrevencionRiesgos = ({ onNavigate }) => {
           </div>
         </div>
 
-        {/* ========================================================== */}
         {/* TABLA 3: COGRID */}
-        {/* ========================================================== */}
         <div>
           <div className="text-center mb-6">
-            <h3 className="text-xl md:text-2xl text-slate-700">COGRID (Comite gestión de riesgos y desastres)</h3>
+            <h3 className="text-xl md:text-2xl text-slate-700 font-bold uppercase tracking-tight">COGRID (Comité gestión de riesgos y desastres)</h3>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full border-collapse border border-slate-300 min-w-[800px]">
               <thead>
-                <tr>
-                  <th className="border border-slate-300 p-4 text-left text-slate-700 font-bold bg-white w-1/3 align-top">COGRID</th>
-                  <th className="border border-slate-300 p-4 text-left text-slate-700 font-bold bg-white w-1/3 align-top">Plan de emergencia</th>
-                  <th className="border border-slate-300 p-4 text-left text-slate-700 font-bold bg-white w-1/3 align-top"></th>
+                <tr className="bg-slate-50">
+                  <th className="border border-slate-300 p-4 text-left text-slate-700 font-bold w-1/3 align-top">Plan de emergencia</th>
+                  <th className="border border-slate-300 p-4 text-left text-slate-700 font-bold w-1/3 align-top"></th>
+                  <th className="border border-slate-300 p-4 text-left text-slate-700 font-bold w-1/3 align-top"></th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td className="border border-slate-300 p-6 align-middle text-center bg-white h-48 border-b-2 border-b-teal-600">
-                    {/* Vacío en la foto */}
-                  </td>
-                  <td className="border border-slate-300 p-6 align-middle text-center bg-white h-48 border-b-2 border-b-teal-600">
                     <img src={imgPlanEmergencia} alt="Plan de Emergencias" className="max-h-32 mx-auto object-contain" />
                   </td>
-                  <td className="border border-slate-300 p-6 align-middle text-center bg-white h-48 border-b-2 border-b-teal-600">
-                     {/* Vacío en la foto */}
-                  </td>
+                  <td className="border border-slate-300 p-6 bg-white h-48"></td>
+                  <td className="border border-slate-300 p-6 bg-white h-48"></td>
                 </tr>
                 <tr>
-                  <td className="border border-slate-300 p-6 align-top bg-white"></td>
                   <td className="border border-slate-300 p-6 align-top bg-white">
                     <ul className="space-y-2">
                       <li className="flex items-start gap-2">
@@ -219,27 +202,26 @@ const PrevencionRiesgos = ({ onNavigate }) => {
                       </li>
                     </ul>
                   </td>
-                  <td className="border border-slate-300 p-6 align-top bg-white"></td>
+                  <td className="border border-slate-300 p-6 bg-white"></td>
+                  <td className="border border-slate-300 p-6 bg-white"></td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
 
-        {/* ========================================================== */}
         {/* TABLA 4: PREVENCIÓN VIOLENCIA (LEY KARIN) */}
-        {/* ========================================================== */}
         <div>
           <div className="text-center mb-6">
-            <h3 className="text-xl md:text-2xl text-slate-700">Prevención de la violencia, acoso Laboral y/o Sexual</h3>
+            <h3 className="text-xl md:text-2xl text-slate-700 font-bold uppercase tracking-tight">Prevención de la violencia, acoso Laboral y/o Sexual</h3>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full border-collapse border border-slate-300 min-w-[800px]">
               <thead>
-                <tr>
-                  <th className="border border-slate-300 p-4 text-left text-slate-700 font-bold bg-white w-1/3 align-top">Ley 21.643 "Ley Karin" Interno</th>
-                  <th className="border border-slate-300 p-4 text-left text-slate-700 font-bold bg-white w-1/3 align-top">Ley 21.643 "Ley Karin" Extreno</th>
-                  <th className="border border-slate-300 p-4 text-left text-slate-700 font-bold bg-white w-1/3 align-top">Prevención de la violencia, acoso laboral y/o sexual</th>
+                <tr className="bg-slate-50">
+                  <th className="border border-slate-300 p-4 text-left text-slate-700 font-bold w-1/3 align-top">Ley 21.643 "Ley Karin" Interno</th>
+                  <th className="border border-slate-300 p-4 text-left text-slate-700 font-bold w-1/3 align-top">Ley 21.643 "Ley Karin" Externo</th>
+                  <th className="border border-slate-300 p-4 text-left text-slate-700 font-bold w-1/3 align-top">Prevención violencia, acoso laboral y/o sexual</th>
                 </tr>
               </thead>
               <tbody>
@@ -278,13 +260,12 @@ const PrevencionRiesgos = ({ onNavigate }) => {
             </table>
           </div>
         </div>
-
-        {/* ========================================================== */}
+            {/* ========================================================== */}
         {/* TABLA 5: ACTIVIDADES REALIZADAS */}
         {/* ========================================================== */}
         <div>
           <div className="text-center mb-6">
-            <h3 className="text-xl md:text-2xl text-slate-700">Actividades Realizadas</h3>
+            <h3 className="text-xl md:text-2xl text-slate-700 font-bold uppercase tracking-tight">Actividades Realizadas</h3>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full border-collapse border border-slate-300 min-w-[800px]">
@@ -292,8 +273,28 @@ const PrevencionRiesgos = ({ onNavigate }) => {
                 <tr>
                   <td className="border border-slate-300 p-6 align-top bg-white w-1/3">
                     <ul className="space-y-2">
-                      <li className="flex items-start gap-2"><div className="w-1.5 h-1.5 mt-2 rounded-full border border-slate-500 shrink-0"></div><a href="http://10.5.131.63/intranet/wp-content/uploads/2025/08/Capacitacion_uso_y_manejo_de_extintor_17_al_20_de_marzo_20251.pdf" className="text-slate-800 underline underline-offset-4 hover:text-blue-700">Capacitación uso y manejo de extintor</a></li>
-                      <li className="flex items-start gap-2"><div className="w-1.5 h-1.5 mt-2 rounded-full border border-slate-500 shrink-0"></div><a href="http://10.5.131.63/intranet/wp-content/uploads/2025/08/Capacitacion_de_dosimetros1.pdf" className="text-slate-800 underline underline-offset-4 hover:text-blue-700">Capacitación de dosímetros</a></li>
+                      <li className="flex items-start gap-2">
+                        <div className="w-1.5 h-1.5 mt-2 rounded-full border border-slate-500 shrink-0"></div>
+                        <a 
+                          href="http://10.5.131.63/intranet/wp-content/uploads/2025/08/Capacitacion_uso_y_manejo_de_extintor_17_al_20_de_marzo_20251.pdf" 
+                          target="_blank" 
+                          rel="noreferrer" 
+                          className="text-slate-800 underline underline-offset-4 hover:text-blue-700 transition-colors"
+                        >
+                          Capacitación uso y manejo de extintor
+                        </a>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <div className="w-1.5 h-1.5 mt-2 rounded-full border border-slate-500 shrink-0"></div>
+                        <a 
+                          href="http://10.5.131.63/intranet/wp-content/uploads/2025/08/Capacitacion_de_dosimetros1.pdf" 
+                          target="_blank" 
+                          rel="noreferrer" 
+                          className="text-slate-800 underline underline-offset-4 hover:text-blue-700 transition-colors"
+                        >
+                          Capacitación de dosímetros
+                        </a>
+                      </li>
                     </ul>
                   </td>
                   <td className="border border-slate-300 p-6 align-top bg-white w-1/3"></td>
@@ -303,7 +304,6 @@ const PrevencionRiesgos = ({ onNavigate }) => {
             </table>
           </div>
         </div>
-
       </div>
     </section>
   );

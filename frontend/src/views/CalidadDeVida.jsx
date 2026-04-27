@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook para navegar
 
+// === IMPORTACIÓN DIRECTA DE IMÁGENES ===
+// (Asegúrate de que estos archivos existan en tu carpeta src/assets con estos nombres)
+import ley from '../assets/ley.png';
+import ley2 from '../assets/ley2.png';
+import violencia from '../assets/violencia.png';
+import salud from '../assets/salud.png';
+import logoHospital from '../assets/logo.png';
 
-const CalidadDeVida = ({ onNavigate, fotos }) => {
-  // Estado para el carrusel interno de "Pausa Saludable"
+const CalidadDeVida = () => { // 2. Quitamos los props antiguos (onNavigate y fotos)
+  const navigate = useNavigate(); // 3. Inicializamos el hook
   const [currentImg, setCurrentImg] = useState(0);
   
-  // Lista de documentos exacta a tu captura
   const documentos = [
     { name: "Manual de buenas practicas laborales", link: "http://10.5.131.63/intranet/wp-content/uploads/2025/01/Manual-de-buenas-practicas-laborales.pdf" },
     { name: "POLITICA DE CONCILIACIÓN DE LA VIDA LABORAL Y FAMILIAR HSJM 2024", link: "http://10.5.131.63/intranet/wp-content/uploads/2025/01/POLITICA-DE-CONCILIACION-DE-LA-VIDA-LABORAL-Y-FAMILIAR-HSJM-2024.pdf" },
@@ -19,10 +26,8 @@ const CalidadDeVida = ({ onNavigate, fotos }) => {
     { name: "Protocolo Salud mental funcionarios/as", link: "https://drive.google.com/file/d/1Hl3vvyz9NRdvHPOEV4cZSgCVG5jUUlQf/view" },
   ];
 
-  // --- CORRECCIÓN AQUÍ ---
-  // Imágenes para el carrusel de Pausa Saludable (usando tus NUEVAS fotos)
-  const carruselFotos = [fotos.salud, fotos.ley, fotos.ley2, fotos.violencia]; 
-  // He puesto 'salud' primero, pero puedes cambiar el orden si quieres.
+  // Carrusel usando las imágenes importadas arriba
+  const carruselFotos = [salud, ley, ley2, violencia]; 
 
   return (
     <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[600px] animate-in fade-in zoom-in duration-500 w-full font-sans">
@@ -31,7 +36,7 @@ const CalidadDeVida = ({ onNavigate, fotos }) => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10 border-b pb-8">
         <div>
           <button 
-            onClick={() => onNavigate('accesos')} 
+            onClick={() => navigate('/accesos')} // 4. Cambiamos a navigate('/ruta')
             className="bg-slate-100 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-4 text-sm"
           >
             <ChevronLeft size={18} /> VOLVER A ACCESOS
@@ -41,67 +46,61 @@ const CalidadDeVida = ({ onNavigate, fotos }) => {
         </div>
       </div>
 
-      {/* 1. CABECERA DE COLOR (Degradado Verde Azulado a Turquesa - Fiel a tu foto) */}
+      {/* 1. CABECERA DE COLOR */}
       <div className="bg-gradient-to-r from-[#003e44] via-[#003e44] to-[#01a09d] rounded-t-xl p-6 flex items-center justify-between border-b-4 border-[#01a09d]">
-        {/* Logo a la izquierda en cuadro blanco */}
         <div className="bg-white p-2 rounded-lg shadow-md shrink-0">
-          <img src={fotos.logoHospital} alt="Logo Hospital" className="h-16 w-auto" />
+          <img src={logoHospital} alt="Logo Hospital" className="h-16 w-auto" />
         </div>
         
-        {/* Título itálico a la derecha */}
         <h3 className="text-white text-4xl md:text-6xl font-black italic tracking-tighter uppercase mr-10 leading-none">
           calidad de vida
         </h3>
       </div>
 
-      {/* 2. CONTENEDOR PRINCIPAL CON BORDE AZUL MARINO (Fiel a tu foto) */}
+      {/* 2. CONTENEDOR PRINCIPAL CON BORDE AZUL MARINO */}
       <div className="border-2 border-[#003876] p-4 md:p-10 bg-white shadow-inner rounded-b-xl">
         
-     {/* 3. CARRUSEL "PAUSA SALUDABLE" (AJUSTADO A TAMAÑO MÁS PEQUEÑO) */}
-<div className="max-w-2xl mx-auto mb-10 relative group">
-  <div className="relative h-[250px] md:h-[350px] overflow-hidden rounded-xl border border-slate-200 shadow-md bg-slate-100">
-    
-    {/* Imagen del carrusel */}
-    {carruselFotos[currentImg] ? (
-      <img 
-        src={carruselFotos[currentImg]} 
-        alt="Pausa Saludable" 
-        className="w-full h-full object-cover transition-all duration-700"
-      />
-    ) : (
-      <div className="w-full h-full flex items-center justify-center text-slate-400 font-bold uppercase text-xs">Cargando...</div>
-    )}
+        {/* 3. CARRUSEL "PAUSA SALUDABLE" */}
+        <div className="max-w-2xl mx-auto mb-10 relative group">
+          <div className="relative h-[250px] md:h-[350px] overflow-hidden rounded-xl border border-slate-200 shadow-md bg-slate-100">
+            
+            {carruselFotos[currentImg] ? (
+              <img 
+                src={carruselFotos[currentImg]} 
+                alt="Pausa Saludable" 
+                className="w-full h-full object-cover transition-all duration-700"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-slate-400 font-bold uppercase text-xs text-center p-4">
+                Verifica que las imágenes existan en la carpeta assets
+              </div>
+            )}
 
-    {/* Controles del Carrusel (Flechas un poco más pequeñas) */}
-    <button 
-      onClick={() => setCurrentImg(prev => prev === 0 ? carruselFotos.length -1 : prev - 1)}
-      className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 p-2 rounded-full hover:bg-white transition-all opacity-0 group-hover:opacity-100 shadow-sm"
-    >
-      <ChevronLeft size={28} className="text-[#003876] stroke-[3]" />
-    </button>
-    <button 
-      onClick={() => setCurrentImg(prev => prev === carruselFotos.length -1 ? 0 : prev + 1)}
-      className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 p-2 rounded-full hover:bg-white transition-all opacity-0 group-hover:opacity-100 shadow-sm"
-    >
-      <ChevronRight size={28} className="text-[#003876] stroke-[3]" />
-    </button>
-  </div>
-  
-  {/* Título del Carrusel */}
-  <p className="text-center mt-3 font-bold text-slate-700 italic border-b border-slate-200 pb-2 uppercase text-[10px] tracking-[0.2em]">
-    Pausa Saludable
-  </p>
-</div>
+            <button 
+              onClick={() => setCurrentImg(prev => prev === 0 ? carruselFotos.length -1 : prev - 1)}
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 p-2 rounded-full hover:bg-white transition-all opacity-0 group-hover:opacity-100 shadow-sm"
+            >
+              <ChevronLeft size={28} className="text-[#003876] stroke-[3]" />
+            </button>
+            <button 
+              onClick={() => setCurrentImg(prev => prev === carruselFotos.length -1 ? 0 : prev + 1)}
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 p-2 rounded-full hover:bg-white transition-all opacity-0 group-hover:opacity-100 shadow-sm"
+            >
+              <ChevronRight size={28} className="text-[#003876] stroke-[3]" />
+            </button>
+          </div>
+          
+          <p className="text-center mt-3 font-bold text-slate-700 italic border-b border-slate-200 pb-2 uppercase text-[10px] tracking-[0.2em]">
+            Pausa Saludable
+          </p>
+        </div>
 
-        {/* 4. LISTADO DE DOCUMENTOS (Puntos Negros y Texto subrayado en mayúsculas) */}
+        {/* 4. LISTADO DE DOCUMENTOS */}
         <div className="max-w-5xl mx-auto pt-6 pl-4">
           <ul className="space-y-4">
             {documentos.map((doc, index) => (
               <li key={index} className="flex items-start gap-4">
-                {/* PUNTO NEGRO */}
                 <span className="text-black text-2xl leading-none mt-1 shrink-0">•</span>
-                
-                {/* ENLACE AZUL SUBRAYADO */}
                 <a 
                   href={doc.link} 
                   target="_blank" 

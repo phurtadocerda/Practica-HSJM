@@ -1,14 +1,17 @@
 import React from 'react';
 import { ChevronLeft, BarChart3, FileText, Calendar, FileSpreadsheet } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
 
-const ProduccionEstadistica = ({ onNavigate }) => {
+const ProduccionEstadistica = () => { // 2. Quitamos onNavigate
+  const navigate = useNavigate(); // 3. Inicializamos el hook
+
   // Estos son los nombres exactos de los archivos que me mostraste en la imagen
   const documentos = [
     { id: 1, titulo: "Actividades-Produccion-H.-Melipilla_2025", fecha: "2025", link: "http://10.5.131.63/intranet/wp-content/uploads/2025/11/Actividades_Produccion_Melipilla_2025-1.xlsx" },
     { id: 2, titulo: "Actividades-Produccion-H.-Melipilla_2024", fecha: "2024", link: "http://10.5.131.63/intranet/wp-content/uploads/2025/10/Actividades-Produccion-H.-Melipilla_2024-Actualizado.xlsx" },
     { id: 3, titulo: "Actividades Producción H. Melipilla 2023", fecha: "2023", link: "http://10.5.131.63/intranet/wp-content/uploads/2023/04/Actividades-Produccion-H.-Melipilla_2022.xlsx" },
-    { id: 4, titulo: "Actividades Producción H. Melipilla 2022", fecha: "2022", link: "http://10.5.131.63/intranet/wp-content/uploads/2022/12/Manual-Series-REM-2023-V1.pdf" },
-    { id: 5, titulo: "Manual-Series-REM-2023-V1", fecha: "2023", link: "http://10.5.131.63/intranet/wp-content/uploads/2023/04/2-Arancel-MAI-2023con-Res.-244.xls" },
+    { id: 4, titulo: "Actividades Producción H. Melipilla 2022", fecha: "2022", link: "http://10.5.131.63/intranet/wp-content/uploads/2022/12/Manual-Series-REM-2023-V1.pdf", isManual: true }, // Agregué isManual: true porque es un PDF manual
+    { id: 5, titulo: "Manual-Series-REM-2023-V1", fecha: "2023", link: "http://10.5.131.63/intranet/wp-content/uploads/2023/04/2-Arancel-MAI-2023con-Res.-244.xls", isManual: true },
     { id: 6, titulo: "2 Arancel MAI 2023 (con Res. 244)", fecha: "2023", link: "http://10.5.131.63/intranet/wp-content/uploads/2024/02/Actividades-Produccion-H.-Melipilla_2023.xlsx" },   
   ];
 
@@ -19,7 +22,7 @@ const ProduccionEstadistica = ({ onNavigate }) => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12 border-b pb-8">
         <div>
           <button 
-            onClick={() => onNavigate('inicio')} 
+            onClick={() => navigate('/inicio')} // 4. CORRECCIÓN: Usamos navigate('/inicio')
             className="bg-[#003876]/5 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-6 text-xs border border-[#003876]/10 shadow-sm"
           >
             <ChevronLeft size={18} /> VOLVER AL INICIO

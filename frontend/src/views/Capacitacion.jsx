@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { 
   ChevronLeft, BookOpen, GraduationCap, Folder, FileText, 
-  PlayCircle, Video, Image as ImageIcon, Users, ShieldCheck, 
-  Search, ExternalLink, School, FileSpreadsheet 
+  PlayCircle, Video, Search, ExternalLink, Users, ShieldCheck 
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
 import logoServicio from '../assets/logo.png'; 
 
-const Capacitacion = ({ onNavigate }) => {
+const Capacitacion = () => { // 2. Quitamos el prop onNavigate
+  const navigate = useNavigate(); // 3. Inicializamos el hook
   const [subView, setSubView] = useState('principal');
   const [searchTerm, setSearchTerm] = useState('');
 
-  // --- DATOS: 25 GUÍAS PDF (CORREGIDO A OBJETOS) ---
+  // --- DATOS: 25 GUÍAS PDF ---
   const guiasPdf = [
     { nombre: "1. INDICE V.1", url: "http://10.5.131.63/intranet/wp-content/uploads/2025/10/1.-INDICE-V.1.pdf" },
     { nombre: "2. INGRESO DE SIC MANUALMENTE A TRAKCARE V.2_CM", url: "http://10.5.131.63/intranet/wp-content/uploads/2025/10/2.-INGRESO-DE-SIC-MANUALMENTE-A-TRAKCARE-V.2_CM.pdf" },
@@ -39,7 +40,6 @@ const Capacitacion = ({ onNavigate }) => {
     { nombre: "25. Solicitud de Orden de Atención de Profesional no Médico", url: "http://10.5.131.63/intranet/wp-content/uploads/2025/10/25.-Solicitud-de-Orden-de-Atencion-de-Profesional-no-Medico.pdf" }
   ];
 
-  // Filtro corregido para buscar dentro del nombre del objeto
   const filteredGuias = guiasPdf.filter(guia => 
     guia.nombre.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -69,7 +69,7 @@ const Capacitacion = ({ onNavigate }) => {
         {filteredGuias.map((guia, index) => (
           <a 
             key={index} 
-            href={guia.url} // <-- AQUÍ SE ACTIVA EL LINK
+            href={guia.url} 
             target="_blank" 
             rel="noreferrer"
             className="group flex items-center gap-4 p-4 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-[#00a19a] transition-all cursor-pointer"
@@ -77,7 +77,6 @@ const Capacitacion = ({ onNavigate }) => {
             <div className="bg-red-50 p-2 rounded-lg group-hover:bg-red-500 transition-colors">
               <FileText size={20} className="text-red-500 group-hover:text-white" />
             </div>
-            {/* Se muestra el nombre del objeto */}
             <span className="text-[10px] font-black text-slate-700 uppercase leading-tight group-hover:text-[#003876]">{guia.nombre}</span>
             <ExternalLink size={14} className="ml-auto text-slate-300 group-hover:text-[#00a19a]" />
           </a>
@@ -168,7 +167,8 @@ const Capacitacion = ({ onNavigate }) => {
     <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[600px] animate-in fade-in zoom-in duration-500 w-full font-sans relative">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12 border-b pb-8">
         <div>
-          <button onClick={() => onNavigate('inicio')} className="bg-[#003876]/5 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-6 text-xs border border-[#003876]/10">
+          {/* BOTÓN VOLVER AL INICIO ARREGLADO */}
+          <button onClick={() => navigate('/inicio')} className="bg-[#003876]/5 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-6 text-xs border border-[#003876]/10">
             <ChevronLeft size={18} /> VOLVER AL INICIO
           </button>
           <div className="flex items-center gap-4">

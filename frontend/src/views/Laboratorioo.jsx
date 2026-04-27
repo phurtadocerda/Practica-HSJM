@@ -1,7 +1,10 @@
 import React from 'react';
 import { ChevronLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
 
-const Laboratorio_instructivo = ({ onNavigate }) => {
+const Laboratorio_instructivo = () => { // 2. Quitamos el prop onNavigate antiguo
+  const navigate = useNavigate(); // 3. Inicializamos el hook para navegar
+
   // === LISTA DE DOCUMENTOS EXACTA DE TU IMAGEN ===
   const documentos = [
     { name: "instructivos a pacientes PDF", url: "http://10.5.131.63/intranet/wp-content/uploads/2023/04/instructivos-a-pacientes-PDF.docx" }, 
@@ -20,7 +23,7 @@ const Laboratorio_instructivo = ({ onNavigate }) => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10 border-b pb-8">
         <div>
           <button 
-            onClick={() => onNavigate('accesos')} 
+            onClick={() => navigate('/accesos')} // 4. Cambiamos onNavigate por navigate('/ruta')
             className="bg-slate-100 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-4 text-sm shadow-sm"
           >
             <ChevronLeft size={18} strokeWidth={3} /> VOLVER A ACCESOS

@@ -1,8 +1,11 @@
 import React from 'react';
 import { ChevronLeft } from 'lucide-react';
-import aficheMpox from '../assets/viruela.png'; // Asegúrate que el nombre sea igual al de tu carpeta assets
+import { useNavigate } from 'react-router-dom'; // 1. Hook importado
+import aficheMpox from '../assets/viruela.png'; 
 
-const ViruelaDelMono = ({ onNavigate }) => {
+const ViruelaDelMono = () => { // 2. Quitamos el onNavigate de los paréntesis
+  const navigate = useNavigate(); // 3. Inicializamos el hook
+
   const documentos = [
     { name: "FORMULARIO DE NOTIFICACIÓN VIRUELA DEL MONO EDITABLE (003)", link: "http://10.5.131.63/intranet/wp-content/uploads/2024/08/FORMULARIO-DE-NOTIFICACION-VIRUELA-DEL-MONO-EDITABLE-003.docx" },
     { name: "PPT Viruela del Mono 28-08-2024", link: "http://10.5.131.63/intranet/wp-content/uploads/2024/08/PPT-Viruela-del-Mono-28-08-2024.pptx" },
@@ -26,7 +29,7 @@ const ViruelaDelMono = ({ onNavigate }) => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10 border-b pb-8">
         <div>
           <button 
-            onClick={() => onNavigate('accesos')} 
+            onClick={() => navigate('/accesos')} // 4. CAMBIO A navigate('/accesos')
             className="bg-slate-100 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-4 text-sm"
           >
             <ChevronLeft size={18} /> VOLVER A ACCESOS

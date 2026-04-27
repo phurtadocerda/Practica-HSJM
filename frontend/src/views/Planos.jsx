@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { ChevronLeft, Map, Download, FileText, MapPin, Filter } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
 
-const Planos = ({ onNavigate }) => {
+const Planos = () => { // 2. Quitamos el prop onNavigate
+  const navigate = useNavigate(); // 3. Inicializamos el hook para navegar
+
   const listaPlanos = [
     // ÍNDICE
     { id: 1, categoria: "Índice", nombre: "HSJM-AR-DW-000 (UNIDADES CLÍNICAS)", url: "http://10.5.131.63/intranet/wp-content/uploads/2023/04/HSJM-AR-DW-000-UNIDADES-CLINICAS_Rev-6_SEREMI-000.pdf" },
@@ -69,11 +72,8 @@ const Planos = ({ onNavigate }) => {
   ];
 
   const [planoActivo, setPlanoActivo] = useState(listaPlanos[0]);
-  
-  // NUEVO ESTADO: Guarda qué nivel está seleccionado en el filtro
   const [filtroNivel, setFiltroNivel] = useState('Todos');
 
-  // ORDEN EXACTO QUE QUEREMOS MOSTRAR EN EL SELECT Y EN PANTALLA
   const ordenCategorias = [
     "Índice", 
     "Nivel -1", 
@@ -92,7 +92,8 @@ const Planos = ({ onNavigate }) => {
       {/* HEADER TÍTULO */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b border-slate-200 pb-4">
         <div>
-          <button onClick={() => onNavigate('inicio')} className="bg-white hover:bg-[#ffb81c] text-[#003876] px-4 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-3 text-[10px] md:text-xs shadow-sm border border-slate-200">
+          {/* BOTÓN VOLVER ARREGLADO */}
+          <button onClick={() => navigate('/inicio')} className="bg-white hover:bg-[#ffb81c] text-[#003876] px-4 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-3 text-[10px] md:text-xs shadow-sm border border-slate-200">
             <ChevronLeft size={14} /> VOLVER
           </button>
           <div className="flex items-center gap-2">
@@ -109,13 +110,11 @@ const Planos = ({ onNavigate }) => {
         </div>
       </div>
 
-      {/* CONTENEDOR DIVIDIDO */}
       <div className="flex flex-col lg:flex-row gap-4 flex-grow lg:h-[650px]">
         
-        {/* COLUMNA IZQUIERDA: LISTA DE PLANOS Y FILTRO */}
+        {/* COLUMNA IZQUIERDA: LISTA Y FILTRO */}
         <div className="w-full lg:w-1/3 flex flex-col gap-2 bg-white p-3 md:p-4 rounded-2xl border border-slate-200 shadow-sm max-h-[400px] lg:max-h-full">
           
-          {/* NUEVO: MENÚ DESPLEGABLE (FILTRO) */}
           <div className="mb-3 border-b border-slate-100 pb-3">
             <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1 flex items-center gap-1 mb-1">
               <Filter size={12} /> Filtrar por Nivel
@@ -132,28 +131,21 @@ const Planos = ({ onNavigate }) => {
             </select>
           </div>
           
-          {/* CONTENEDOR CON SCROLL DE LOS PLANOS */}
           <div className="flex flex-col gap-4 overflow-y-auto pr-2 custom-scrollbar flex-grow">
-            
             {ordenCategorias.map(categoria => {
-              // LA MAGIA: Si el filtro no es "Todos" y no coincide con esta categoría, la saltamos.
               if (filtroNivel !== 'Todos' && filtroNivel !== categoria) return null;
 
-              // Filtramos los planos que pertenecen a este nivel
               const planosDeEsteNivel = listaPlanos.filter(p => p.categoria === categoria);
               if (planosDeEsteNivel.length === 0) return null;
 
               return (
                 <div key={categoria} className="flex flex-col gap-2 relative">
-                  
-                  {/* TÍTULO DEL NIVEL */}
                   <div className="sticky top-0 bg-white/95 backdrop-blur-sm z-10 py-1.5 border-b-2 border-cyan-100 mb-1">
                     <h4 className="text-[#003876] font-black uppercase text-[10px] md:text-xs tracking-widest">
                       {categoria}
                     </h4>
                   </div>
 
-                  {/* LISTA DE PLANOS DE ESTE NIVEL */}
                   {planosDeEsteNivel.map((plano) => (
                     <div 
                       key={plano.id} 
@@ -195,14 +187,11 @@ const Planos = ({ onNavigate }) => {
                 </div>
               );
             })}
-            
           </div>
         </div>
 
         {/* COLUMNA DERECHA: VISOR PDF */}
         <div className="w-full lg:w-2/3 bg-slate-200 rounded-2xl border-2 md:border-4 border-white shadow-lg flex flex-col overflow-hidden relative h-[400px] lg:h-full mt-4 lg:mt-0">
-          
-          {/* Cabecera del Visor */}
           <div className="bg-white border-b border-slate-200 p-3 flex justify-between items-center z-10 shadow-sm">
             <div className="flex items-center gap-2 overflow-hidden">
               <FileText size={16} className="text-cyan-600 shrink-0" />
@@ -210,7 +199,6 @@ const Planos = ({ onNavigate }) => {
             </div>
           </div>
 
-          {/* VISOR PDF */}
           <div className="flex-grow w-full bg-slate-300 relative">
             <iframe 
               src={`${planoActivo.url}#view=FitH`} 
@@ -220,7 +208,6 @@ const Planos = ({ onNavigate }) => {
               <p className="p-4 text-center text-xs">Navegador no soporta PDF directo.</p>
             </iframe>
           </div>
-          
         </div>
       </div>
     </section>

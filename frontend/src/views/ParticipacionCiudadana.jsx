@@ -1,7 +1,10 @@
 import React from 'react';
 import { ChevronLeft, Users, FileText, FolderOpen } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
 
-const ParticipacionCiudadana = ({ onNavigate }) => {
+const ParticipacionCiudadana = () => { // 2. Quitamos onNavigate
+  const navigate = useNavigate(); // 3. Inicializamos el hook
+
   // Los 3 documentos de tu imagen
   const documentos = [
     { titulo: "Plan de Trabajo y cronograma de actividades Unidad de Participación HSJM_2025", link: "http://10.5.131.63/intranet/wp-content/uploads/2025/07/Plan-de-Trabajo-y-cronograma-de-actividades-Unidad-de-Participacion-HSJM_2025.pdf" },
@@ -16,7 +19,7 @@ const ParticipacionCiudadana = ({ onNavigate }) => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12 border-b pb-8">
         <div>
           <button
-            onClick={() => onNavigate('inicio')}
+            onClick={() => navigate('/inicio')} // 4. CORRECCIÓN: Usamos navigate
             className="bg-[#003876]/5 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-6 text-xs shadow-sm"
           >
             <ChevronLeft size={18} /> VOLVER AL INICIO

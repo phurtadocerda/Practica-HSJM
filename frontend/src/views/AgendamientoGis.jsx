@@ -1,7 +1,10 @@
 import React from 'react';
 import { ChevronLeft, FileText, PlayCircle, CalendarClock } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; // 1. Importación del Hook
 
-const AgendamientoGis = ({ onNavigate }) => {
+const AgendamientoGis = () => { // 2. Quitamos onNavigate
+  const navigate = useNavigate(); // 3. Inicializamos el hook
+
   // === LINKS DE LOS MANUALES (PDF) ===
   const manuales = [
     { titulo: "Ingresar Interconsultas", url: "http://10.5.131.63/intranet/wp-content/uploads/2022/01/Ingresar-Interconsultas.pdf" },
@@ -11,8 +14,6 @@ const AgendamientoGis = ({ onNavigate }) => {
   ];
 
   // === LINKS DE LOS VIDEOS (MP4) ===
-  // Pon las rutas reales de tus videos en tu servido
-  
   const videosSecundarios = [
     { titulo: "Tutorial 1", url: "http://10.5.131.63/intranet/wp-content/uploads/2022/01/Agendar-Pacientes.mp4?_=1" },
     { titulo: "Tutorial 2", url: "http://10.5.131.63/intranet/wp-content/uploads/2022/01/Bloqueo-y-recuperacion-de-agendas.mp4?_=2" },
@@ -28,7 +29,7 @@ const AgendamientoGis = ({ onNavigate }) => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10 border-b pb-8">
         <div>
           <button 
-            onClick={() => onNavigate('inicio')} 
+            onClick={() => navigate('/inicio')} // 4. CORRECCIÓN: Usamos navigate('/inicio')
             className="bg-slate-100 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-6 text-sm shadow-sm"
           >
             <ChevronLeft size={18} strokeWidth={3} /> VOLVER A INICIO
@@ -73,9 +74,7 @@ const AgendamientoGis = ({ onNavigate }) => {
             <PlayCircle className="text-red-500" size={28} /> Videos Tutoriales:
           </h3>
 
-          
-
-          {/* Grilla de Videos Secundarios (Los 4 videos extras) */}
+          {/* Grilla de Videos */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {videosSecundarios.map((video, index) => (
               <div key={index} className="space-y-3 bg-slate-50 p-4 rounded-3xl border border-slate-100">

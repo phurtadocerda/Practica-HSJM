@@ -1,7 +1,10 @@
 import React from 'react';
 import { ChevronLeft, AlertCircle, Mail, FileText, FolderOpen } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
 
-const EventoAdverso = ({ onNavigate }) => {
+const EventoAdverso = () => { // 2. Quitamos onNavigate
+  const navigate = useNavigate(); // 3. Inicializamos el hook
+
   const destinatarios = [
     "eventocentinela@minsal.cl",
     "daniella.greibe@redsalud.gov.cl",
@@ -19,7 +22,10 @@ const EventoAdverso = ({ onNavigate }) => {
       {/* HEADER */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12 border-b pb-8">
         <div>
-          <button onClick={() => onNavigate('inicio')} className="bg-[#003876]/5 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-6 text-xs shadow-sm">
+          <button 
+            onClick={() => navigate('/inicio')} // 4. CORRECCIÓN: Usamos navigate
+            className="bg-[#003876]/5 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-6 text-xs shadow-sm"
+          >
             <ChevronLeft size={18} /> VOLVER AL INICIO
           </button>
           <div className="flex items-center gap-4">

@@ -9,6 +9,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.6.0",
+    "react-router-dom": "^7.14.2",
     "react-scripts": "5.0.1",
     "tailwindcss": "^3.3.0"
   },
@@ -16,8 +17,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "deploy": "npm run build && rimraf C:/xampp/htdocs/WEB_HOSPITAL/react-app && move build C:/xampp/htdocs/WEB_HOSPITAL/react-app"
-},
-  
+  },
   "eslintConfig": {
     "extends": [
       "react-app"

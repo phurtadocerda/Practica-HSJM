@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ChevronLeft, AlertCircle, FolderOpen, FileText } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; // 1. Importación del Hook
 
-const AccidentesTrabajo = ({ onNavigate }) => {
+const AccidentesTrabajo = () => { // 2. Quitamos onNavigate
+  const navigate = useNavigate(); // 3. Inicializamos el hook
+
   // Lista de documentos según tu imagen
   const documentos = [
     { titulo: "Unidad de salud Ocupacional y Gestión Ambiental", link: "http://10.5.131.63/intranet/Accidentes/USOAMBIENTAL.pdf" },
@@ -19,7 +22,7 @@ const AccidentesTrabajo = ({ onNavigate }) => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12 border-b pb-8">
         <div>
           <button
-            onClick={() => onNavigate('inicio')}
+            onClick={() => navigate('/inicio')} // 4. CORRECCIÓN: Usamos navigate('/inicio')
             className="bg-[#003876]/5 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-6 text-xs shadow-sm"
           >
             <ChevronLeft size={18} /> VOLVER AL INICIO

@@ -1,7 +1,10 @@
 import React from 'react';
 import { ChevronLeft, ShieldCheck, FolderOpen, Download } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
 
-const ReglamentoProtocolos = ({ onNavigate }) => {
+const ReglamentoProtocolos = () => { // 2. Quitamos onNavigate
+  const navigate = useNavigate(); // 3. Inicializamos el hook
+
   return (
     <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[600px] w-full font-sans animate-in fade-in zoom-in duration-500">
       
@@ -9,7 +12,7 @@ const ReglamentoProtocolos = ({ onNavigate }) => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12 border-b pb-8">
         <div>
           <button
-            onClick={() => onNavigate('inicio')}
+            onClick={() => navigate('/inicio')} // 4. CORRECCIÓN: Usamos navigate
             className="bg-[#003876]/5 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-6 text-xs shadow-sm"
           >
             <ChevronLeft size={18} /> VOLVER AL INICIO

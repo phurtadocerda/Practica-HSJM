@@ -1,7 +1,10 @@
 import React from 'react';
 import { ChevronLeft, FileText, FolderOpen } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
 
-const Resoluciones = ({ onNavigate }) => {
+const Resoluciones = () => { // 2. Quitamos onNavigate
+  const navigate = useNavigate(); // 3. Inicializamos el hook
+
   // Los documentos de tu imagen
   const documentos = [
     { titulo: "Resolución N° 143 del HSJM. Formulario de notificación de agresiones hacia los funcionarios de la Salud Publica", link: "http://10.5.131.63/intranet/wp-content/uploads/2023/01/Resolucion-N%C2%B0-143-del-HSJM.-Formulario-de-notificacion-de-agresiones-hacia-los-funcionarios-de-la-Salud-Publica.pdf" },
@@ -15,7 +18,7 @@ const Resoluciones = ({ onNavigate }) => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12 border-b pb-8">
         <div>
           <button
-            onClick={() => onNavigate('inicio')}
+            onClick={() => navigate('/inicio')} // 4. CORRECCIÓN: Usamos navigate
             className="bg-[#003876]/5 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-6 text-xs shadow-sm"
           >
             <ChevronLeft size={18} /> VOLVER AL INICIO

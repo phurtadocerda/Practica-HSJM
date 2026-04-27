@@ -1,13 +1,14 @@
 import React from 'react';
 import { ChevronLeft, UserCircle, FileText, ExternalLink } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; // 1. Importación del Hook
 
-const ProtocoloAtencionUsuario = ({ onNavigate }) => {
+const ProtocoloAtencionUsuario = () => { // 2. Quitamos onNavigate
+  const navigate = useNavigate(); // 3. Inicializamos el hook
+
   // === LINKS DE LOS DOCUMENTOS ===
-  // Pon los enlaces reales reemplazando el "#"
   const documentos = [
     { titulo: "Protocolo de Atencion al Usuario 2022", url: "http://10.5.131.63/intranet/wp-content/uploads/2022/10/Protocolo-de-Atencion-al-Usuario-2022.pdf" },
     { titulo: "Díptico Protocolo Usuario", url: "http://10.5.131.63/intranet/wp-content/uploads/2022/10/Protocolo-de-atencion-al-Usuario.-2022.pdf" },
-
   ];
 
   return (
@@ -17,7 +18,7 @@ const ProtocoloAtencionUsuario = ({ onNavigate }) => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12 border-b pb-8">
         <div>
           <button 
-            onClick={() => onNavigate('inicio')} 
+            onClick={() => navigate('/inicio')} // 4. CORRECCIÓN: Usamos navigate('/inicio')
             className="bg-slate-100 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-6 text-sm shadow-sm"
           >
             <ChevronLeft size={18} strokeWidth={3} /> VOLVER A INICIO
