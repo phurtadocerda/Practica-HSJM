@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  
+}
+
+model Usuario {
+  id               Int      @id @default(autoincrement())
+  rut              String   @unique
+  nombres          String
+  apellido_paterno String
+  apellido_materno String?
+  fecha_nacimiento DateTime
+  area_trabajo     String
+  password         String
+  rol              String   @default("funcionario")
+
+  @@map("usuarios") // Mapea el modelo a la tabla existente 'usuarios'
+}

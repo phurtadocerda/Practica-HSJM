@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MapPin, Instagram, Facebook, Youtube, Twitter } from 'lucide-react';
+import api from './api/axios'
 
 // --- COMPONENTES PRINCIPALES ---
 import Login from './components/login';
@@ -35,58 +36,38 @@ function App() {
   const images = [foto4, foto5, foto6, foto7, foto8, foto9, foto10, foto11, foto12, foto13];
 
   // --- LOGIN / LOGOUT ---
-  const handleLogin = async (rutUsuario, passwordUsuario) => {
-    try {
-      const response = await fetch('http://10.63.246.89:5000/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          rut: rutUsuario, 
-          password: passwordUsuario 
-        })
-      });
 
-      const data = await response.json();
+const handleLogin = async (rutUsuario, passwordUsuario) => {
+  try {
+    const response = await api.post('/login', {
+      rut: rutUsuario,
+      password: passwordUsuario
+    });
 
-      // if (data.success) {
-      //   setUserName(data.user.nombre); 
-      //   localStorage.removeItem('cumpleanosMostrado');
-      //   setUserRole(data.user.rol); 
-      //   setIsLoggedIn(true);
+    const data = response.data; // Axios guarda la respuesta en .data
 
-      //   localStorage.setItem('usuario_hsjm', JSON.stringify({
-      //     nombre: data.user.nombre,
-      //     rol: data.user.rol,
-      //     logueado: true
-      //   }));
+    if (data.success) {
+      const nombreCompleto = data.user.nombre;
+      // Mantenemos tu lógica de la llave maestra
+      const rolUsuario = (rutUsuario === '21245882-1') ? 'jefe' : data.user.rol;
 
-            if (data.success) {
-        const nombreCompleto = data.user.nombre;
-        
-        // --- ESTA ES LA LÓGICA DE LA LLAVE MAESTRA ---
-        // Si el RUT es el tuyo, el rol será 'jefe', de lo contrario será el de la DB
-        const rolUsuario = (rutUsuario === '21245882-1') ? 'jefe' : data.user.rol;
+      setUserName(nombreCompleto);
+      setUserRole(rolUsuario);
+      setIsLoggedIn(true);
 
-        setUserName(nombreCompleto);
-        setUserRole(rolUsuario); // Guardamos el rol en el estado
-        setIsLoggedIn(true);
-
-        localStorage.setItem('usuario_hsjm', JSON.stringify({
-          nombre: nombreCompleto,
-          rol: rolUsuario,
-          logueado: true
-        }));
-        
-        // Redirigimos al inicio usando React Router
-        navigate('/inicio'); 
-      } else {
-        alert("Acceso denegado: " + data.message); 
-      }
-    } catch (error) {
-      console.error("Error de conexión:", error);
-      alert("Error crítico: No se pudo contactar al servidor. ¿Está encendida la terminal negra?");
+      localStorage.setItem('usuario_hsjm', JSON.stringify({
+        nombre: nombreCompleto,
+        rol: rolUsuario,
+        logueado: true
+      }));
+      
+      navigate('/inicio');
     }
-  };
+  } catch (error) {
+    const message = error.response?.data?.message || "Error de conexión";
+    alert("Acceso denegado: " + message);
+  }
+};
 
   const handleLogout = () => {
     setIsLoggedIn(false);

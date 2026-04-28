@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, Gift, Cake, PartyPopper, CalendarDays } from 'lucide-react';
+import api from '../api/axios';
 
 const ModalCumpleanos = () => {
   // 1. Revisa si el usuario ya cerró los globos hoy
@@ -15,14 +16,9 @@ const ModalCumpleanos = () => {
   useEffect(() => {
     const buscarCumpleanos = async () => {
       try {
-        // Le toca la puerta al Mozo en el puerto 5000
-        const respuesta = await fetch('http://10.63.246.89:5000/api/cumpleanos');
-        
-        if (respuesta.ok) {
-          const datos = await respuesta.json();
-          // Guarda a los cumpleañeros reales en la memoria de React
-          setCumpleanerosHoy(datos); 
-        }
+        const respuesta = await api.get('/cumpleanos');
+        console.log("Respuesta del servidor de cumpleaños:", respuesta.data);
+        setCumpleanerosHoy(respuesta.data);
       } catch (error) {
         console.error("No se pudo conectar con la base de datos para los cumpleaños:", error);
       }

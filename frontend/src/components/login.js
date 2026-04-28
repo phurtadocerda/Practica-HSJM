@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import logoHospital from '../assets/logo.png'; 
 import { Eye, EyeOff } from 'lucide-react';
+import api from '../api/axios';
 
 const Login = ({ onLogin }) => {
   const [isRegistering, setIsRegistering] = useState(false);
@@ -31,26 +32,24 @@ const Login = ({ onLogin }) => {
   };
 
   const handleRegister = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch('http://10.63.246.89:5000/api/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(regData)
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        alert('✅ Registro exitoso. Ahora puedes iniciar sesión.');
-        setIsRegistering(false);
-      } else {
-        alert('❌ Error: ' + data.message);
-      }
-    } catch (err) {
-      alert('❌ No se pudo conectar con el servidor');
+  e.preventDefault();
+  try {
+    const response = await api.post('/register', regData);
+    
+    if (response.data.success) {
+      alert('✅ Registro exitoso. Ahora puedes iniciar sesión.');
+      setIsRegistering(false);
     }
-  };
+  } catch (err) {
+
+    if (err.response && err.response.data) {
+      alert('❌ Error: ' + err.response.data.message);
+    } 
+    else {
+      alert('❌ No se pudo conectar con el servidor. Revisa tu conexión.');
+    }
+  }
+};
 
   // ESTILOS CORREGIDOS PARA QUE AMBOS SEAN IGUALES (Hermanos gemelos)
   const inputStyleCompacto = { 
