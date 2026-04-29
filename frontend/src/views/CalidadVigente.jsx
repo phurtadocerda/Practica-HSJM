@@ -194,7 +194,7 @@ const CalidadVigente = ({ userRole }) => {
   );
 
   return (
-    <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[800px] animate-in fade-in zoom-in duration-500 w-full font-sans relative mt-6">
+    <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[800px] animate-in fade-in zoom-in duration-500 w-full font-sans relative">
       
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10 border-b pb-8">
         <div>

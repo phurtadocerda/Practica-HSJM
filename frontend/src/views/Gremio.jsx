@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, Users, Newspaper, Calendar, ArrowRight, Clock, Tag, Plus, Trash2, Pencil, Save, X, Upload, Image as ImageIcon } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import logoHospital from '../assets/logo.png'; 
+import { Upload, ArrowRight, Trash2, Pencil, Save, X, Image as ImageIcon } from 'lucide-react';
+import PageHeader from '../components/PageHeader';
+import BackButton from '../components/BackButton';
+import AddButton from '../components/AddButton';
 
 const Gremio = ({ userRole }) => { // Recibe el rol desde App.js -> AppRoutes
-  const navigate = useNavigate();
-  
-  // VERIFICACIÓN: Si el rol que viene es 'jefe', activamos los poderes
+  // VERIFICACIÓN: Si el rol que viene es 'jefe'
   const isJefe = userRole === 'jefe';
   
   const fileInputRef = useRef(null);
@@ -88,7 +87,7 @@ const Gremio = ({ userRole }) => { // Recibe el rol desde App.js -> AppRoutes
           <input required placeholder="Título" value={formData.titulo} onChange={e => setFormData({...formData, titulo: e.target.value})} className="w-full p-4 rounded-2xl border-none shadow-sm focus:ring-2 focus:ring-orange-500 outline-none" />
           <div className="flex items-center gap-6 p-4 bg-white rounded-2xl shadow-sm border-2 border-dashed border-slate-100">
               <div className="w-24 h-24 bg-slate-50 rounded-xl overflow-hidden border flex items-center justify-center">
-                  {formData.imagen ? <img src={formData.imagen} className="w-full h-full object-cover" /> : <ImageIcon className="text-slate-200" size={40}/>}
+                  {formData.imagen ? <img src={formData.imagen} alt='' className="w-full h-full object-cover" /> : <ImageIcon className="text-slate-200" size={40}/>}
               </div>
               <button type="button" onClick={() => fileInputRef.current.click()} className="bg-[#003876] text-white px-5 py-2 rounded-xl font-bold text-xs flex items-center gap-2">
                   <Upload size={16}/> SELECCIONAR FOTO
@@ -108,9 +107,7 @@ const Gremio = ({ userRole }) => { // Recibe el rol desde App.js -> AppRoutes
   if (selectedNoticeId) {
     return (
       <div className="max-w-4xl mx-auto animate-in fade-in duration-500">
-        <button onClick={() => setSelectedNoticeId(null)} className="mb-8 bg-slate-100 text-[#003876] px-4 py-2 rounded-full font-bold flex items-center gap-2 text-xs border shadow-sm">
-          <ChevronLeft size={16} /> VOLVER
-        </button>
+        <BackButton onClick={() => setSelectedNoticeId(null)} label="VOLVER" className="mb-8" />
         <h1 className="text-4xl font-black text-[#003876] mb-6">{selectedNotice.titulo}</h1>
         <div className="aspect-video bg-slate-100 rounded-3xl overflow-hidden mb-8 shadow-xl">
           <img src={selectedNotice.imagen} alt="News" className="w-full h-full object-cover" />
@@ -123,24 +120,19 @@ const Gremio = ({ userRole }) => { // Recibe el rol desde App.js -> AppRoutes
   }
 
   return (
-    <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[600px] w-full font-sans relative">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12 border-b pb-8">
-        <div>
-          <button onClick={() => navigate('/inicio')} className="bg-slate-100 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 mb-4 text-xs transition-all shadow-sm">
-            <ChevronLeft size={18} /> INICIO
-          </button>
-          <div className="flex items-center gap-4">
-            <Users className="text-[#003876] hidden md:block" size={48} />
-            <h2 className="text-4xl md:text-5xl font-black text-[#003876] uppercase italic tracking-tighter">Noticias <span className="text-orange-500">Gremiales</span></h2>
-          </div>
-        </div>
-        {/* BOTÓN SOLO PARA EL JEFE (RUT 21245882-1) */}
-        {isJefe && (
-          <button onClick={() => setShowForm(true)} className="bg-[#003876] text-white px-6 py-3 rounded-full font-black flex items-center gap-2 shadow-lg hover:scale-105 transition-all">
-            <Plus size={20} /> AÑADIR NOTICIA
-          </button>
-        )}
-      </div>
+    <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-screen w-full font-sans animate-in fade-in duration-500">
+      <PageHeader
+        title="Noticias Gremiales"
+        subtitle="Información gremial y comunicados"
+        showBackButton
+        backPath="/inicio"
+        rightContent={
+          <>
+            {isJefe && !showForm && <AddButton onClick={() => setShowForm(true)} 
+            label="AÑADIR NOTICIA" />}
+          </>
+        }
+      />
 
       <div className="max-w-5xl mx-auto space-y-10">
         {noticias.length === 0 ? (

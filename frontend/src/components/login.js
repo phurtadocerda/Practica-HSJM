@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import logoHospital from '../assets/logo.png'; 
 import { Eye, EyeOff } from 'lucide-react';
-import api from '../api/axios';
+import { register } from '../services/authService';
 
 const Login = ({ onLogin }) => {
   const [isRegistering, setIsRegistering] = useState(false);
@@ -34,9 +34,9 @@ const Login = ({ onLogin }) => {
   const handleRegister = async (e) => {
   e.preventDefault();
   try {
-    const response = await api.post('/register', regData);
+    const data = await register(regData);
     
-    if (response.data.success) {
+    if (data.success) {
       alert('✅ Registro exitoso. Ahora puedes iniciar sesión.');
       setIsRegistering(false);
     }

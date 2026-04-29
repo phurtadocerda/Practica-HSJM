@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronLeft, ShieldAlert, Download } from 'lucide-react';
+import { ChevronLeft, ShieldAlert } from 'lucide-react';
 import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
 
 const ReglamentoHigiene = () => { // 2. Quitamos onNavigate

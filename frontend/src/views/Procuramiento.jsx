@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronLeft, Heart, FileText, PlayCircle, Video } from 'lucide-react';
+import { ChevronLeft, Heart, FileText, Video } from 'lucide-react';
 import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
 
 const Procuramiento = () => { // 2. Quitamos onNavigate

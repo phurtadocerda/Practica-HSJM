@@ -2,7 +2,7 @@ import React from 'react';
 import { ChevronLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
 
-const Laboratorio_instructivo = () => { // 2. Quitamos el prop onNavigate antiguo
+const LaboratorioInstructivo = () => { // 2. Quitamos el prop onNavigate antiguo
   const navigate = useNavigate(); // 3. Inicializamos el hook para navegar
 
   // === LISTA DE DOCUMENTOS EXACTA DE TU IMAGEN ===
@@ -60,4 +60,4 @@ const Laboratorio_instructivo = () => { // 2. Quitamos el prop onNavigate antigu
   );
 };
 
-export default Laboratorio_instructivo;
+export default LaboratorioInstructivo;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronLeft, FileText } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom'; // 1. Hook importado
 
 const Tuberculosis = () => {

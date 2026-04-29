@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ChevronLeft, AlertCircle, FolderOpen, FileText } from 'lucide-react';
+import React from 'react';
+import { ChevronLeft, AlertCircle, FolderOpen } from 'lucide-react';
 import { useNavigate } from 'react-router-dom'; // 1. Importación del Hook
 
 const AccidentesTrabajo = () => { // 2. Quitamos onNavigate

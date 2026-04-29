@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronLeft, BarChart3, FileText, Calendar, FileSpreadsheet } from 'lucide-react';
+import { ChevronLeft, BarChart3, Calendar, FileSpreadsheet } from 'lucide-react';
 import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
 
 const ProduccionEstadistica = () => { // 2. Quitamos onNavigate

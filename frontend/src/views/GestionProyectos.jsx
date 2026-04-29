@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronLeft, FolderKanban, Download } from 'lucide-react';
+import { ChevronLeft, FolderKanban } from 'lucide-react';
 import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
 
 const GestionProyectos = () => { // 2. Quitamos onNavigate

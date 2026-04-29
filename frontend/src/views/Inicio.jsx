@@ -23,7 +23,7 @@ const Inicio = ({ userName, images }) => {
       nextSlide();
     }, 5000);
     return () => clearInterval(timer);
-  }, [images]);
+  }, [nextSlide, images]);
 
   return (
     <div className="space-y-12 animate-in fade-in duration-500 w-full">
