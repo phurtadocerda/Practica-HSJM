@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronLeft, Network, Download } from 'lucide-react';
+import { ChevronLeft, Network } from 'lucide-react';
 import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
 
 const Organigrama = () => { // 2. Quitamos onNavigate

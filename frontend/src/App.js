@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MapPin, Instagram, Facebook, Youtube, Twitter } from 'lucide-react';
-import api from './api/axios'
+import { login as loginUser } from './services/authService';
 
 // --- COMPONENTES PRINCIPALES ---
 import Login from './components/login';
 import Navbar from './components/Navbar';
 import AppRoutes from './routes/AppRoutes';
+import ScrollToTop from './components/ScrollToTop';
 import './App.css';
 
 // --- IMÁGENES GLOBALES (Solo conservamos las del Slider del Inicio) ---
@@ -39,12 +40,7 @@ function App() {
 
 const handleLogin = async (rutUsuario, passwordUsuario) => {
   try {
-    const response = await api.post('/login', {
-      rut: rutUsuario,
-      password: passwordUsuario
-    });
-
-    const data = response.data; // Axios guarda la respuesta en .data
+    const data = await loginUser(rutUsuario, passwordUsuario);
 
     if (data.success) {
       const nombreCompleto = data.user.nombre;
@@ -85,6 +81,7 @@ const handleLogin = async (rutUsuario, passwordUsuario) => {
   // Si está logueado, muestra el Layout principal
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 overflow-x-hidden">
+      <ScrollToTop />
       
       {/* NAVEGACIÓN */}
       <Navbar 

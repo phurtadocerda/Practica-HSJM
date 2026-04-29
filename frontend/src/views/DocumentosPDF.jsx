@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronLeft, FileText, Download } from 'lucide-react';
+import { ChevronLeft, FileText } from 'lucide-react';
 import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
 
 const DocumentosPDF = () => { // 2. Quitamos onNavigate

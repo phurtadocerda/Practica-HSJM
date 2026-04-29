@@ -24,7 +24,7 @@ import ProgramaBPSO from '../views/ProgramaBPSO';
 import Midas from '../views/Midas';
 import ProtocoloVigilancia from '../views/ProtocoloVigilancia';
 import Reacreditacion from '../views/Reacreditacion';
-import Laboratorio_instructivo from '../views/Laboratorioo';
+import LaboratorioInstructivo from '../views/Laboratorioo';
 import PrevencionRiesgos from '../views/PrevencionRiesgos';
 import Innovacion_pagina from '../views/Innovacion';
 import Iaas from '../views/Iaas';
@@ -87,7 +87,7 @@ const AppRoutes = ({ userRole, userName, images }) => {
       <Route path="/midas" element={<Midas />} />
       <Route path="/protocolo-vigilancia" element={<ProtocoloVigilancia />} />
       <Route path="/reacreditacion" element={<Reacreditacion />} />
-      <Route path="/laboratorio" element={<Laboratorio_instructivo />} />
+      <Route path="/laboratorio" element={<LaboratorioInstructivo />} />
       <Route path="/prevencion" element={<PrevencionRiesgos />} />
       <Route path="/innovacion" element={<Innovacion_pagina />} />
       <Route path="/iaas" element={<Iaas />} />

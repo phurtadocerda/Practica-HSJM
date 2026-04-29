@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, Phone, Search, Mail, Plus, Trash2, Pencil, Save, X, ChevronRight, ChevronLeft as ChevronLeftIcon } from 'lucide-react';
+import { Search, Mail, Plus, Trash2, Pencil, Save, X, ChevronRight, ChevronLeft as ChevronLeftIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const Anexos = ({ userRole }) => {

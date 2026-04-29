@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, Users, Newspaper, Calendar, ArrowRight, Clock, Tag, Plus, Trash2, Pencil, Save, X, Upload, Image as ImageIcon } from 'lucide-react';
+import { ChevronLeft, Users, ArrowRight, Plus, Trash2, Pencil, Save, X, Upload, Image as ImageIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import logoHospital from '../assets/logo.png'; 
 
 const Gremio = ({ userRole }) => { // Recibe el rol desde App.js -> AppRoutes
   const navigate = useNavigate();
@@ -88,7 +87,7 @@ const Gremio = ({ userRole }) => { // Recibe el rol desde App.js -> AppRoutes
           <input required placeholder="Título" value={formData.titulo} onChange={e => setFormData({...formData, titulo: e.target.value})} className="w-full p-4 rounded-2xl border-none shadow-sm focus:ring-2 focus:ring-orange-500 outline-none" />
           <div className="flex items-center gap-6 p-4 bg-white rounded-2xl shadow-sm border-2 border-dashed border-slate-100">
               <div className="w-24 h-24 bg-slate-50 rounded-xl overflow-hidden border flex items-center justify-center">
-                  {formData.imagen ? <img src={formData.imagen} className="w-full h-full object-cover" /> : <ImageIcon className="text-slate-200" size={40}/>}
+                  {formData.imagen ? <img src={formData.imagen} alt='' className="w-full h-full object-cover" /> : <ImageIcon className="text-slate-200" size={40}/>}
               </div>
               <button type="button" onClick={() => fileInputRef.current.click()} className="bg-[#003876] text-white px-5 py-2 rounded-xl font-bold text-xs flex items-center gap-2">
                   <Upload size={16}/> SELECCIONAR FOTO
