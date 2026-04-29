@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { 
-  ChevronLeft, BookOpen, GraduationCap, Folder, FileText, 
-  PlayCircle, Video, Search, ExternalLink, Users, ShieldCheck 
+import {
+  BookOpen, Folder, FileText,
+  PlayCircle, Video, Search, ExternalLink, Users, ShieldCheck
 } from 'lucide-react';
-import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
-import logoServicio from '../assets/logo.png'; 
+import PageHeader from '../components/PageHeader';
+import SystemGrid from '../components/SystemGrid';
+import BackButton from '../components/BackButton';
+import logoServicio from '../assets/logo.png';
 
 const Capacitacion = () => { // 2. Quitamos el prop onNavigate
-  const navigate = useNavigate(); // 3. Inicializamos el hook
   const [subView, setSubView] = useState('principal');
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -48,9 +49,7 @@ const Capacitacion = () => { // 2. Quitamos el prop onNavigate
 
   const renderGuiasPdf = () => (
     <div className="animate-in fade-in duration-500">
-      <button onClick={() => setSubView('intersystems')} className="bg-slate-100 hover:bg-slate-200 text-[#003876] px-4 py-1.5 rounded-full font-bold flex items-center gap-2 mb-8 text-xs border border-slate-200">
-        <ChevronLeft size={16} /> Volver a InterSystems
-      </button>
+      <BackButton onClick={() => setSubView('intersystems')} label="Volver a InterSystems" />
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <h3 className="text-2xl font-black text-[#003876] uppercase tracking-tighter flex items-center gap-3">
           <FileText className="text-red-500" size={32} /> Guías TrakCare PDF
@@ -87,9 +86,7 @@ const Capacitacion = () => { // 2. Quitamos el prop onNavigate
 
   const renderAtencionMedica = () => (
     <div className="animate-in fade-in duration-500">
-      <button onClick={() => setSubView('intersystems')} className="bg-slate-100 hover:bg-slate-200 text-[#003876] px-4 py-1.5 rounded-full font-bold flex items-center gap-2 mb-8 text-xs border border-slate-200">
-        <ChevronLeft size={16} /> Volver a InterSystems
-      </button>
+      <BackButton onClick={() => setSubView('intersystems')} label="Volver a InterSystems" />
       <h3 className="text-2xl font-black text-[#003876] mb-8 uppercase tracking-tighter flex items-center gap-3"><Video className="text-[#00a19a]" size={32} /> Videos Flujo Médico</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <VideoCard title="Perfil Médico – Realizar Indicaciones Farmacológicas" url="#" />
@@ -103,9 +100,7 @@ const Capacitacion = () => { // 2. Quitamos el prop onNavigate
 
   const renderMantenedorAgenda = () => (
     <div className="animate-in fade-in duration-500">
-      <button onClick={() => setSubView('intersystems')} className="bg-slate-100 hover:bg-slate-200 text-[#003876] px-4 py-1.5 rounded-full font-bold flex items-center gap-2 mb-8 text-xs border border-slate-200">
-        <ChevronLeft size={16} /> Volver a InterSystems
-      </button>
+      <BackButton onClick={() => setSubView('intersystems')} label="Volver a InterSystems" />
       <h3 className="text-2xl font-black text-[#003876] mb-8 uppercase tracking-tighter flex items-center gap-3"><Folder className="text-yellow-500" size={32} /> Mantenedor de Agenda</h3>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
         <div className="space-y-4">
@@ -124,65 +119,47 @@ const Capacitacion = () => { // 2. Quitamos el prop onNavigate
 
   const renderAdmision = () => (
     <div className="animate-in fade-in duration-500">
-      <button onClick={() => setSubView('intersystems')} className="bg-slate-100 hover:bg-slate-200 text-[#003876] px-4 py-1.5 rounded-full font-bold flex items-center gap-2 mb-8 text-xs border border-slate-200">
-        <ChevronLeft size={16} /> Volver a InterSystems
-      </button>
+      <BackButton onClick={() => setSubView('intersystems')} label="Volver a InterSystems" />
       <h3 className="text-2xl font-black text-[#003876] mb-8 uppercase tracking-tighter flex items-center gap-3"><Users className="text-[#00a19a]" size={32} /> Videos Admisión</h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <SystemGrid className="grid-cols-1 md:grid-cols-2 gap-8">
         <VideoCard title="Tutorial Admisión - Parte 1" url="#" /><VideoCard title="Tutorial Admisión - Parte 2" url="#" />
         <VideoCard title="Tutorial Admisión - Parte 3" url="#" /><VideoCard title="Tutorial Admisión - Parte 4" url="#" />
-      </div>
+      </SystemGrid>
     </div>
   );
 
   const renderMedicoContralor = () => (
     <div className="animate-in fade-in duration-500">
-      <button onClick={() => setSubView('intersystems')} className="bg-slate-100 hover:bg-slate-200 text-[#003876] px-4 py-1.5 rounded-full font-bold flex items-center gap-2 mb-8 text-xs border border-slate-200">
-        <ChevronLeft size={16} /> Volver a InterSystems
-      </button>
+      <BackButton onClick={() => setSubView('intersystems')} label="Volver a InterSystems" />
       <h3 className="text-2xl font-black text-[#003876] mb-8 uppercase tracking-tighter flex items-center gap-3"><ShieldCheck className="text-orange-500" size={32} /> Videos Médico Contralor</h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <SystemGrid className="grid-cols-1 md:grid-cols-2 gap-8">
         <VideoCard title="Tutorial Médico Contralor - Parte 1" url="#" /><VideoCard title="Tutorial Médico Contralor - Parte 2" url="#" />
-      </div>
+      </SystemGrid>
     </div>
   );
 
   const renderInterSystems = () => (
     <div className="animate-in fade-in duration-500">
-      <button onClick={() => setSubView('principal')} className="bg-slate-100 hover:bg-slate-200 text-[#003876] px-4 py-1.5 rounded-full font-bold flex items-center gap-2 mb-8 text-xs border border-slate-200">
-        <ChevronLeft size={16} /> Volver a Capacitación
-      </button>
+      <BackButton onClick={() => setSubView('principal')} label="Volver a Capacitación" />
       <h3 className="text-2xl font-black text-[#003876] mb-8 uppercase tracking-tighter">Capacitación InterSystems</h3>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <SystemGrid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <FolderCard title="Atención Medica" onClick={() => setSubView('atencion-medica')} />
         <FolderCard title="Mantenedor de Agenda" onClick={() => setSubView('mantenedor-agenda')} />
         <FolderCard title="Admisión" onClick={() => setSubView('admision')} />
         <FolderCard title="Médico Contralor" onClick={() => setSubView('medico-contralor')} />
         <FileCard title="Guías en PDF" onClick={() => setSubView('guias-pdf')} />
-      </div>
+      </SystemGrid>
     </div>
   );
 
   return (
     <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[600px] animate-in fade-in zoom-in duration-500 w-full font-sans relative">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12 border-b pb-8">
-        <div>
-          {/* BOTÓN VOLVER AL INICIO ARREGLADO */}
-          <button onClick={() => navigate('/inicio')} className="bg-[#003876]/5 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-6 text-xs border border-[#003876]/10">
-            <ChevronLeft size={18} /> VOLVER AL INICIO
-          </button>
-          <div className="flex items-center gap-4">
-            <GraduationCap className="text-[#003876] hidden md:block" size={48} />
-            <div>
-              <h2 className="text-4xl md:text-5xl font-black text-[#003876] uppercase italic tracking-tighter leading-none">Portal de Capacitación</h2>
-              <p className="text-[#00a19a] font-bold uppercase tracking-[0.2em] mt-2 text-sm">Formación Continua y Desarrollo Profesional</p>
-            </div>
-          </div>
-        </div>
-        <div className="flex items-center gap-2 text-slate-400 bg-slate-50 px-4 py-2 rounded-full text-xs font-bold border border-slate-100">
-          <BookOpen size={16} className="text-[#00a19a]" /> Área de Desarrollo Local
-        </div>
-      </div>
+      <PageHeader
+        title="Portal de Capacitación"
+        subtitle="Formación Continua y Desarrollo Profesional"
+        badge="Área de Desarrollo Local"
+        badgeIcon={BookOpen}
+      />
       
       {subView === 'principal' && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl animate-in fade-in duration-500">

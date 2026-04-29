@@ -55,8 +55,8 @@ const Concurso = ({ userRole }) => {
     <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[600px] animate-in fade-in zoom-in duration-500 w-full">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10 border-b pb-8">
         <div>
-          <button onClick={() => navigate('/inicio')} className="bg-slate-100 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-4 text-sm">
-            <ChevronLeft size={18} /> VOLVER AL INICIO
+          <button onClick={() => navigate('/accesos')} className="bg-slate-100 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-4 text-sm">
+            <ChevronLeft size={18} /> VOLVER A ACCESOS
           </button>
           <h2 className="text-4xl md:text-5xl font-black text-slate-700 uppercase italic tracking-tighter">
             Concursos <span className="text-[#00a19a]">Internos</span>
