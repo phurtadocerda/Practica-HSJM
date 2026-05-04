@@ -10,7 +10,9 @@ const PageHeader = ({
   backPath = '/inicio',
   backLabel = 'VOLVER AL INICIO',
   onBack,
-  rightContent
+  rightContent,
+  icon: Icon,
+  iconBg = 'bg-cyan-600'
 }) => {
   return (
     <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10 border-b pb-8">
@@ -23,14 +25,23 @@ const PageHeader = ({
             className="mb-4 text-sm"
           />
         )}
-        <h2 className="text-4xl md:text-5xl font-black text-[#003876] uppercase italic tracking-tighter leading-none">
-          {title}
-        </h2>
-        {subtitle && (
-          <p className="text-slate-400 font-bold uppercase tracking-widest mt-2 text-xs">
-            {subtitle}
-          </p>
-        )}
+        <div className="flex items-center gap-4">
+          {Icon && (
+            <div className={`${iconBg} p-3 rounded-2xl text-white shadow-lg `}>
+              <Icon size={32} />
+            </div>
+          )}
+          <div>
+            <h2 className="text-4xl md:text-5xl font-black text-[#003876] uppercase italic tracking-tighter leading-none">
+              {title}
+            </h2>
+            {subtitle && (
+              <p className="text-slate-400 font-bold uppercase tracking-widest mt-2 text-xs">
+                {subtitle}
+              </p>
+            )}
+          </div>
+        </div>
       </div>
       <div className="flex flex-col md:flex-row gap-4 items-center">
         {rightContent}

@@ -1,36 +1,25 @@
 import React from 'react';
-import { ChevronLeft } from 'lucide-react';
-import { useNavigate } from 'react-router-dom'; // <-- 1. Agregamos el Hook de React Router
+import PageHeader from '../components/PageHeader';
 
 // === AQUÍ IMPORTAS TUS FOTOS DIRECTAMENTE ===
 import foto1 from '../assets/afiche_bpso.png'; 
 import foto2 from '../assets/foto_bpso_2.png'; 
 import foto3 from '../assets/foto_bpso_3.png'; 
 
-const ProgramaBPSO = () => { // <-- 2. Quitamos el onNavigate de aquí
-  const navigate = useNavigate(); // <-- 3. Inicializamos el Hook
+const ProgramaBPSO = () => {
 
   return (
     <section className="bg-white rounded-[3rem] p-6 md:p-10 shadow-2xl border border-slate-100 min-h-[600px] animate-in fade-in zoom-in duration-500 w-full font-sans">
       
-      {/* HEADER CON BOTÓN VOLVER */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b pb-4">
-        <div>
-          <button 
-            onClick={() => navigate('/accesos')} // <-- 4. Actualizamos el botón a navigate('/ruta')
-            className="bg-slate-100 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all text-sm shadow-sm"
-          >
-            <ChevronLeft size={18} strokeWidth={3} /> VOLVER A ACCESOS
-          </button>
-          {/* TÍTULO MÁS PEQUEÑO */}
-          <h2 className="text-3xl md:text-5xl font-black text-slate-700 tracking-tighter uppercase italic mt-4">Programa BPSO</h2>
-        </div>
-      </div>
-
-      {/* CONTENEDOR CENTRAL: MÁS COMPACTO (max-w-3xl) */}
+      <PageHeader
+        title="Programa BPSO"
+        showBackButton={true}
+        backPath="/accesos"
+        backLabel="VOLVER A ACCESOS"
+      />
       <div className="w-full max-w-3xl mx-auto flex flex-col items-center gap-8 pt-4">
         
-        {/* FOTO 1 (Afiche principal) - Limitamos el ancho con max-w-xl */}
+        {/* FOTO 1 */}
         <div className="w-full max-w-xl">
           <img 
             src={foto1} 
@@ -57,7 +46,7 @@ const ProgramaBPSO = () => { // <-- 2. Quitamos el onNavigate de aquí
           />
         </div>
 
-        {/* ENLACE FINAL DESTACADO - Letra y relleno más pequeños */}
+        {/* ENLACE FINAL DESTACADO  */}
         <div className="w-full pt-8 pb-4 border-t border-slate-200 flex justify-center mt-2">
           <a 
             href="http://10.5.131.63/intranet/wp-content/uploads/2024/10/SISTEMA-DE-CLASIFICACION-LESIONES-POR-PRESION-1.pdf" 

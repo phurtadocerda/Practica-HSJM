@@ -1,11 +1,8 @@
 import React from 'react';
-import { ChevronLeft, BarChart3, Calendar, FileSpreadsheet } from 'lucide-react';
-import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
+import { BarChart3, Calendar, FileSpreadsheet } from 'lucide-react';
+import PageHeader from '../components/PageHeader';
 
-const ProduccionEstadistica = () => { // 2. Quitamos onNavigate
-  const navigate = useNavigate(); // 3. Inicializamos el hook
-
-  // Estos son los nombres exactos de los archivos que me mostraste en la imagen
+const ProduccionEstadistica = () => {
   const documentos = [
     { id: 1, titulo: "Actividades-Produccion-H.-Melipilla_2025", fecha: "2025", link: "http://10.5.131.63/intranet/wp-content/uploads/2025/11/Actividades_Produccion_Melipilla_2025-1.xlsx" },
     { id: 2, titulo: "Actividades-Produccion-H.-Melipilla_2024", fecha: "2024", link: "http://10.5.131.63/intranet/wp-content/uploads/2025/10/Actividades-Produccion-H.-Melipilla_2024-Actualizado.xlsx" },
@@ -18,33 +15,16 @@ const ProduccionEstadistica = () => { // 2. Quitamos onNavigate
   return (
     <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[600px] animate-in fade-in zoom-in duration-500 w-full font-sans relative">
       
-      {/* HEADER DE LA SECCIÓN */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12 border-b pb-8">
-        <div>
-          <button 
-            onClick={() => navigate('/inicio')} // 4. CORRECCIÓN: Usamos navigate('/inicio')
-            className="bg-[#003876]/5 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-6 text-xs border border-[#003876]/10 shadow-sm"
-          >
-            <ChevronLeft size={18} /> VOLVER AL INICIO
-          </button>
-          <div className="flex items-center gap-4">
-            <div className="bg-blue-600 p-3 rounded-2xl text-white shadow-lg">
-              <BarChart3 size={32} />
-            </div>
-            <div>
-              <h2 className="text-4xl md:text-5xl font-black text-[#003876] uppercase italic tracking-tighter leading-none">
-                Producción – <span className="text-[#003876]">Estadísticas</span>
-              </h2>
-              <p className="text-[#00a19a] font-bold uppercase tracking-widest mt-2 text-sm">
-                Registro de Actividades e Indicadores Hospitalarios
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="hidden lg:flex items-center gap-2 text-slate-400 bg-slate-50 px-4 py-2 rounded-full text-xs font-bold border border-slate-100">
-          <FileSpreadsheet size={16} className="text-blue-600" /> Control de Gestión
-        </div>
-      </div>
+      <PageHeader
+        title={<>Producción – <span className="text-[#003876]">Estadísticas</span></>}
+        subtitle="Registro de Actividades e Indicadores Hospitalarios"
+        badge="Control de Gestión"
+        badgeIcon={FileSpreadsheet}
+        icon={BarChart3}
+        iconBg="bg-blue-600"
+        showBackButton={true}
+        backPath="/inicio"
+      />
 
       {/* LISTADO DE DOCUMENTOS (AHORA COMO LINKS DIRECTOS) */}
       <div className="max-w-4xl mx-auto space-y-6">
@@ -63,8 +43,6 @@ const ProduccionEstadistica = () => { // 2. Quitamos onNavigate
                     {doc.titulo}
                   </span>
                 </div>
-                
-                {/* Meta Información (Opcional, pero se ve bien) */}
                 <div className="flex items-center gap-2 ml-5 md:ml-0 opacity-60 group-hover:opacity-100 transition-opacity">
                    <div className="flex items-center gap-1 bg-slate-50 px-2 py-0.5 rounded-md border border-slate-200">
                       <Calendar size={12} className="text-slate-500" />

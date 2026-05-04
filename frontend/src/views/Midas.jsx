@@ -1,10 +1,8 @@
 import React from 'react';
-import { ChevronLeft, Youtube } from 'lucide-react';
-import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
+import { Youtube } from 'lucide-react';
+import PageHeader from '../components/PageHeader';
 
-const Midas = () => { // 2. Quitamos el prop onNavigate
-  const navigate = useNavigate(); // 3. Inicializamos el hook
-
+const Midas = () => {
   // Lista de documentos
   const documentos = [
     { name: "DECRETO 1 REGLAMENTO DE PREVENCIÓN Y CONTROL DE LA RABIA EN EL HOMBRE Y EN LOS ANIMALES", link: "http://10.5.131.63/intranet/wp-content/uploads/2024/11/DECREO-1-REGLAMENTO-DE-PREVENCION-Y-CONTROL-DE-LA-RABIA-EN-EL-HOMBRE-Y-EN-LOS-ANIMALES.pdf" },
@@ -14,7 +12,6 @@ const Midas = () => { // 2. Quitamos el prop onNavigate
     { name: "Flujograma Rabia 2025 HSJM", link: "http://10.5.131.63/intranet/wp-content/uploads/2025/06/Flujograma-Rabia-2025-HSJM.pdf" },
   ];
 
-  // Lista de los 3 videos con los enlaces CORRECTOS (formato embed)
   const videos = [
     { titulo: "TUTORIAL USO DE PLATAFORMA", url: "https://www.youtube.com/embed/jzfQxqunuOQ" },
     { titulo: "TUTORIAL BANDEJA DE ALARMAS ", url: "https://www.youtube.com/embed/525zklJJy6A" },
@@ -24,18 +21,12 @@ const Midas = () => { // 2. Quitamos el prop onNavigate
   return (
     <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[600px] animate-in fade-in zoom-in duration-500 w-full font-sans">
       
-      {/* HEADER CON BOTÓN VOLVER */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10 border-b pb-8">
-        <div>
-          <button 
-            onClick={() => navigate('/accesos')} // 4. Usamos navigate
-            className="bg-slate-100 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-4 text-sm"
-          >
-            <ChevronLeft size={18} /> VOLVER A ACCESOS
-          </button>
-          <h2 className="text-4xl md:text-5xl font-black text-slate-700 tracking-tighter uppercase italic">Midas</h2>
-        </div>
-      </div>
+      <PageHeader
+        title="Midas"
+        showBackButton={true}
+        backPath="/accesos"
+        backLabel="VOLVER A ACCESOS"
+      />
 
       <div className="max-w-5xl mx-auto space-y-12 pt-2">
         

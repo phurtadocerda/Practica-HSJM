@@ -1,11 +1,8 @@
 import React from 'react';
-import { ChevronLeft, Users, FileText, FolderOpen } from 'lucide-react';
-import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
+import { Users, FileText, FolderOpen } from 'lucide-react';
+import PageHeader from '../components/PageHeader';
 
-const ParticipacionCiudadana = () => { // 2. Quitamos onNavigate
-  const navigate = useNavigate(); // 3. Inicializamos el hook
-
-  // Los 3 documentos de tu imagen
+const ParticipacionCiudadana = () => {
   const documentos = [
     { titulo: "Plan de Trabajo y cronograma de actividades Unidad de Participación HSJM_2025", link: "http://10.5.131.63/intranet/wp-content/uploads/2025/07/Plan-de-Trabajo-y-cronograma-de-actividades-Unidad-de-Participacion-HSJM_2025.pdf" },
     { titulo: "Plan Anual de acciones de Participación y cronograma de actividades +Resolución Enc.Participación Indicador EAR C.4.2", link: "http://10.5.131.63/intranet/wp-content/uploads/2023/06/Plan-Anual-de-acciones-de-Participacion-y-cronograma-de-actividades-Resolucion-Enc.Participacion-Indicador-EAR-C.4.2.pdf" },
@@ -15,33 +12,16 @@ const ParticipacionCiudadana = () => { // 2. Quitamos onNavigate
   return (
     <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[600px] w-full font-sans animate-in fade-in zoom-in duration-500">
       
-      {/* HEADER DE LA SECCIÓN */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12 border-b pb-8">
-        <div>
-          <button
-            onClick={() => navigate('/inicio')} // 4. CORRECCIÓN: Usamos navigate
-            className="bg-[#003876]/5 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-6 text-xs shadow-sm"
-          >
-            <ChevronLeft size={18} /> VOLVER AL INICIO
-          </button>
-          <div className="flex items-center gap-4">
-            <div className="bg-emerald-500 p-3 rounded-2xl text-white shadow-lg">
-              <Users size={32} />
-            </div>
-            <div>
-              <h2 className="text-4xl md:text-5xl font-black text-[#003876] uppercase italic tracking-tighter leading-none">
-                Participación <span className="text-emerald-500">Ciudadana</span>
-              </h2>
-              <p className="text-slate-400 font-bold uppercase tracking-widest mt-2 text-sm">
-                Plan Anual de Acciones y Actividades
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="hidden lg:flex items-center gap-2 text-slate-400 bg-slate-50 px-4 py-2 rounded-full text-xs font-bold border border-slate-100">
-          <FolderOpen size={16} className="text-emerald-500" /> Biblioteca
-        </div>
-      </div>
+      <PageHeader
+        title={<>Participación <span className="text-emerald-500">Ciudadana</span></>}
+        subtitle="Plan Anual de Acciones y Actividades"
+        badge="Biblioteca"
+        badgeIcon={FolderOpen}
+        icon={Users}
+        iconBg="bg-emerald-500"
+        showBackButton={true}
+        backPath="/inicio"
+      />
 
       {/* LISTADO DE DOCUMENTOS */}
       <div className="max-w-5xl mx-auto">
