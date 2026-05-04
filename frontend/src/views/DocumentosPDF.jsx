@@ -1,26 +1,21 @@
 import React from 'react';
-import { ChevronLeft, FileText } from 'lucide-react';
-import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
+import { FileText } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import PageHeader from '../components/PageHeader';
 
 const DocumentosPDF = () => { // 2. Quitamos onNavigate
   const navigate = useNavigate(); // 3. Inicializamos el hook
 
   return (
     <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[600px] w-full font-sans animate-in fade-in zoom-in duration-500">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12 border-b pb-8">
-        <div>
-          <button 
-            onClick={() => navigate('/inicio')} // 4. CORRECCIÓN: Usamos navigate('/inicio')
-            className="bg-[#003876]/5 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 mb-6 text-xs transition-all"
-          >
-            <ChevronLeft size={18} /> VOLVER AL INICIO
-          </button>
-          <div className="flex items-center gap-4">
-            <div className="bg-slate-700 p-3 rounded-2xl text-white shadow-lg"><FileText size={32} /></div>
-            <h2 className="text-4xl md:text-5xl font-black text-[#003876] uppercase italic tracking-tighter">Documentos <span className="text-slate-500">PDF</span></h2>
-          </div>
-        </div>
-      </div>
+      
+      <PageHeader
+        title={<> Documentos <span className="text-slate-500">PDF</span></>}
+        onBack={() => navigate('/inicio')}
+        backLabel="VOLVER AL INICIO"
+        icon={FileText}
+        iconBg="bg-slate-700"
+      />
 
       <div className="max-w-5xl mx-auto pt-4">
         <h3 className="text-slate-500 italic font-bold text-lg mb-8">Descargar:</h3>

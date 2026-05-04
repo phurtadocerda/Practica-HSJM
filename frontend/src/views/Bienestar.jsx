@@ -1,9 +1,7 @@
-// src/views/Bienestar.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronLeft, FileText, Mail, BookOpen } from 'lucide-react';
-
-// Importa la imagen (ajusta la ruta si es necesario)
+import { FileText, Mail, BookOpen } from 'lucide-react';
+import PageHeader from '../components/PageHeader';
 import imagenHeroes from '../assets/heroes.png';
 
 const Bienestar = () => {
@@ -16,14 +14,12 @@ const Bienestar = () => {
       {/* VISTA PRINCIPAL DE BIENESTAR */}
       {view === 'main' && (
         <>
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-16 border-b pb-8">
-            <div>
-              <button onClick={() => navigate('/accesos')} className="bg-slate-100 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-4 text-sm">
-                <ChevronLeft size={18} /> VOLVER A ACCESOS
-              </button>
-              <h2 className="text-4xl md:text-5xl font-black text-slate-700">Bienestar</h2>
-            </div>
-          </div>
+          <PageHeader
+            title="Bienestar"
+            subtitle="Bienestar institucional"
+            onBack={() => navigate('/accesos')}
+            backLabel="VOLVER A ACCESOS"
+          />
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto items-center">
             <BienestarCard title="Formularios" icon={<FileText size={56} strokeWidth={1.5} />} onClick={() => setView('formularios')} />
@@ -95,14 +91,11 @@ const Bienestar = () => {
 
 // Componentes auxiliares exclusivos de Bienestar
 const HeaderSubvista = ({ titulo, onVolver }) => (
-  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10 border-b pb-8">
-    <div>
-      <button onClick={onVolver} className="bg-slate-100 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-4 text-sm">
-        <ChevronLeft size={18} /> VOLVER A BIENESTAR
-      </button>
-      <h2 className="text-4xl md:text-5xl font-black text-slate-700">{titulo}</h2>
-    </div>
-  </div>
+  <PageHeader
+    title={titulo}
+    onBack={onVolver}
+    backLabel="VOLVER A BIENESTAR"
+  />
 );
 
 const BienestarCard = ({ title, icon, onClick }) => (

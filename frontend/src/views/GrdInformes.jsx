@@ -1,9 +1,8 @@
 import React from 'react';
-import { ChevronLeft, Microscope, BookOpen, FolderOpen } from 'lucide-react';
-import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
+import { Microscope, BookOpen, FolderOpen } from 'lucide-react';
+import PageHeader from '../components/PageHeader';
 
 const GrdInformes = () => { // 2. Quitamos onNavigate
-  const navigate = useNavigate(); // 3. Inicializamos el hook
 
   const informes2024 = [
     { titulo: "Informe Estandar diciembre 2024", link: "http://10.5.131.63/intranet/wp-content/uploads/2025/02/Informe-Estandar-diciembre-2024.xlsx" },
@@ -37,23 +36,13 @@ const GrdInformes = () => { // 2. Quitamos onNavigate
 
   return (
     <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[600px] w-full font-sans">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12 border-b pb-8">
-        <div>
-          <button 
-            onClick={() => navigate('/inicio')} // 4. CORRECCIÓN: Usamos navigate('/inicio')
-            className="bg-[#003876]/5 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 mb-6 text-xs"
-          >
-            <ChevronLeft size={18} /> VOLVER AL INICIO
-          </button>
-          <div className="flex items-center gap-4">
-            <div className="bg-purple-600 p-3 rounded-2xl text-white shadow-lg"><Microscope size={32} /></div>
-            <div>
-              <h2 className="text-4xl md:text-5xl font-black text-[#003876] uppercase italic tracking-tighter">GRD-<span className="text-purple-600">Informes</span></h2>
-            </div>
-          </div>
-        </div>
-      </div>
 
+      <PageHeader
+        title={<>GRD-<span className="text-purple-600">Informes</span></>}
+        icon={Microscope}
+        iconBg='bg-purple-600'
+      />
+  
       <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
         <div>
           <h3 className="text-xl font-black text-[#003876] uppercase tracking-tighter mb-6 flex items-center gap-2 border-b-2 border-purple-100 pb-2">

@@ -1,7 +1,10 @@
 import React from 'react';
-import { ChevronLeft, ShieldCheck, FolderOpen } from 'lucide-react';
+import { ShieldCheck, FolderOpen } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import PageHeader from '../components/PageHeader';
 
-const EnfermedadesTransmisibles = ({ onNavigate }) => {
+const EnfermedadesTransmisibles = () => {
+  const navigate = useNavigate();
   const categorias = [
     {
       id: 1, nombre: "Cólera y Hanta Virus",
@@ -35,20 +38,14 @@ const EnfermedadesTransmisibles = ({ onNavigate }) => {
 
   return (
     <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[600px] w-full">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12 border-b pb-8">
-        <div>
-          <button onClick={() => onNavigate('inicio')} className="bg-[#003876]/5 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 mb-6 text-xs">
-            <ChevronLeft size={18} /> VOLVER AL INICIO
-          </button>
-          <div className="flex items-center gap-4">
-            <div className="bg-red-500 p-3 rounded-2xl text-white shadow-lg"><ShieldCheck size={32} /></div>
-            <div>
-              <h2 className="text-4xl md:text-5xl font-black text-[#003876] uppercase italic tracking-tighter">Enfermedades <span className="text-red-500">Transmisibles</span></h2>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      <PageHeader
+        title={<>Enfermedades <span className="text-red-500">Transmisibles</span></>}
+        onBack={() => navigate('/inicio')}
+        backLabel="VOLVER AL INICIO"
+        icon={ShieldCheck}
+        iconBg="bg-red-500"
+      />
+ 
       <div className="max-w-4xl mx-auto space-y-12">
         {categorias.map((categoria) => (
           <div key={categoria.id}>

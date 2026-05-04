@@ -124,8 +124,8 @@ const Gremio = ({ userRole }) => { // Recibe el rol desde App.js -> AppRoutes
       <PageHeader
         title="Noticias Gremiales"
         subtitle="Información gremial y comunicados"
-        showBackButton
-        backPath="/inicio"
+        // showBackButton
+        // backPath="/inicio"
         rightContent={
           <>
             {isJefe && !showForm && <AddButton onClick={() => setShowForm(true)} 

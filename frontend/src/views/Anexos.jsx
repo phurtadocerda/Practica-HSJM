@@ -295,10 +295,10 @@ const Anexos = ({ userRole }) => {
         subtitle="Directorio Telefónico Interno"
         // onBack={() => navigate('/inicio')}
         // backLabel="INICIO"
-        showBackButton
-        backPath='/inicio'
+        // showBackButton
+        // backPath='/inicio'
         rightContent={
-          <>
+          <div className="flex flex-col items-end gap-3">
             {isJefe && !showForm && (
               <AddButton onClick={() => setShowForm(true)} />
             )}
@@ -309,7 +309,7 @@ const Anexos = ({ userRole }) => {
                 setPaginaActual(1);
               }}
             />
-          </>
+          </div>
         }
       />
 

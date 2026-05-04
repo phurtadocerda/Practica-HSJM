@@ -1,9 +1,9 @@
 import React from 'react';
-import { ChevronLeft, FileText } from 'lucide-react';
-import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
+import { useNavigate } from 'react-router-dom';
+import PageHeader from '../components/PageHeader';
 
-const ArsenalFarmacologico = () => { // 2. Quitamos { onNavigate } de los props
-  const navigate = useNavigate(); // 3. Inicializamos la navegación
+const ArsenalFarmacologico = () => {
+  const navigate = useNavigate();
 
   // === LINKS DEL ARSENAL ===
   const linkImagen = "http://10.5.131.63/intranet/wp-content/uploads/2020/01/Arsenal2020.pdf"; 
@@ -12,28 +12,17 @@ const ArsenalFarmacologico = () => { // 2. Quitamos { onNavigate } de los props
   return (
     <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[600px] animate-in fade-in zoom-in duration-500 w-full font-sans relative mt-6">
       
-      {/* HEADER */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12 border-b pb-8">
-        <div>
-          <button 
-            onClick={() => navigate('/inicio')} // 4. Corregido para usar navigate
-            className="bg-slate-100 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-6 text-sm shadow-sm"
-          >
-            <ChevronLeft size={18} strokeWidth={3} /> VOLVER A INICIO
-          </button>
-          <div className="flex items-center gap-4">
-            <FileText className="text-[#00a19a] hidden md:block" size={48} />
-            <h2 className="text-3xl md:text-5xl font-black text-slate-700 tracking-tighter uppercase italic">
-              Arsenal <span className="text-[#003876]">Farmacológico</span>
-            </h2>
-          </div>
-        </div>
-      </div>
+      <PageHeader
+        title={<>Arsenal <span className="text-cyan-600">Farmacológico</span></>}
+        subtitle="Información de medicamentos"
+        onBack={() => navigate('/inicio')}
+        backLabel="VOLVER"
+      />
 
       {/* CONTENIDO CENTRAL */}
       <div className="max-w-4xl mx-auto flex flex-col items-start pt-8 pl-4 md:pl-12">
         
-        {/* 1. LINK DE LA IMAGEN (ICONO PDF) */}
+        {/* LINK DE LA IMAGEN (ICONO PDF) */}
         <a 
           href={linkImagen} 
           target="_blank" 
@@ -54,7 +43,7 @@ const ArsenalFarmacologico = () => { // 2. Quitamos { onNavigate } de los props
           <div className="w-full h-1 bg-[#00a19a] mt-6"></div>
         </a>
 
-        {/* 2. LINK DEL TEXTO SUBRAYADO */}
+        {/* LINK DEL TEXTO SUBRAYADO */}
         <a 
           href={linkTexto}
           target="_blank" 

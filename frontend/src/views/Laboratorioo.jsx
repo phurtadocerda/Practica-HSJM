@@ -1,9 +1,9 @@
 import React from 'react';
-import { ChevronLeft } from 'lucide-react';
-import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
+import { useNavigate } from 'react-router-dom'; 
+import PageHeader from '../components/PageHeader';
 
-const LaboratorioInstructivo = () => { // 2. Quitamos el prop onNavigate antiguo
-  const navigate = useNavigate(); // 3. Inicializamos el hook para navegar
+const LaboratorioInstructivo = () => { 
+  const navigate = useNavigate();
 
   // === LISTA DE DOCUMENTOS EXACTA DE TU IMAGEN ===
   const documentos = [
@@ -19,21 +19,12 @@ const LaboratorioInstructivo = () => { // 2. Quitamos el prop onNavigate antiguo
   return (
     <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[600px] animate-in fade-in zoom-in duration-500 w-full font-sans">
       
-      {/* HEADER CON BOTÓN VOLVER Y TÍTULO GRANDE */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10 border-b pb-8">
-        <div>
-          <button 
-            onClick={() => navigate('/accesos')} // 4. Cambiamos onNavigate por navigate('/ruta')
-            className="bg-slate-100 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-4 text-sm shadow-sm"
-          >
-            <ChevronLeft size={18} strokeWidth={3} /> VOLVER A ACCESOS
-          </button>
-          <h2 className="text-4xl md:text-5xl font-black text-slate-700 tracking-tighter uppercase mt-2">
-            LABORATORIO – INSTRUCTIVOS EXÁMENES Y FORMULARIOS ISP
-          </h2>
-        </div>
-      </div>
-
+      < PageHeader
+        title={"laboratorio – instructivos exámenes y formularios ISP"}
+        onBack={() => navigate('/accesos')}
+        backLabel="VOLVER A ACCESOS"
+      />
+      
       {/* CONTENEDOR MÁS ANCHO PARA EVITAR ESPACIO BLANCO */}
       <div className="w-full max-w-7xl mx-auto space-y-10 pt-4 flex flex-col items-start">
         

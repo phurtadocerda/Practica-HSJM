@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook para navegar
+import { useNavigate } from 'react-router-dom';
+import PageHeader from '../components/PageHeader';
 
 // === IMPORTACIÓN DIRECTA DE IMÁGENES ===
-// (Asegúrate de que estos archivos existan en tu carpeta src/assets con estos nombres)
 import ley from '../assets/ley.png';
 import ley2 from '../assets/ley2.png';
 import violencia from '../assets/violencia.png';
 import salud from '../assets/salud.png';
-import logoHospital from '../assets/logo.png';
 
-const CalidadDeVida = () => { // 2. Quitamos los props antiguos (onNavigate y fotos)
-  const navigate = useNavigate(); // 3. Inicializamos el hook
+const CalidadDeVida = () => { 
+  const navigate = useNavigate();
   const [currentImg, setCurrentImg] = useState(0);
   
   const documentos = [
@@ -26,40 +25,18 @@ const CalidadDeVida = () => { // 2. Quitamos los props antiguos (onNavigate y fo
     { name: "Protocolo Salud mental funcionarios/as", link: "https://drive.google.com/file/d/1Hl3vvyz9NRdvHPOEV4cZSgCVG5jUUlQf/view" },
   ];
 
-  // Carrusel usando las imágenes importadas arriba
   const carruselFotos = [salud, ley, ley2, violencia]; 
 
   return (
     <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[600px] animate-in fade-in zoom-in duration-500 w-full font-sans">
       
-      {/* HEADER SIMPLE CON VOLVER */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10 border-b pb-8">
-        <div>
-          <button 
-            onClick={() => navigate('/accesos')} // 4. Cambiamos a navigate('/ruta')
-            className="bg-slate-100 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-4 text-sm"
-          >
-            <ChevronLeft size={18} /> VOLVER A ACCESOS
-          </button>
-          <h2 className="text-4xl md:text-5xl font-black text-slate-700 tracking-tighter uppercase italic">Calidad de Vida</h2>
-          <p className="text-[#00a19a] font-bold uppercase tracking-widest mt-2">Hospital San José de Melipilla</p>
-        </div>
-      </div>
-
-      {/* 1. CABECERA DE COLOR */}
-      <div className="bg-gradient-to-r from-[#003e44] via-[#003e44] to-[#01a09d] rounded-t-xl p-6 flex items-center justify-between border-b-4 border-[#01a09d]">
-        <div className="bg-white p-2 rounded-lg shadow-md shrink-0">
-          <img src={logoHospital} alt="Logo Hospital" className="h-16 w-auto" />
-        </div>
-        
-        <h3 className="text-white text-4xl md:text-6xl font-black italic tracking-tighter uppercase mr-10 leading-none">
-          calidad de vida
-        </h3>
-      </div>
-
-      {/* 2. CONTENEDOR PRINCIPAL CON BORDE AZUL MARINO */}
-      <div className="border-2 border-[#003876] p-4 md:p-10 bg-white shadow-inner rounded-b-xl">
-        
+      <PageHeader
+        title="Calidad de Vida"
+        subtitle="Hospital San José de Melipilla"
+        onBack={() => navigate('/accesos')}
+        backLabel="VOLVER A ACCESOS"
+      />
+     
         {/* 3. CARRUSEL "PAUSA SALUDABLE" */}
         <div className="max-w-2xl mx-auto mb-10 relative group">
           <div className="relative h-[250px] md:h-[350px] overflow-hidden rounded-xl border border-slate-200 shadow-md bg-slate-100">
@@ -89,10 +66,6 @@ const CalidadDeVida = () => { // 2. Quitamos los props antiguos (onNavigate y fo
               <ChevronRight size={28} className="text-[#003876] stroke-[3]" />
             </button>
           </div>
-          
-          <p className="text-center mt-3 font-bold text-slate-700 italic border-b border-slate-200 pb-2 uppercase text-[10px] tracking-[0.2em]">
-            Pausa Saludable
-          </p>
         </div>
 
         {/* 4. LISTADO DE DOCUMENTOS */}
@@ -113,8 +86,6 @@ const CalidadDeVida = () => { // 2. Quitamos los props antiguos (onNavigate y fo
             ))}
           </ul>
         </div>
-      </div>
-
     </section>
   );
 };

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronLeft, FileText, Plus, Trash2, X, Save } from 'lucide-react';
+import { FileText, Plus, Trash2, X, Save } from 'lucide-react';
+import PageHeader from '../components/PageHeader';
+import AddButton from '../components/AddButton';
 
 const Concurso = ({ userRole }) => {
   const navigate = useNavigate();
@@ -53,26 +55,16 @@ const Concurso = ({ userRole }) => {
 
   return (
     <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[600px] animate-in fade-in zoom-in duration-500 w-full">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10 border-b pb-8">
-        <div>
-          <button onClick={() => navigate('/accesos')} className="bg-slate-100 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-4 text-sm">
-            <ChevronLeft size={18} /> VOLVER A ACCESOS
-          </button>
-          <h2 className="text-4xl md:text-5xl font-black text-slate-700 uppercase italic tracking-tighter">
-            Concursos <span className="text-[#00a19a]">Internos</span>
-          </h2>
-        </div>
-
-        {/* BOTÓN AÑADIR (Solo Jefe) */}
-        {isJefe && (
-          <button 
-            onClick={() => setShowForm(true)}
-            className="bg-[#003876] text-white px-6 py-3 rounded-full font-black flex items-center gap-2 shadow-lg hover:scale-105 transition-all"
-          >
-            <Plus size={20} /> NUEVO CONCURSO
-          </button>
-        )}
-      </div>
+      <PageHeader
+        title={<>Concursos <span className="text-[#00a19a]">Internos</span></>}
+        onBack={() => navigate('/accesos')}
+        backLabel="VOLVER A ACCESOS"
+        rightContent={
+          isJefe && !showForm && (
+            <AddButton onClick={() => setShowForm(true)} />
+          )
+        }
+      />
 
       {/* FORMULARIO (Solo Jefe) */}
       {showForm && (

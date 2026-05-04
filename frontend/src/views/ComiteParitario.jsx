@@ -1,7 +1,8 @@
 // src/views/ComiteParitario.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronLeft, FolderOpen, FileText } from 'lucide-react';
+import { FolderOpen, FileText } from 'lucide-react';
+import PageHeader from '../components/PageHeader';
 
 // --- IMPORTACIÓN DE IMÁGENES ---
 import ComiteIntegrantes from '../assets/integrantes_comite.png'; 
@@ -25,20 +26,15 @@ const ComiteParitario = () => {
   return (
     <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[600px] animate-in fade-in zoom-in duration-500 w-full">
       
-      {/* ============================================================== */}
       {/* VISTA PRINCIPAL: MENÚ DEL COMITÉ */}
-      {/* ============================================================== */}
       {view === 'main' && (
         <>
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10 border-b pb-8">
-            <div>
-              <button onClick={() => navigate('/accesos')} className="bg-slate-100 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-4 text-sm">
-                <ChevronLeft size={18} /> VOLVER A ACCESOS
-              </button>
-              <h2 className="text-4xl md:text-5xl font-black text-slate-700 tracking-tighter">Comité Paritario</h2>
-              <p className="text-[#00a19a] font-bold uppercase tracking-widest mt-2">Higiene y Seguridad - HSJM</p>
-            </div>
-          </div>
+          <PageHeader
+            title="Comité Paritario"
+            subtitle="Higiene y Seguridad - HSJM"
+            onBack={() => navigate('/accesos')}
+            backLabel="VOLVER A ACCESOS"
+          />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
             <div className="bg-slate-50 p-4 rounded-3xl border border-slate-200">
@@ -58,10 +54,7 @@ const ComiteParitario = () => {
           </div>
         </>
       )}
-
-      {/* ============================================================== */}
       {/* SUB-VISTA: ESTADÍSTICAS */}
-      {/* ============================================================== */}
       {view === 'estadisticas' && (
         <>
           <HeaderSubvista titulo="Estadísticas" onVolver={() => setView('main')} />
@@ -106,10 +99,7 @@ const ComiteParitario = () => {
           </div>
         </>
       )}
-
-      {/* ============================================================== */}
       {/* SUB-VISTA: ACTAS Y RESOLUCIONES */}
-      {/* ============================================================== */}
       {view === 'actas' && (
         <>
           <HeaderSubvista titulo="Resolución / Actas" onVolver={() => setView('main')} uppercase={true} />
@@ -187,9 +177,7 @@ const ComiteParitario = () => {
         </>
       )}
 
-      {/* ============================================================== */}
       {/* SUB-VISTA: CALENDARIO */}
-      {/* ============================================================== */}
       {view === 'calendario' && (
         <>
           <HeaderSubvista titulo="Calendario" onVolver={() => setView('main')} uppercase={true} />
@@ -230,9 +218,7 @@ const ComiteParitario = () => {
         </>
       )}
 
-      {/* ============================================================== */}
       {/* SUB-VISTA: FORMULARIOS */}
-      {/* ============================================================== */}
       {view === 'formularios' && (
         <>
           <HeaderSubvista titulo="Formularios" onVolver={() => setView('main')} uppercase={true} />
@@ -272,9 +258,7 @@ const ComiteParitario = () => {
         </>
       )}
 
-      {/* ============================================================== */}
       {/* SUB-VISTA: CAMPAÑAS */}
-      {/* ============================================================== */}
       {view === 'campanas' && (
         <>
           <HeaderSubvista titulo="Campañas y/o Actividades" onVolver={() => setView('main')} uppercase={true} />
@@ -316,21 +300,15 @@ const ComiteParitario = () => {
   );
 };
 
-// ==========================================
 // COMPONENTES AUXILIARES ESPECÍFICOS DE COMITÉ
-// ==========================================
 
 const HeaderSubvista = ({ titulo, onVolver, uppercase }) => (
-  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10 border-b pb-8">
-    <div>
-      <button onClick={onVolver} className="bg-slate-100 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-4 text-sm">
-        <ChevronLeft size={18} /> VOLVER AL COMITÉ
-      </button>
-      <h2 className={`text-4xl md:text-5xl font-black text-slate-700 tracking-tighter ${uppercase ? 'uppercase italic' : ''}`}>
-        {titulo}
-      </h2>
-    </div>
-  </div>
+  <PageHeader
+    title={titulo}
+    onBack={onVolver}
+    backLabel="VOLVER AL COMITÉ"
+    showBackButton={true}
+  />
 );
 
 const FolderCard = ({ title, onClick }) => (

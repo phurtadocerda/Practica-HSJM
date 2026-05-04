@@ -1,4 +1,3 @@
-// src/views/Inicio.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // <-- IMPORTANTE: Nuevo Hook
 import { ChevronLeft, ChevronRight, ShieldCheck, Database, Users, LogIn, Key } from 'lucide-react';
