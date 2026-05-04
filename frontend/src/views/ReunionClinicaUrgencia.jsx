@@ -1,11 +1,9 @@
 import React from 'react';
-import { ChevronLeft, Activity, FolderOpen, Download } from 'lucide-react';
-import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
+import { Activity, FolderOpen, Download } from 'lucide-react';
+import PageHeader from '../components/PageHeader'; // Importamos el componente unificado
 
-const ReunionClinicaUrgencia = () => { // 2. Quitamos onNavigate de aquí
-  const navigate = useNavigate(); // 3. Inicializamos la navegación
-
-  // Lista de documentos con los enlaces corregidos (usando / en vez de \)
+const ReunionClinicaUrgencia = () => {
+  // Lista de documentos
   const documentos = [
     { titulo: "SECUENCIA DE INTUBACION RAPIDA", link: "http://10.5.131.63/intranet/urgencia/ir.pptx" },
     { titulo: "ORGANIZACIÓN DURANTE RCP 2", link: "http://10.5.131.63/intranet/urgencia/2.pptx" },
@@ -23,30 +21,15 @@ const ReunionClinicaUrgencia = () => { // 2. Quitamos onNavigate de aquí
   return (
     <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[600px] w-full font-sans animate-in fade-in zoom-in duration-500">
       
-      {/* HEADER */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12 border-b pb-8">
-        <div>
-          <button
-            onClick={() => navigate('/inicio')} // 4. CORRECCIÓN: Usamos navigate('/inicio')
-            className="bg-[#003876]/5 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-6 text-xs shadow-sm"
-          >
-            <ChevronLeft size={18} /> VOLVER AL INICIO
-          </button>
-          <div className="flex items-center gap-4">
-            <div className="bg-red-600 p-3 rounded-2xl text-white shadow-lg">
-              <Activity size={32} />
-            </div>
-            <div>
-              <h2 className="text-4xl md:text-5xl font-black text-[#003876] uppercase italic tracking-tighter leading-none">
-                Reunion Clínica <span className="text-red-600">Urgencia</span>
-              </h2>
-            </div>
-          </div>
-        </div>
-        <div className="hidden lg:flex items-center gap-2 text-slate-400 bg-slate-50 px-4 py-2 rounded-full text-xs font-bold border border-slate-100">
-          <FolderOpen size={16} className="text-red-600" /> Documento de la información
-        </div>
-      </div>
+    
+      <PageHeader 
+        title={<>Reunión Clínica <span className="text-red-600">Urgencia</span></>}
+        badge="Documento de la información"
+        badgeIcon={FolderOpen}
+        icon={Activity}
+        iconBg="bg-red-600"
+        backPath="/inicio" 
+      />
 
       {/* CUERPO: LISTA DE DESCARGAS */}
       <div className="max-w-5xl mx-auto pt-4">

@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { ChevronLeft, Map, Download, FileText, MapPin, Filter } from 'lucide-react';
-import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
+import { Map, Download, FileText, MapPin, Filter } from 'lucide-react';
+import PageHeader from '../components/PageHeader';
 
-const Planos = () => { // 2. Quitamos el prop onNavigate
-  const navigate = useNavigate(); // 3. Inicializamos el hook para navegar
-
+const Planos = () => {
   const listaPlanos = [
     // ÍNDICE
     { id: 1, categoria: "Índice", nombre: "HSJM-AR-DW-000 (UNIDADES CLÍNICAS)", url: "http://10.5.131.63/intranet/wp-content/uploads/2023/04/HSJM-AR-DW-000-UNIDADES-CLINICAS_Rev-6_SEREMI-000.pdf" },
@@ -89,26 +87,16 @@ const Planos = () => { // 2. Quitamos el prop onNavigate
   return (
     <section className="bg-slate-50 rounded-[1.5rem] p-3 md:p-8 shadow-2xl border border-slate-100 min-h-[85vh] w-full font-sans animate-in fade-in zoom-in duration-500 flex flex-col mb-20 md:mb-0">
       
-      {/* HEADER TÍTULO */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b border-slate-200 pb-4">
-        <div>
-          {/* BOTÓN VOLVER ARREGLADO */}
-          <button onClick={() => navigate('/inicio')} className="bg-white hover:bg-[#ffb81c] text-[#003876] px-4 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-3 text-[10px] md:text-xs shadow-sm border border-slate-200">
-            <ChevronLeft size={14} /> VOLVER
-          </button>
-          <div className="flex items-center gap-2">
-            <div className="bg-[#003876] p-2 rounded-lg text-white shadow-md hidden md:block">
-              <Map size={20} />
-            </div>
-            <h2 className="text-2xl md:text-4xl font-black text-[#003876] uppercase italic tracking-tighter leading-none">
-              Planos <span className="text-cyan-600">Hospital</span>
-            </h2>
-          </div>
-        </div>
-        <div className="hidden md:flex items-center gap-2 text-slate-400 bg-white shadow-sm border border-slate-100 px-4 py-2 rounded-full text-xs font-bold">
-          <FileText size={16} className="text-cyan-600" /> Oficiales PDF
-        </div>
-      </div>
+      <PageHeader
+        title={<>Planos <span className="text-cyan-600">Hospital</span></>}
+        badge="Oficiales PDF"
+        badgeIcon={FileText}
+        icon={Map}
+        iconBg="bg-[#003876]"
+        showBackButton={true}
+        backPath="/inicio"
+        backLabel="VOLVER"
+      />
 
       <div className="flex flex-col lg:flex-row gap-4 flex-grow lg:h-[650px]">
         
