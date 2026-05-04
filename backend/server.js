@@ -7,15 +7,20 @@ const cors = require('cors');
 const authRoutes = require('./src/routes/authRoutes');
 const cumpleanosRoutes = require('./src/routes/cumpleanosRoutes');
 
+// Middleware de autenticación
+const { authenticateToken } = require('./src/middlewares/authMiddleware');
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors()); 
 app.use(express.json()); 
 
-// Usar rutas
-app.use('/api', authRoutes);
-app.use('/api', cumpleanosRoutes);
+// Rutas Publicas
+app.use('/api', authRoutes); // Login y Register
+
+//Rutas Protegidas
+app.use('/api', authenticateToken, cumpleanosRoutes);
 
 app.listen(PORT, () => {
   console.log(`🚀 Servidor backend encendido en el puerto ${PORT}`);

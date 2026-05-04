@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MapPin, Instagram, Facebook, Youtube, Twitter } from 'lucide-react';
-import { login as loginUser } from './services/authService';
+import { login as loginUser, logout as logoutUser, getUser } from './services/authService';
 
 // --- COMPONENTES PRINCIPALES ---
 import Login from './components/login';
@@ -25,13 +25,13 @@ import foto13 from './assets/foto13.jpeg';
 function App() {
   const navigate = useNavigate(); // Hook de React Router para navegar
 
-  // 1. Sacamos la información del "cajón" (localStorage)
-  const sesionGuardada = JSON.parse(localStorage.getItem('usuario_hsjm'));
+  // 1. Sacamos la información del usuario desde localStorage
+  const user = getUser();
 
   // 2. Configuramos los estados de sesión
-  const [isLoggedIn, setIsLoggedIn] = useState(sesionGuardada?.logueado || false);
-  const [userName, setUserName] = useState(sesionGuardada?.nombre || '');
-  const [userRole, setUserRole] = useState(sesionGuardada?.rol || '');
+  const [isLoggedIn, setIsLoggedIn] = useState(!!user);
+  const [userName, setUserName] = useState(user?.nombre || '');
+  const [userRole, setUserRole] = useState(user?.rol || '');
 
   // Imágenes para pasarle al componente Inicio
   const images = [foto4, foto5, foto6, foto7, foto8, foto9, foto10, foto11, foto12, foto13];
@@ -50,12 +50,6 @@ const handleLogin = async (rutUsuario, passwordUsuario) => {
       setUserName(nombreCompleto);
       setUserRole(rolUsuario);
       setIsLoggedIn(true);
-
-      localStorage.setItem('usuario_hsjm', JSON.stringify({
-        nombre: nombreCompleto,
-        rol: rolUsuario,
-        logueado: true
-      }));
       
       navigate('/inicio');
     }
@@ -66,10 +60,10 @@ const handleLogin = async (rutUsuario, passwordUsuario) => {
 };
 
   const handleLogout = () => {
+    logoutUser();
     setIsLoggedIn(false);
     setUserName('');
     setUserRole('');
-    localStorage.removeItem('usuario_hsjm');
     navigate('/login'); // Redirigimos al login al cerrar sesión
   };
 

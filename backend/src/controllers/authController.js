@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const prisma = require('../config/prisma');
 
 const login = async (req, res) => {
@@ -22,8 +23,21 @@ const login = async (req, res) => {
     if (usuarioEncontrado && await bcrypt.compare(password, usuarioEncontrado.password)) {
       const nombreCompleto = `${usuarioEncontrado.nombres} ${usuarioEncontrado.apellido_paterno}`;
 
+      // Generar token JWT
+      const token = jwt.sign(
+        {
+          rut: usuarioEncontrado.rut,
+          nombre: nombreCompleto,
+          area: usuarioEncontrado.area_trabajo,
+          rol: usuarioEncontrado.rol
+        },
+        process.env.JWT_SECRET,
+        { expiresIn: '1h' }
+      );
+
       res.json({
         success: true,
+        token: token,
         user: {
           nombre: nombreCompleto,
           area: usuarioEncontrado.area_trabajo,
