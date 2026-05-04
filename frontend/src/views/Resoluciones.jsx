@@ -1,9 +1,8 @@
 import React from 'react';
-import { ChevronLeft, FileText, FolderOpen } from 'lucide-react';
-import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
+import { FileText, FolderOpen } from 'lucide-react';
+import PageHeader from '../components/PageHeader';
 
-const Resoluciones = () => { // 2. Quitamos onNavigate
-  const navigate = useNavigate(); // 3. Inicializamos el hook
+const Resoluciones = () => {
 
   // Los documentos de tu imagen
   const documentos = [
@@ -14,33 +13,16 @@ const Resoluciones = () => { // 2. Quitamos onNavigate
   return (
     <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[600px] w-full font-sans animate-in fade-in zoom-in duration-500">
       
-      {/* HEADER DE LA SECCIÓN */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12 border-b pb-8">
-        <div>
-          <button
-            onClick={() => navigate('/inicio')} // 4. CORRECCIÓN: Usamos navigate
-            className="bg-[#003876]/5 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-6 text-xs shadow-sm"
-          >
-            <ChevronLeft size={18} /> VOLVER AL INICIO
-          </button>
-          <div className="flex items-center gap-4">
-            <div className="bg-indigo-600 p-3 rounded-2xl text-white shadow-lg">
-              <FileText size={32} />
-            </div>
-            <div>
-              <h2 className="text-4xl md:text-5xl font-black text-[#003876] uppercase italic tracking-tighter leading-none">
-                Resoluciones <span className="text-indigo-600">Oficiales</span>
-              </h2>
-              <p className="text-slate-400 font-bold uppercase tracking-widest mt-2 text-sm">
-                Documentación Legal y Protocolos Aprobados
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="hidden lg:flex items-center gap-2 text-slate-400 bg-slate-50 px-4 py-2 rounded-full text-xs font-bold border border-slate-100">
-          <FolderOpen size={16} className="text-indigo-600" /> Biblioteca
-        </div>
-      </div>
+      <PageHeader
+        title="Resoluciones Oficiales"
+        subtitle="Documentación Legal y Protocolos Aprobados"
+        badge={"Biblioteca"}
+        badgeIcon={FolderOpen}
+        icon={FileText}
+        iconBg="bg-indigo-600"
+        showBackButton={true}
+        backPath="/inicio"
+      />
 
       {/* LISTADO DE RESOLUCIONES */}
       <div className="max-w-5xl mx-auto">
@@ -58,7 +40,7 @@ const Resoluciones = () => { // 2. Quitamos onNavigate
                   rel="noreferrer"
                   className="flex items-start gap-3 w-fit"
                 >
-                  {/* El puntito que cambia de color */}
+
                   <span className="mt-2 w-2 h-2 rounded-full bg-slate-300 group-hover:bg-indigo-600 transition-colors shrink-0"></span>
                   {/* El texto del enlace */}
                   <span className="text-slate-700 font-bold underline decoration-slate-200 group-hover:decoration-indigo-500 group-hover:text-indigo-800 underline-offset-4 transition-all text-sm md:text-base tracking-wide">

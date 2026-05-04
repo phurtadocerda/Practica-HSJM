@@ -1,10 +1,8 @@
 import React from 'react';
-import { ChevronLeft, Heart, FileText, Video } from 'lucide-react';
-import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
+import { Heart, FileText, Video } from 'lucide-react';
+import PageHeader from '../components/PageHeader';
 
-const Procuramiento = () => { // 2. Quitamos onNavigate
-  const navigate = useNavigate(); // 3. Inicializamos el hook
-
+const Procuramiento = () => {
   const documentos = [
     { titulo: "Clase proceso de donación y procuramiento de órganos y tejidos 2023", link: "http://10.5.131.63/intranet/wp-content/uploads/2023/08/Clase-proceso-de-donacion-y-procuramiento-de-organos-y-tejidos-2023.pptx" }
   ];
@@ -12,30 +10,14 @@ const Procuramiento = () => { // 2. Quitamos onNavigate
   return (
     <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[600px] w-full font-sans animate-in fade-in zoom-in duration-500">
       
-      {/* HEADER DE LA SECCIÓN */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12 border-b pb-8">
-        <div>
-          <button
-            onClick={() => navigate('/inicio')} // 4. CORRECCIÓN: Usamos navigate
-            className="bg-[#003876]/5 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-6 text-xs shadow-sm"
-          >
-            <ChevronLeft size={18} /> VOLVER AL INICIO
-          </button>
-          <div className="flex items-center gap-4">
-            <div className="bg-rose-500 p-3 rounded-2xl text-white shadow-lg">
-              <Heart size={32} />
-            </div>
-            <div>
-              <h2 className="text-4xl md:text-5xl font-black text-[#003876] uppercase italic tracking-tighter leading-none">
-                Procura<span className="text-rose-500">miento</span>
-              </h2>
-              <p className="text-slate-400 font-bold uppercase tracking-widest mt-2 text-sm">
-                Donación de Órganos y Tejidos
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <PageHeader
+        title={<>Procura<span className="text-rose-500">miento</span></>}
+        subtitle="Donación de Órganos y Tejidos"
+        icon={Heart}
+        iconBg="bg-rose-500"
+        showBackButton={true}
+        backPath="/inicio"
+      />
 
       <div className="max-w-5xl mx-auto space-y-12">
         {/* DOCUMENTOS */}
@@ -53,8 +35,6 @@ const Procuramiento = () => { // 2. Quitamos onNavigate
             ))}
           </ul>
         </div>
-
-        {/* VIDEOS / CLASES (AHORA FUNCIONALES) */}
         <div className="space-y-8">
           <h3 className="text-sm font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
             <Video size={16} className="text-rose-500" /> Clases Grabadas
@@ -68,7 +48,6 @@ const Procuramiento = () => { // 2. Quitamos onNavigate
                 <video 
                   controls 
                   className="w-full h-full object-cover"
-                  // 🔥 AQUÍ PONES TU LINK AL VIDEO MP4 O WEBM 🔥
                   src="http://10.5.131.63/intranet/wp-content/uploads/2023/08/2018_El-mejor-regalo-de-la-vida_Minsal.mp4?_=1" 
                 >
                   Tu navegador no soporta el formato de video.
@@ -82,7 +61,6 @@ const Procuramiento = () => { // 2. Quitamos onNavigate
                 <video 
                   controls 
                   className="w-full h-full object-cover"
-                  // 🔥 AQUÍ PONES TU LINK AL VIDEO MP4 O WEBM 🔥
                   src="http://10.5.131.63/intranet/wp-content/uploads/2023/08/EN-EL-LADO-DE-LA-VIDA.mp4?_=2" 
                 >
                   Tu navegador no soporta el formato de video.

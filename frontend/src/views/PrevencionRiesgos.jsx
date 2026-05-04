@@ -1,8 +1,5 @@
 import React from 'react';
-import { ChevronLeft } from 'lucide-react';
-import { useNavigate } from 'react-router-dom'; //
-
-// === IMPORTA AQUÍ TODAS LAS IMÁGENES DE LAS TABLAS ===
+import PageHeader from '../components/PageHeader';
 import imgProcedimiento from '../assets/foto_procedimiento.jpg'; 
 import imgCarpeta from '../assets/foto_carpeta.png'; 
 import imgMutual from '../assets/foto_mutual.png'; 
@@ -14,8 +11,7 @@ import imgLeyKarinInterno from '../assets/foto_karin_interno.jpg';
 import imgLeyKarinExterno from '../assets/foto_karin_externo.png'; 
 import imgLeyKarinPrevencion from '../assets/foto_karin_prevencion.png'; 
 
-const PrevencionRiesgos = () => { // Se elimina onNavigate de los props
-  const navigate = useNavigate(); //
+const PrevencionRiesgos = () => { 
 
   const descargasSuperiores = [
     { name: "Política de Seguridad y Salud en el trabajo SSMMOCC 2025", url: "http://10.5.131.63/intranet/wp-content/uploads/2025/08/Politica_de_seguridad_y_Salud_en_el_trabajo_SSMOCC_20251.pdf" },
@@ -26,20 +22,12 @@ const PrevencionRiesgos = () => { // Se elimina onNavigate de los props
   return (
     <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[800px] animate-in fade-in zoom-in duration-500 w-full font-sans">
       
-      {/* HEADER CON BOTÓN VOLVER */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 border-b pb-6">
-        <div>
-          <button 
-            onClick={() => navigate('/accesos')} // Se actualiza a navigate
-            className="bg-slate-100 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all text-sm shadow-sm"
-          >
-            <ChevronLeft size={18} strokeWidth={3} /> VOLVER A ACCESOS
-          </button>
-          <h2 className="text-4xl md:text-5xl font-black text-slate-700 tracking-tighter uppercase italic mt-4">
-            Prevención de Riesgos
-          </h2>
-        </div>
-      </div>
+      <PageHeader
+        title="Prevención de Riesgos"
+        showBackButton={true}
+        backPath="/accesos"
+        backLabel="VOLVER A ACCESOS"
+      />
 
       <div className="max-w-6xl mx-auto space-y-16 pt-4">
         
@@ -259,10 +247,8 @@ const PrevencionRiesgos = () => { // Se elimina onNavigate de los props
               </tbody>
             </table>
           </div>
-        </div>
-            {/* ========================================================== */}
+        </div> 
         {/* TABLA 5: ACTIVIDADES REALIZADAS */}
-        {/* ========================================================== */}
         <div>
           <div className="text-center mb-6">
             <h3 className="text-xl md:text-2xl text-slate-700 font-bold uppercase tracking-tight">Actividades Realizadas</h3>

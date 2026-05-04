@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, FileText, Search, History, Plus, Trash2, X, Save } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { FileText, Search, History, Trash2, X, Save } from 'lucide-react';
+import PageHeader from '../components/PageHeader';
+import AddButton from '../components/AddButton';
+import SearchBar from '../components/SearchBar';
 
 const VersionesAnteriores = ({ userRole }) => {
-  const navigate = useNavigate();
   const isJefe = userRole === 'jefe';
   const [searchTerm, setSearchTerm] = useState('');
-
-  // === ESTADO DE DOCUMENTOS ===
   const [documentos, setDocumentos] = useState(() => {
-    // CAMBIO CLAVE: Usamos un nuevo nombre en localStorage (_v2) para limpiar la memoria caché
     const saved = localStorage.getItem('versiones_anteriores_db_v2');
     if (saved) return JSON.parse(saved);
     
@@ -168,26 +166,21 @@ const VersionesAnteriores = ({ userRole }) => {
   });
 
   // === ESTADOS ADMIN ===
-  const [showForm, setShowForm] = useState(false);
+ const [showForm, setShowForm] = useState(false);
   const [newDoc, setNewDoc] = useState({ nombre: '', url: '' });
 
-  // Guardar en localStorage cada vez que haya un cambio
   useEffect(() => {
     localStorage.setItem('versiones_anteriores_db_v1', JSON.stringify(documentos));
   }, [documentos]);
 
-  // === FUNCIONES JEFE ===
   const handleAddDocument = (e) => {
     e.preventDefault();
     if (!newDoc.nombre || !newDoc.url) return;
-    
-    // Crea un ID único basado en la fecha/hora actual
     const nuevo = { 
         id: Date.now(), 
         nombre: newDoc.nombre.toUpperCase(), 
         url: newDoc.url 
     };
-    
     setDocumentos([nuevo, ...documentos]);
     setNewDoc({ nombre: '', url: '' });
     setShowForm(false);
@@ -199,7 +192,6 @@ const VersionesAnteriores = ({ userRole }) => {
     }
   };
 
-  // Filtro de búsqueda
   const documentosFiltrados = documentos.filter(doc => 
     doc.nombre.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -207,52 +199,28 @@ const VersionesAnteriores = ({ userRole }) => {
   return (
     <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[800px] animate-in fade-in zoom-in duration-500 w-full font-sans relative">
       
-      {/* HEADER */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10 border-b pb-8">
-        <div>
-          <button 
-            onClick={() => navigate('/inicio')} 
-            className="bg-slate-100 hover:bg-[#ffb81c] text-[#003876] px-5 py-2 rounded-full font-black flex items-center gap-2 transition-all mb-6 text-sm shadow-sm"
-          >
-            <ChevronLeft size={18} /> INICIO
-          </button>
-          <div className="flex items-center gap-4">
-            <History className="text-[#00a19a] hidden md:block" size={48} />
-            <div>
-                <h2 className="text-3xl md:text-5xl font-black text-slate-700 tracking-tighter uppercase italic">Versiones Anteriores</h2>
-                <span className="text-[#003876] font-bold text-xl uppercase tracking-widest leading-none">Histórico 2020-2023</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-4">
-            {/* BOTÓN ARCHIVAR (Solo Jefe) */}
+      <PageHeader 
+        title={<>Versiones <span className="text-[#00a19a]">Anteriores</span></>}
+        subtitle="Histórico 2020-2023"
+        icon={History}
+        iconBg="bg-[#00a19a]"
+        backPath="/inicio"
+        backLabel="INICIO"
+        rightContent={
+          <div className="flex flex-col items-end gap-3">
             {isJefe && !showForm && (
-                <button 
-                  onClick={() => setShowForm(true)} 
-                  className="bg-[#003876] text-white px-6 py-3 rounded-2xl font-black flex items-center justify-center gap-2 hover:bg-[#00a19a] transition-all shadow-lg self-end"
-                >
-                  <Plus size={20} /> ARCHIVAR NUEVO
-                </button>
+              <AddButton onClick={() => setShowForm(true)} />
             )}
-            
-            {/* BUSCADOR */}
-            <div className="w-full md:w-96 relative">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <Search className="text-slate-400" size={20} />
-                </div>
-                <input 
-                    type="text" 
-                    placeholder="Buscar en historial..." 
-                    value={searchTerm} 
-                    onChange={(e) => setSearchTerm(e.target.value)} 
-                    className="w-full pl-12 pr-4 py-4 bg-slate-50 border-2 border-slate-200 rounded-2xl focus:outline-none focus:border-[#00a19a] transition-all font-medium text-slate-700 shadow-sm" 
-                />
-            </div>
-        </div>
-      </div>
+            <SearchBar 
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Buscar en historial..."
+            />
+          </div>
+        }
+      />
 
-      {/* FORMULARIO AGREGAR (Solo Jefe) */}
+      {/* FORMULARIO  (Solo Jefe) */}
       {showForm && (
         <div className="mb-10 p-8 bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200 animate-in slide-in-from-top duration-500">
           <div className="flex justify-between items-center mb-6">
@@ -285,7 +253,6 @@ const VersionesAnteriores = ({ userRole }) => {
       <div className="max-w-7xl mx-auto pt-2">
         {documentosFiltrados.length === 0 ? (
           <div className="text-center py-20 bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200">
-            <Search className="mx-auto text-slate-300 mb-4" size={48} />
             <p className="text-xl font-bold text-slate-500">No se encontraron documentos en el historial.</p>
           </div>
         ) : (
@@ -305,7 +272,6 @@ const VersionesAnteriores = ({ userRole }) => {
                         {doc.nombre}
                     </p>
                 </a>
-                {/* BOTÓN ELIMINAR (Solo Jefe) */}
                 {isJefe && (
                     <button 
                         onClick={(e) => { e.preventDefault(); handleDelete(doc.id); }} 
@@ -318,9 +284,6 @@ const VersionesAnteriores = ({ userRole }) => {
             ))}
           </div>
         )}
-        <div className="mt-12 text-center text-slate-400 text-[10px] font-bold uppercase tracking-[0.4em]">
-            {documentosFiltrados.length} REGISTROS HISTÓRICOS
-        </div>
       </div>
     </section>
   );

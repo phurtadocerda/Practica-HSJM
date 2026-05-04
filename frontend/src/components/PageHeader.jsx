@@ -14,6 +14,9 @@ const PageHeader = ({
   rightContent,
   icon: Icon,
   iconBg = 'bg-cyan-600'
+  rightContent,
+  icon: Icon,
+  iconBg = 'bg-cyan-600'
 }) => {
   return (
     <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10 border-b pb-8">
