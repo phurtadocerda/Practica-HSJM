@@ -61,7 +61,8 @@ const register = async (req, res) => {
     rut,
     fechaNacimiento,
     areaTrabajo,
-    password
+    password,
+    rol
   } = req.body;
   
   try {
@@ -81,12 +82,13 @@ const register = async (req, res) => {
     await prisma.usuario.create({
       data: {
         nombres: nombres,
-        apellido_paterno: apellidoPaterno,
-        apellido_materno: apellidoMaterno,
+        apellido_paterno: apellidoPaterno || '',
+        apellido_materno: apellidoMaterno || '',
         rut: rut,
-        fecha_nacimiento: new Date(fechaNacimiento),
+        fecha_nacimiento: fechaNacimiento ? new Date(fechaNacimiento) : null,
         area_trabajo: areaTrabajo,
-        password: hashedPassword
+        password: hashedPassword,
+        rol: rol || 'funcionario'
       }
     });
 
@@ -97,4 +99,18 @@ const register = async (req, res) => {
   }
 };
 
-module.exports = { login, register };
+const getAreas = async (req, res) => {
+  try {
+    const areas = await prisma.area.findMany({
+      orderBy: {
+        nombre: 'asc'
+      }
+    });
+    res.json({ success: true, areas });
+  } catch (err) {
+    console.error('Error al obtener áreas:', err);
+    res.status(500).json({ success: false, message: 'Error al obtener áreas' });
+  }
+};
+
+module.exports = { login, register, getAreas };

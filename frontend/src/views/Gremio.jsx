@@ -5,8 +5,8 @@ import BackButton from '../components/BackButton';
 import AddButton from '../components/AddButton';
 
 const Gremio = ({ userRole }) => { // Recibe el rol desde App.js -> AppRoutes
-  // VERIFICACIÓN: Si el rol que viene es 'jefe'
-  const isJefe = userRole === 'jefe';
+  // VERIFICACIÓN: Si el rol que viene es 'administrador'
+  const isAdministrador = userRole === 'administrador';
   
   const fileInputRef = useRef(null);
 
@@ -128,7 +128,7 @@ const Gremio = ({ userRole }) => { // Recibe el rol desde App.js -> AppRoutes
         // backPath="/inicio"
         rightContent={
           <>
-            {isJefe && !showForm && <AddButton onClick={() => setShowForm(true)} 
+            {isAdministrador && !showForm && <AddButton onClick={() => setShowForm(true)} 
             label="AÑADIR NOTICIA" />}
           </>
         }
@@ -140,7 +140,7 @@ const Gremio = ({ userRole }) => { // Recibe el rol desde App.js -> AppRoutes
         ) : (
           noticias.map((noticia) => (
             <article key={noticia.id} onClick={() => setSelectedNoticeId(noticia.id)} className="group flex flex-col md:flex-row bg-slate-50 rounded-[2.5rem] overflow-hidden border hover:bg-white hover:shadow-2xl transition-all duration-500 relative cursor-pointer">
-              {isJefe && (
+              {isAdministrador && (
                 <div className="absolute top-4 right-4 flex gap-2 z-10">
                   <button onClick={(e) => handleEdit(e, noticia)} className="bg-white/90 p-2 rounded-full text-blue-600 shadow-sm border hover:bg-blue-600 hover:text-white transition-all"><Pencil size={18} /></button>
                   <button onClick={(e) => handleDelete(e, noticia.id)} className="bg-white/90 p-2 rounded-full text-red-600 shadow-sm border hover:bg-red-600 hover:text-white transition-all"><Trash2 size={18} /></button>

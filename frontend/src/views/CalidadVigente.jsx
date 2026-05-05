@@ -7,7 +7,7 @@ import SearchBar from '../components/SearchBar';
 
 const CalidadVigente = ({ userRole }) => {
   const navigate = useNavigate();
-  const isJefe = userRole === 'jefe';
+  const isAdministrador = userRole === 'administrador';
   const [searchTerm, setSearchTerm] = useState('');
 
   // === ESTADO DE DOCUMENTOS CON LISTA COMPLETA ===
@@ -207,7 +207,7 @@ const CalidadVigente = ({ userRole }) => {
         rightContent={
           <div className="flex flex-col items-end gap-3">
             <>
-              {isJefe && !showForm && <AddButton onClick={() => setShowForm(true)} />}
+              {isAdministrador && !showForm && <AddButton onClick={() => setShowForm(true)} />}
               <SearchBar
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -240,7 +240,7 @@ const CalidadVigente = ({ userRole }) => {
                 <div className="bg-red-100 p-2 rounded-lg shrink-0 group-hover:bg-red-500 group-hover:text-white transition-all"><FileText size={20} /></div>
                 <p className="text-xs font-black text-slate-600 group-hover:text-[#003876] uppercase leading-snug">{doc.nombre}</p>
               </a>
-              {isJefe && (
+              {isAdministrador && (
                 <button onClick={(e) => { e.preventDefault(); handleDelete(doc.id); }} className="absolute -top-2 -right-2 bg-red-600 text-white p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 size={14} /></button>
               )}
             </div>

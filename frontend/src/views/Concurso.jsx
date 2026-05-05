@@ -6,7 +6,7 @@ import AddButton from '../components/AddButton';
 
 const Concurso = ({ userRole }) => {
   const navigate = useNavigate();
-  const isJefe = userRole === 'jefe';
+  const isAdministrador = userRole === 'administrador';
 
   // 1. Estado para las noticias/tablas (Cargar de localStorage o usar iniciales)
   const [concursos, setConcursos] = useState(() => {
@@ -60,7 +60,7 @@ const Concurso = ({ userRole }) => {
         onBack={() => navigate('/accesos')}
         backLabel="VOLVER A ACCESOS"
         rightContent={
-          isJefe && !showForm && (
+          isAdministrador && !showForm && (
             <AddButton onClick={() => setShowForm(true)} />
           )
         }
@@ -93,7 +93,7 @@ const Concurso = ({ userRole }) => {
       {concursos.map((c) => (
         <div key={c.id} className="relative group">
           {/* Botón eliminar (Solo Jefe) */}
-          {isJefe && (
+          {isAdministrador && (
             <button 
               onClick={() => eliminarConcurso(c.id)}
               className="absolute -top-2 -right-2 bg-red-500 text-white p-2 rounded-full shadow-lg z-10 opacity-0 group-hover:opacity-100 transition-opacity"

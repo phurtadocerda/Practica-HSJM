@@ -18,19 +18,37 @@ const prisma = new PrismaClient({ adapter });
 async function main() {
   console.log('🌱 Iniciando el sembrado de datos con Adaptador PG y hashing de contraseñas...');
 
+  const areas = [
+    'Urgencias',
+    'Pabellón',
+    'Administración',
+    'Imagenología',
+    'Transformacion Digital'
+  ];
+
+  for (const nombre of areas) {
+    await prisma.area.upsert({
+      where: { nombre },
+      update: {},
+      create: { nombre }
+    });
+  }
+
+  console.log('✅ Tabla de áreas poblada');
+
   // Usuario Jefe
   const admin = await prisma.usuario.upsert({
     where: { rut: '21245882-1' },
     update: {},
     create: {
-      rut: '21245882-1',
-      nombres: 'Admin',
-      apellido_paterno: 'Sistema',
-      apellido_materno: 'TI',
+      rut: '18869522-1',
+      nombres: 'Patricio Eduardo',
+      apellido_paterno: 'Hurtado',
+      apellido_materno: 'Cerda',
       fecha_nacimiento: new Date('1990-04-28'),
-      area_trabajo: 'Informática',
+      area_trabajo: 'Transformacion Digital',
       password: await bcrypt.hash('1234', 10),
-      rol: 'jefe',
+      rol: 'Administrador',
     },
   });
 
@@ -46,7 +64,7 @@ async function main() {
       apellido_paterno: 'Pérez',
       apellido_materno: 'Gómez',
       fecha_nacimiento: new Date('1985-04-29'),
-      area_trabajo: 'Enfermería',
+      area_trabajo: 'Urgencias',
       password: await bcrypt.hash('password1', 10),
       rol: 'funcionario',
     },

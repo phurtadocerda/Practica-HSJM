@@ -5,7 +5,7 @@ import AddButton from '../components/AddButton';
 import SearchBar from '../components/SearchBar';
 
 const Anexos = ({ userRole }) => {
-  const isJefe = userRole === 'jefe';
+  const isAdministrador = userRole === 'administrador';
 
   // --- ESTADOS ---
   const [busqueda, setBusqueda] = useState("");
@@ -299,7 +299,7 @@ const Anexos = ({ userRole }) => {
         // backPath='/inicio'
         rightContent={
           <div className="flex flex-col items-end gap-3">
-            {isJefe && !showForm && (
+            {isAdministrador && !showForm && (
               <AddButton onClick={() => setShowForm(true)} />
             )}
             <SearchBar
@@ -343,7 +343,7 @@ const Anexos = ({ userRole }) => {
               <th className="p-4 font-black text-[11px] uppercase tracking-wider">Usuario</th>
               <th className="p-4 font-black text-[11px] uppercase tracking-wider">Cargo</th>
               <th className="p-4 font-black text-[11px] uppercase tracking-wider">E-Mail</th>
-              {isJefe && <th className="p-4 font-black text-[11px] uppercase tracking-wider text-center">Gestión</th>}
+              {isAdministrador && <th className="p-4 font-black text-[11px] uppercase tracking-wider text-center">Gestión</th>}
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
@@ -363,7 +363,7 @@ const Anexos = ({ userRole }) => {
                       </a>
                     )}
                   </td>
-                  {isJefe && (
+                  {isAdministrador && (
                     <td className="p-4">
                       <div className="flex justify-center gap-2">
                         <button onClick={() => handleEdit(item)} className="p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all shadow-sm"><Pencil size={14} /></button>

@@ -4,10 +4,10 @@ import {
   Home, FileText, Phone, Map, LogOut, ChevronDown, Menu, X, 
   ShieldCheck, History, Pill, Calendar, UserCircle, FolderTree, 
   BarChart3, Microscope, Activity, Scale, LayoutList, ClipboardCheck, 
-  Heart, FileWarning, HelpCircle, Newspaper, AlertTriangle 
+  Heart, FileWarning, HelpCircle, AlertTriangle 
 } from 'lucide-react';
 import logoHospital from '../assets/logo.png';
-const Navbar = ({ onLogout, userName }) => {
+const Navbar = ({ onLogout, userName, userRole, onOpenAdminRegister }) => {
   const navigate = useNavigate(); // Hook para navegar
   const location = useLocation(); // Hook para saber en qué página estamos (reemplaza a currentPage)
   
@@ -98,6 +98,15 @@ const Navbar = ({ onLogout, userName }) => {
             <span className="text-[10px] uppercase font-bold text-slate-400 leading-none">Bienvenido(a)</span>
             <span className="text-sm font-black text-[#003876] leading-none">Hola, <span className="text-[#00a19a] uppercase">{userName || 'Cristian'}</span></span>
           </div>
+
+          {userRole === 'administrador' && (
+            <button 
+              onClick={onOpenAdminRegister} 
+              className="bg-[#ffb81c] hover:bg-yellow-500 text-[#003876] px-4 py-2 rounded-xl flex items-center gap-2 transition-all shadow-md active:scale-95"
+            >
+              <span className="hidden md:inline font-black text-xs uppercase">Registro Admin</span>
+            </button>
+          )}
 
           <button 
             onClick={onLogout} 

@@ -5,7 +5,7 @@ import AddButton from '../components/AddButton';
 import SearchBar from '../components/SearchBar';
 
 const VersionesAnteriores = ({ userRole }) => {
-  const isJefe = userRole === 'jefe';
+  const isAdministrador = userRole === 'administrador';
   const [searchTerm, setSearchTerm] = useState('');
   const [documentos, setDocumentos] = useState(() => {
     const saved = localStorage.getItem('versiones_anteriores_db_v2');
@@ -208,7 +208,7 @@ const VersionesAnteriores = ({ userRole }) => {
         backLabel="INICIO"
         rightContent={
           <div className="flex flex-col items-end gap-3">
-            {isJefe && !showForm && (
+            {isAdministrador && !showForm && (
               <AddButton onClick={() => setShowForm(true)} />
             )}
             <SearchBar 
@@ -272,7 +272,7 @@ const VersionesAnteriores = ({ userRole }) => {
                         {doc.nombre}
                     </p>
                 </a>
-                {isJefe && (
+                {isAdministrador && (
                     <button 
                         onClick={(e) => { e.preventDefault(); handleDelete(doc.id); }} 
                         className="absolute -top-2 -right-2 bg-red-600 text-white p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"

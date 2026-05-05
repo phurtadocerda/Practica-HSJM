@@ -14,6 +14,11 @@ export const register = async (regData) => {
   return response.data;
 };
 
+export const getAreas = async () => {
+  const response = await api.get('/areas');
+  return response.data;
+};
+
 export const logout = () => {
   localStorage.removeItem('token');
   localStorage.removeItem('user');
