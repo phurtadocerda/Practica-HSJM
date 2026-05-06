@@ -1,7 +1,7 @@
 import api from '../api/axios';
 
 export const login = async (rut, password) => {
-  const response = await api.post('/login', { rut, password });
+  const response = await api.post('/auth/login', { rut, password });
   if (response.data.success) {
     localStorage.setItem('token', response.data.token);
     localStorage.setItem('user', JSON.stringify(response.data.user));
@@ -10,12 +10,12 @@ export const login = async (rut, password) => {
 };
 
 export const register = async (regData) => {
-  const response = await api.post('/register', regData);
+  const response = await api.post('/auth/register', regData);
   return response.data;
 };
 
 export const getAreas = async () => {
-  const response = await api.get('/areas');
+  const response = await api.get('/auth/areas');
   return response.data;
 };
 

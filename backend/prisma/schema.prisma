@@ -27,3 +27,13 @@ model Usuario {
 
   @@map("usuarios") // Mapea el modelo a la tabla existente 'usuarios'
 }
+
+model Documento {
+  id        Int      @id @default(autoincrement())
+  titulo    String
+  url       String   @unique // Nombre del archivo en tu carpeta local (ej: "diat-mutual.pdf")
+  categoria String   // Para saber si es de 'accidentes', 'protocolos', 'calidad', etc.
+  createdAt DateTime @default(now())
+
+  @@map("documentos") // Nombre de la tabla en PostgreSQL
+}

@@ -89,6 +89,27 @@ async function main() {
   });
 
   console.log(`✅ Usuario funcionario creado/actualizado: ${user2.rut}`);
+
+  const docsAccidentes = [
+    { titulo: "Unidad de salud Ocupacional y Gestión Ambiental", url: "USOAMBIENTAL.pdf", categoria: "accidentes" },
+    { titulo: "Flujo de accidente trabajo", url: "FLUJOAT.pdf", categoria: "accidentes" },
+    { titulo: "Flujo de accidente trabajo con exposición a fluidos", url: "FLUJO_ACCIDENTES_CON_EXPOSICION_A_FLUIDOS_CORPORALES_(MUTUAL_2017).pdf", categoria: "accidentes" },
+    { titulo: "DIAT", url: "DIAT-mutual.pdf", categoria: "accidentes" },
+    { titulo: "Consentimiento informado VIH", url: "CONSENTIMIENTO_VIH.pdf", categoria: "accidentes" },
+    { titulo: "Rechazo de Atención", url: "Rechazo_de_Atenciones.pdf", categoria: "accidentes" }
+  ];
+
+  for (const doc of docsAccidentes) {
+    await prisma.documento.upsert({
+      where: { url: doc.url }, 
+      update: {
+        titulo: doc.titulo,
+        categoria: doc.categoria
+      },
+      create: doc
+    });
+  }
+  console.log("✅ Documentos de accidentes insertados/actualizados");
 }
 
 main()

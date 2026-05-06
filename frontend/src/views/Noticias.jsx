@@ -3,6 +3,7 @@ import {
   Newspaper, CalendarDays, ChevronRight, ChevronLeft, 
   Plus, X, Megaphone, Activity, Users, FileText, Heart, Image as ImageIcon 
 } from 'lucide-react';
+import PageHeader from '../components/PageHeader';
 
 // 1. AHORA RECIBIMOS EL ROL DESDE APP.JS
 const Noticias = ({ userRole }) => {
@@ -108,6 +109,13 @@ const Noticias = ({ userRole }) => {
       {!noticiaActiva && (
         <div className="animate-in fade-in duration-500">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12 border-b pb-8">
+            {/* <PageHeader
+              title={<>Mural de <span className="text-[#00a19a]">Noticias</span></>}
+              subtitle={"informacón Actualizada al día"}
+              icon={Newspaper}
+              iconBg='bg-[#00a19a]'
+
+            /> */}
             <div>
               <div className="flex items-center gap-3 mb-2">
                 <div className="bg-[#00a19a]/10 p-3 rounded-2xl text-[#00a19a]">
@@ -121,7 +129,7 @@ const Noticias = ({ userRole }) => {
             </div>
 
             {/* CANDADO 1: Solo el Admin ve el botón de crear */}
-            {userRole === 'admin' && (
+            {userRole === 'administrador' && (
               <button 
                 onClick={() => setIsModalOpen(true)}
                 className="bg-[#003876] hover:bg-[#ffb81c] text-white hover:text-[#003876] px-6 py-3 rounded-2xl font-black text-sm uppercase tracking-widest flex items-center gap-2 transition-all shadow-lg active:scale-95 shrink-0"
@@ -139,7 +147,7 @@ const Noticias = ({ userRole }) => {
                 className="bg-slate-50 hover:bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all cursor-pointer group flex flex-col h-full relative overflow-hidden"
               >
                 {/* CANDADO 2: Solo el Admin puede borrar */}
-                {userRole === 'admin' && (
+                {userRole === 'administrador' && (
                   <button 
                     onClick={(e) => borrarNoticia(e, noticia.id)}
                     className="absolute top-4 right-4 bg-red-100 text-red-600 hover:bg-red-500 hover:text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all z-10"
@@ -276,7 +284,7 @@ const Noticias = ({ userRole }) => {
               </div>
               
               {/* CANDADO 3: Solo el Admin ve el botón de guardar formulario */}
-              {userRole === 'admin' && (
+              {userRole === 'administrador' && (
                 <button type="submit" className="w-full bg-[#00a19a] hover:bg-[#003876] text-white py-4 rounded-2xl font-black uppercase tracking-[0.2em] shadow-lg transition-all active:scale-95 mt-4">
                   Publicar Noticia Ahora
                 </button>
