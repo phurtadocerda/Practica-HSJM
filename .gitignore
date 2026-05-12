@@ -4,3 +4,13 @@ backend/node_modules/
 .env
 build/
 dist/
+# Videos
+*.mp4
+*.mov
+*.avi
+
+# Presentaciones
+*.pptx
+
+# Uploads
+backend/uploads/

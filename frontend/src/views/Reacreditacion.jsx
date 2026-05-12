@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { FileText, Download, X, ZoomIn } from 'lucide-react'; 
+import React, { useEffect, useState } from 'react';
+import { FileText, Download, X, ZoomIn, Loader2, AlertCircle } from 'lucide-react'; 
 import PageHeader from '../components/PageHeader';
+import api from '../api/axios';
+import { toast } from 'sonner';
 
-// === IMPORTACIÓN DE LAS 20 FOTOS EXACTAS ===
+// === IMPORTACIÓN DE LAS 20 FOTOS EXACTAS (Assets locales) ===
 import reacre1 from '../assets/reacreditacion1.png';
 import reacre2 from '../assets/reacreditacion2.png';
 import reacre3 from '../assets/reacreditacion3.png';
@@ -25,38 +27,38 @@ import reacre19 from '../assets/reacreditacion19.png';
 import reacre20 from '../assets/reacreditacion20.png';
 
 const Reacreditacion = () => {
-  
-  // ESTADO para controlar la foto agrandada
+  const [documentos, setDocumentos] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
 
-  // Enlaces de descarga de los PDFs
-  const descargas = [
-    { name: "GRÁFICAS_REACREDITACIÓN", url: "http://10.5.131.63/intranet/wp-content/uploads/2023/07/GRAFICAS_REACREDITACION.pdf" },
-    { name: "GRÁFICAS_REACREDITACIÓN2", url: "http://10.5.131.63/intranet/wp-content/uploads/2023/07/GRAFICAS_REACREDITACION2.pdf" },
-  ];
+  useEffect(() => {
+    const cargarDatos = async () => {
+      try {
+        const response = await api.get('/documentos/reacreditacion');
+        if (response.data.success) {
+          setDocumentos(response.data.documentos || []);
+        }
+      } catch (err) {
+        console.error("Error de conexión:", err);
+        toast.error("No se pudo conectar con el servidor de descargas");
+      } finally {
+        setLoading(false);
+      }
+    };
+    cargarDatos();
+  }, []);
 
-  // Grilla de las 20 fotos
   const galeriaFotos = [
-    { id: 1, src: reacre1, alt: "Infografía 1" },
-    { id: 2, src: reacre2, alt: "Infografía 2" },
-    { id: 3, src: reacre3, alt: "Infografía 3" },
-    { id: 4, src: reacre4, alt: "Infografía 4" },
-    { id: 5, src: reacre5, alt: "Infografía 5" },
-    { id: 6, src: reacre6, alt: "Infografía 6" },
-    { id: 7, src: reacre7, alt: "Infografía 7" },
-    { id: 8, src: reacre8, alt: "Infografía 8" },
-    { id: 9, src: reacre9, alt: "Infografía 9" },
-    { id: 10, src: reacre10, alt: "Infografía 10" },
-    { id: 11, src: reacre11, alt: "Infografía 11" },
-    { id: 12, src: reacre12, alt: "Infografía 12" },
-    { id: 13, src: reacre13, alt: "Infografía 13" },
-    { id: 14, src: reacre14, alt: "Infografía 14" },
-    { id: 15, src: reacre15, alt: "Infografía 15" },
-    { id: 16, src: reacre16, alt: "Infografía 16" },
-    { id: 17, src: reacre17, alt: "Infografía 17" },
-    { id: 18, src: reacre18, alt: "Infografía 18" },
-    { id: 19, src: reacre19, alt: "Infografía 19" },
-    { id: 20, src: reacre20, alt: "Infografía 20" },
+    { id: 1, src: reacre1, alt: "Infografía 1" }, { id: 2, src: reacre2, alt: "Infografía 2" },
+    { id: 3, src: reacre3, alt: "Infografía 3" }, { id: 4, src: reacre4, alt: "Infografía 4" },
+    { id: 5, src: reacre5, alt: "Infografía 5" }, { id: 6, src: reacre6, alt: "Infografía 6" },
+    { id: 7, src: reacre7, alt: "Infografía 7" }, { id: 8, src: reacre8, alt: "Infografía 8" },
+    { id: 9, src: reacre9, alt: "Infografía 9" }, { id: 10, src: reacre10, alt: "Infografía 10" },
+    { id: 11, src: reacre11, alt: "Infografía 11" }, { id: 12, src: reacre12, alt: "Infografía 12" },
+    { id: 13, src: reacre13, alt: "Infografía 13" }, { id: 14, src: reacre14, alt: "Infografía 14" },
+    { id: 15, src: reacre15, alt: "Infografía 15" }, { id: 16, src: reacre16, alt: "Infografía 16" },
+    { id: 17, src: reacre17, alt: "Infografía 17" }, { id: 18, src: reacre18, alt: "Infografía 18" },
+    { id: 19, src: reacre19, alt: "Infografía 19" }, { id: 20, src: reacre20, alt: "Infografía 20" },
   ];
 
   return (
@@ -72,35 +74,45 @@ const Reacreditacion = () => {
 
       <div className="max-w-7xl mx-auto space-y-16">
         
-        {/* SECCIÓN 1: DESCARGAS */}
+        {/* SECCIÓN 1: DESCARGAS DINÁMICAS */}
         <div className="bg-slate-50 p-8 rounded-3xl border border-slate-100 shadow-sm">
           <div className="flex items-center gap-3 mb-6">
             <Download className="text-[#00a19a]" size={26} strokeWidth={2.5}/>
             <h3 className="text-2xl font-black text-slate-800 uppercase tracking-tighter">Descargas:</h3>
           </div>
           
-          <ul className="space-y-4">
-            {descargas.map((doc, index) => (
-              <li key={index} className="flex items-center gap-3 group">
-                <FileText className="text-slate-500 group-hover:text-blue-700 transition-colors" size={20} />
-                <a 
-                  href={doc.url} 
-                  target="_blank" 
-                  rel="noreferrer"
-                  className="text-slate-800 font-bold text-lg md:text-xl underline underline-offset-4 hover:text-blue-700 transition-colors uppercase tracking-tight"
-                >
-                  {doc.name}
-                </a>
-              </li>
-            ))}
-          </ul>
+          {loading ? (
+            <div className="flex items-center gap-3 text-slate-400 font-bold animate-pulse">
+              <Loader2 className="w-5 h-5 animate-spin" /> CARGANDO DOCUMENTOS...
+            </div>
+          ) : documentos.length === 0 ? (
+            <div className="flex items-center gap-2 text-slate-300 italic text-sm">
+              <AlertCircle size={16} /> No hay archivos de descarga disponibles.
+            </div>
+          ) : (
+            <ul className="space-y-4">
+              {documentos.map((doc) => (
+                <li key={doc.id} className="flex items-center gap-3 group">
+                  <FileText className="text-slate-500 group-hover:text-blue-700 transition-colors" size={20} />
+                  <a 
+                    href={`http://localhost:5000/uploads/${doc.url}`} 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="text-slate-800 font-bold text-lg md:text-xl underline underline-offset-4 hover:text-blue-700 transition-colors uppercase tracking-tight"
+                  >
+                    {doc.titulo}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         {/* SECCIÓN 2: GALERÍA DE INFOGRAFÍAS */}
         <div className="pt-4 pb-12">
           <div className="border-l-4 border-[#00a19a] pl-4 mb-10">
             <h3 className="text-3xl font-black text-slate-800 uppercase tracking-tighter">Infografías y Protocolos</h3>
-            <p className="text-slate-500 font-medium mt-1">Haz clic en cualquier imagen para verla en grande (Total: 20 documentos)</p>
+            <p className="text-slate-500 font-medium mt-1">Haz clic en cualquier imagen para verla en grande (Total: 20 documentos locales)</p>
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -126,29 +138,32 @@ const Reacreditacion = () => {
         </div>
       </div>
 
-      {/* VISOR DE IMAGEN (MODAL) */}
+      {/* VISOR DE IMAGEN (MODAL) - CORREGIDO PARA SER MÁS GRANDE */}
       {selectedPhoto && (
         <div 
-          className="fixed inset-0 bg-black/90 z-[999] flex items-center justify-center p-2 sm:p-4 md:p-6 animate-in fade-in duration-300 backdrop-blur-sm cursor-zoom-out"
-          onClick={() => setSelectedPhoto(null)}
+          className="fixed inset-0 bg-black/95 z-[999] flex items-center justify-center p-2 sm:p-4 md:p-6 animate-in fade-in duration-300 backdrop-blur-sm cursor-zoom-out"
+          onClick={() => setSelectedPhoto(null)} // Cerrar al hacer clic fuera
         >
+          {/* Botón de cerrar más visible */}
           <button 
             onClick={() => setSelectedPhoto(null)} 
-            className="absolute top-4 right-4 text-white bg-black/50 hover:bg-red-600 rounded-full p-2.5 transition-colors shadow-lg z-10"
+            className="absolute top-4 right-4 text-white bg-black/50 hover:bg-red-600 rounded-full p-3 transition-colors shadow-lg z-10"
             title="Cerrar"
           >
-            <X size={24} strokeWidth={2.5}/>
+            <X size={28} strokeWidth={2.5}/>
           </button>
 
+          {/* Contenedor principal del modal - Crecido al máximo alto */}
           <div 
-            className="relative max-w-full max-h-full flex items-center justify-center gap-4 animate-in zoom-in duration-300 cursor-default overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
+            className="relative w-full h-full flex items-center justify-center animate-in zoom-in duration-300 cursor-default"
+            onClick={(e) => e.stopPropagation()} // No cerrar al hacer clic en la imagen
           >
             <img 
               src={selectedPhoto.src} 
               alt={selectedPhoto.alt} 
-              className="max-w-full max-h-[92vh] object-contain rounded-xl shadow-2xl border-2 border-white/20 select-none cursor-zoom-out"
-              onClick={() => setSelectedPhoto(null)}
+              /* Claves del cambio: h-full, max-h-[95vh], object-contain */
+              className="max-w-[95%] h-full max-h-[60vh] object-contain rounded-2xl shadow-2xl border-4 border-white/20 select-none cursor-zoom-out"
+              onClick={() => setSelectedPhoto(null)} // También cierra al hacer clic en la imagen misma
             />
           </div>
         </div>

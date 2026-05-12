@@ -1,13 +1,35 @@
-import React from 'react';
-import { Users, FileText, FolderOpen } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Users, FileText, FolderOpen, AlertCircle } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
+import api from '../api/axios';
+import { toast } from 'sonner';
 
 const ParticipacionCiudadana = () => {
-  const documentos = [
-    { titulo: "Plan de Trabajo y cronograma de actividades Unidad de Participación HSJM_2025", link: "http://10.5.131.63/intranet/wp-content/uploads/2025/07/Plan-de-Trabajo-y-cronograma-de-actividades-Unidad-de-Participacion-HSJM_2025.pdf" },
-    { titulo: "Plan Anual de acciones de Participación y cronograma de actividades +Resolución Enc.Participación Indicador EAR C.4.2", link: "http://10.5.131.63/intranet/wp-content/uploads/2023/06/Plan-Anual-de-acciones-de-Participacion-y-cronograma-de-actividades-Resolucion-Enc.Participacion-Indicador-EAR-C.4.2.pdf" },
-    { titulo: "Informe anual de cumplimiento de resultados alcanzados entre CCU y Dirección", link: "http://10.5.131.63/intranet/wp-content/uploads/2026/02/Informe-anual-de-cumplimiento-de-resultados-alcanzados-entre-CCU-y-Direccion.pdf" }
-  ];
+
+  const [documentos, setDocumentos] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const cargarDatos = async () => {
+      try {
+        const response = await api.get('/documentos/participacion');
+        const data = response.data;
+
+        if (data.success) {
+          setDocumentos(data.documentos || []);
+        } else {
+          toast.error(data.message || "Error al obtener archivos");
+        }
+      } catch (err) {
+        console.error("Error de conexión:", err);
+        toast.error("No se pudo conectar con el servidor");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    cargarDatos();
+  }, []);
 
   return (
     <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[600px] w-full font-sans animate-in fade-in zoom-in duration-500">
@@ -26,29 +48,49 @@ const ParticipacionCiudadana = () => {
       {/* LISTADO DE DOCUMENTOS */}
       <div className="max-w-5xl mx-auto">
         <div className="bg-emerald-50/50 p-8 md:p-10 rounded-3xl border border-emerald-100/50 shadow-sm">
+          
           <h3 className="text-sm font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center gap-2 border-b border-emerald-100 pb-4">
             <FileText size={16} className="text-emerald-500" /> Documentos Disponibles
           </h3>
-          
-          <ul className="space-y-6 pl-2 md:pl-4">
-            {documentos.map((doc, idx) => (
-              <li key={idx} className="list-none group">
-                <a
-                  href={doc.link}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-start gap-3 w-fit"
-                >
-                  {/* El puntito que cambia de color */}
-                  <span className="mt-1.5 w-2 h-2 rounded-full bg-slate-300 group-hover:bg-emerald-500 transition-colors shrink-0"></span>
-                  {/* El texto del enlace */}
-                  <span className="text-slate-700 font-bold underline decoration-slate-200 group-hover:decoration-emerald-500 group-hover:text-emerald-800 underline-offset-4 transition-all text-sm md:text-base tracking-wide">
-                    {doc.titulo}
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
+
+          {loading ? (
+            <div className="flex items-center gap-3 text-slate-400 font-bold animate-pulse">
+              <div className="w-5 h-5 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
+              CARGANDO DOCUMENTOS...
+            </div>
+
+          ) : documentos.length === 0 ? (
+
+            <div className="bg-white p-10 rounded-3xl border-2 border-dashed border-slate-200 text-center">
+              <AlertCircle className="mx-auto text-slate-300 mb-4" size={48} />
+              <p className="text-slate-500 font-bold uppercase tracking-widest">
+                No hay documentos registrados para esta sección
+              </p>
+            </div>
+
+          ) : (
+
+            <ul className="space-y-6 pl-2 md:pl-4">
+              {documentos.map((doc) => (
+                <li key={doc.id} className="list-none group">
+                  <a
+                    href={`http://localhost:5000/uploads/${doc.url}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-start gap-3 w-fit"
+                  >
+                    <span className="mt-1.5 w-2 h-2 rounded-full bg-slate-300 group-hover:bg-emerald-500 transition-colors shrink-0"></span>
+
+                    <span className="text-slate-700 font-bold underline decoration-slate-200 group-hover:decoration-emerald-500 group-hover:text-emerald-800 underline-offset-4 transition-all text-sm md:text-base tracking-wide">
+                      {doc.titulo}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+
+          )}
+
         </div>
       </div>
 

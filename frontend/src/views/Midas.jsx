@@ -1,18 +1,32 @@
-import React from 'react';
-import { Youtube } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Youtube, Loader2, AlertCircle } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
+import api from '../api/axios';
+import { toast } from 'sonner';
 
 const Midas = () => {
-  // Lista de documentos
-  const documentos = [
-    { name: "DECRETO 1 REGLAMENTO DE PREVENCIÓN Y CONTROL DE LA RABIA EN EL HOMBRE Y EN LOS ANIMALES", link: "http://10.5.131.63/intranet/wp-content/uploads/2024/11/DECREO-1-REGLAMENTO-DE-PREVENCION-Y-CONTROL-DE-LA-RABIA-EN-EL-HOMBRE-Y-EN-LOS-ANIMALES.pdf" },
-    { name: "GLOSA ICONOGRAFICA", link: "http://10.5.131.63/intranet/wp-content/uploads/2024/10/GLOSA-ICONOGRAFICA.pdf" },
-    { name: "MANUAL MORDEDORES ESTABLECIMIENTOS DE SALUD 2024", link: "http://10.5.131.63/intranet/wp-content/uploads/2024/10/MANUAL-MORDEDORES-ESTABLECIMIENTOS-DE-SALUD-2024.pdf" },
-    { name: "FICHA NOTIFICACION DE MORDEDORES", link: "http://10.5.131.63/intranet/wp-content/uploads/2024/10/FICHA-NOTIFICACION-DE-MORDEDORES.pdf" },
-    { name: "Flujograma Rabia 2025 HSJM", link: "http://10.5.131.63/intranet/wp-content/uploads/2025/06/Flujograma-Rabia-2025-HSJM.pdf" },
-  ];
+  const [documentos, setDocumentos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const videos = [
+  useEffect(() => {
+    const cargarDatos = async () => {
+      try {
+        const response = await api.get('/documentos/midas');
+        if (response.data.success) {
+          setDocumentos(response.data.documentos || []);
+        }
+      } catch (err) {
+        console.error("Error de conexión:", err);
+        toast.error("No se pudo conectar con el servidor");
+      } finally {
+        setLoading(false);
+      }
+    };
+    cargarDatos();
+  }, []);
+
+  // Los videos de YouTube se mantienen fijos ya que son embebidos
+  const videosYouTube = [
     { titulo: "TUTORIAL USO DE PLATAFORMA", url: "https://www.youtube.com/embed/jzfQxqunuOQ" },
     { titulo: "TUTORIAL BANDEJA DE ALARMAS ", url: "https://www.youtube.com/embed/525zklJJy6A" },
     { titulo: "TUTORIAL DE USO GENERAL DE LA PLATAFORMA ", url: "https://www.youtube.com/embed/KdJDzwF13CE" },
@@ -30,29 +44,40 @@ const Midas = () => {
 
       <div className="max-w-5xl mx-auto space-y-12 pt-2">
         
-        {/* LISTA DE DOCUMENTOS */}
+        {/* LISTA DE DOCUMENTOS DINÁMICOS */}
         <div className="pl-2">
-          <ul className="space-y-4">
-            {documentos.map((doc, index) => (
-              <li key={index} className="flex items-center gap-3 group">
-                <div className="w-1.5 h-1.5 rounded-full border-[1.5px] border-slate-800 shrink-0"></div>
-                <a 
-                  href={doc.link} 
-                  target="_blank" 
-                  rel="noreferrer"
-                  className="text-slate-800 font-medium text-base md:text-lg underline underline-offset-4 hover:text-blue-700 transition-colors uppercase"
-                >
-                  {doc.name}
-                </a>
-              </li>
-            ))}
-          </ul>
+          {loading ? (
+            <div className="flex items-center gap-3 py-6 text-slate-400 font-bold animate-pulse">
+              <Loader2 className="w-6 h-6 animate-spin text-blue-600" />
+              CARGANDO DOCUMENTACIÓN MIDAS...
+            </div>
+          ) : documentos.length === 0 ? (
+            <div className="flex items-center gap-2 text-slate-300 italic text-sm py-4">
+              <AlertCircle size={18} /> No hay documentos registrados para Midas.
+            </div>
+          ) : (
+            <ul className="space-y-4">
+              {documentos.map((doc) => (
+                <li key={doc.id} className="flex items-center gap-3 group">
+                  <div className="w-1.5 h-1.5 rounded-full border-[1.5px] border-slate-800 shrink-0"></div>
+                  <a 
+                    href={`http://localhost:5000/uploads/${doc.url}`} 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="text-slate-800 font-medium text-base md:text-lg underline underline-offset-4 hover:text-blue-700 transition-colors uppercase"
+                  >
+                    {doc.titulo}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         {/* SEPARADOR VISUAL */}
         <hr className="border-slate-200" />
 
-        {/* SECCIÓN DE 3 VIDEOS */}
+        {/* SECCIÓN DE TUTORIALES YOUTUBE */}
         <div className="pt-4">
           <div className="flex items-center gap-2 mb-8">
             <Youtube className="text-red-600" size={28} />
@@ -60,9 +85,9 @@ const Midas = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {videos.map((video, index) => (
-              <div key={index} className="flex flex-col gap-3">
-                <div className="aspect-video bg-slate-100 rounded-xl overflow-hidden shadow-md border border-slate-200">
+            {videosYouTube.map((video, index) => (
+              <div key={index} className="flex flex-col gap-3 group">
+                <div className="aspect-video bg-slate-100 rounded-xl overflow-hidden shadow-md border border-slate-200 group-hover:shadow-xl group-hover:border-red-100 transition-all">
                   <iframe 
                     src={video.url} 
                     title={video.titulo}
@@ -72,7 +97,7 @@ const Midas = () => {
                     className="w-full h-full"
                   ></iframe>
                 </div>
-                <p className="font-bold text-slate-700 uppercase text-sm px-1 border-l-4 border-red-500 pl-2">
+                <p className="font-bold text-slate-700 uppercase text-[11px] px-1 border-l-4 border-red-500 pl-2 leading-tight">
                   {video.titulo}
                 </p>
               </div>

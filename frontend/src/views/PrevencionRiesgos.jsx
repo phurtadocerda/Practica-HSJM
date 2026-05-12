@@ -1,5 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PageHeader from '../components/PageHeader';
+import api from '../api/axios';
+import { toast } from 'sonner';
+import { Loader2 } from 'lucide-react';
+
+// Importación de imágenes (Assets locales)
 import imgProcedimiento from '../assets/foto_procedimiento.jpg'; 
 import imgCarpeta from '../assets/foto_carpeta.png'; 
 import imgMutual from '../assets/foto_mutual.png'; 
@@ -12,12 +17,77 @@ import imgLeyKarinExterno from '../assets/foto_karin_externo.png';
 import imgLeyKarinPrevencion from '../assets/foto_karin_prevencion.png'; 
 
 const PrevencionRiesgos = () => { 
+  const [documentos, setDocumentos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const descargasSuperiores = [
-    { name: "Política de Seguridad y Salud en el trabajo SSMMOCC 2025", url: "http://10.5.131.63/intranet/wp-content/uploads/2025/08/Politica_de_seguridad_y_Salud_en_el_trabajo_SSMOCC_20251.pdf" },
-    { name: "REGLAMENTO-INTERNO-2026-Nº994", url: "http://10.5.131.63/intranet/wp-content/uploads/2026/01/994-Reglamento-Interno-Higiene-y-Seguridad.pdf" },
-    { name: "Plan Programa trabajo prevención de riesgos HSJM 2025", url: "http://10.5.131.63/intranet/wp-content/uploads/2025/11/PLAN-PROGRAMA-TRABAJO-PREVENCION-DE-RIESGOS-HSJM-2025.pdf" },
-  ];
+  // Carga de datos desde la API
+  useEffect(() => {
+    const cargarDatos = async () => {
+      try {
+        const response = await api.get('/documentos/prevencion');
+        const data = response.data;
+        if (data.success) {
+          setDocumentos(data.documentos || []);
+        }
+      } catch (err) {
+        console.error("Error de conexión:", err);
+        toast.error("No se pudo conectar con el servidor de archivos");
+      } finally {
+        setLoading(false);
+      }
+    };
+    cargarDatos();
+  }, []);
+
+  // Función de filtrado flexible para encontrar documentos por palabras clave
+  const filtrarDocs = (palabrasClave) => {
+    return documentos.filter(doc => {
+      const tituloNormalizado = doc.titulo.toLowerCase()
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      
+      return palabrasClave.some(p => {
+        const palabraNormalizada = p.toLowerCase()
+          .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        return tituloNormalizado.includes(palabraNormalizada);
+      });
+    });
+  };
+
+  // Componente pequeño para listar los documentos filtrados en cada celda
+  const ListaFiltrada = ({ palabras }) => {
+    const docsEncontrados = filtrarDocs(palabras);
+    
+    if (docsEncontrados.length === 0) {
+      return <span className="text-slate-300 text-[10px] italic uppercase">No hay archivos</span>;
+    }
+
+    return (
+      <ul className="space-y-2">
+        {docsEncontrados.map(doc => (
+          <li key={doc.id} className="flex items-start gap-2 group">
+            <div className="w-1.5 h-1.5 mt-2 rounded-full bg-slate-400 group-hover:bg-orange-500 shrink-0"></div>
+            <a 
+              href={`http://localhost:5000/uploads/${doc.url}`} 
+              target="_blank" 
+              rel="noreferrer"
+              className="text-slate-800 underline underline-offset-4 hover:text-blue-700 transition-colors text-sm font-medium leading-tight"
+            >
+              {doc.titulo}
+            </a>
+          </li>
+        ))}
+      </ul>
+    );
+  };
+
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[800px] bg-white rounded-[3rem]">
+        <Loader2 className="w-12 h-12 text-blue-600 animate-spin mb-4" />
+        <p className="text-slate-500 font-bold uppercase tracking-widest">Cargando Prevención de Riesgos...</p>
+      </div>
+    );
+  }
 
   return (
     <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[800px] animate-in fade-in zoom-in duration-500 w-full font-sans">
@@ -33,22 +103,10 @@ const PrevencionRiesgos = () => {
         
         {/* PARTE SUPERIOR: LISTA DE DESCARGAS */}
         <div>
-          <p className="text-slate-600 mb-4 text-lg">Descargar los siguientes Archivos:</p>
-          <ul className="space-y-3 pl-4">
-            {descargasSuperiores.map((doc, index) => (
-              <li key={index} className="flex items-start gap-3">
-                <div className="w-1.5 h-1.5 mt-2 rounded-full border border-slate-800 shrink-0"></div>
-                <a 
-                  href={doc.url} 
-                  target="_blank" 
-                  rel="noreferrer"
-                  className="text-slate-800 font-medium text-base md:text-lg underline underline-offset-4 hover:text-blue-700 transition-colors"
-                >
-                  {doc.name}
-                </a>
-              </li>
-            ))}
-          </ul>
+          <p className="text-slate-600 mb-4 text-lg font-bold">Descargar los siguientes Archivos:</p>
+          <div className="pl-4">
+            <ListaFiltrada palabras={["Politica", "REGLAMENTO", "Plan Programa"]} />
+          </div>
         </div>
 
         {/* TABLA 1: ACCIDENTES Y ENFERMEDADES PROFESIONALES */}
@@ -79,26 +137,13 @@ const PrevencionRiesgos = () => {
                 </tr>
                 <tr>
                   <td className="border border-slate-300 p-6 align-top bg-white">
-                    <ul className="space-y-2">
-                      <li className="flex items-start gap-2">
-                        <div className="w-1.5 h-1.5 mt-2 rounded-full border border-slate-800 shrink-0"></div>
-                        <a href="http://10.5.131.63/intranet/wp-content/uploads/2025/08/PROCEDIMIENTO_ACTUACION_ANTE_ACCIDENTES1.pdf" className="text-slate-800 underline underline-offset-4 hover:text-blue-700">Procedimiento actuación frente a la ocurrencia de accidentes de trabajo</a>
-                      </li>
-                    </ul>
+                    <ListaFiltrada palabras={["actuacion frente"]} />
                   </td>
                   <td className="border border-slate-300 p-6 align-top bg-white">
-                    <ul className="space-y-2">
-                      <li className="flex items-start gap-2"><div className="w-1.5 h-1.5 mt-2 rounded-full border border-slate-800 shrink-0"></div><a href="http://10.5.131.63/intranet/wp-content/uploads/2025/08/DIAT1.pdf" className="text-slate-800 underline underline-offset-4 hover:text-blue-700">Formulario DIAT</a></li>
-                      <li className="flex items-start gap-2"><div className="w-1.5 h-1.5 mt-2 rounded-full border border-slate-800 shrink-0"></div><a href="http://10.5.131.63/intranet/wp-content/uploads/2025/08/DIEP1.pdf" className="text-slate-800 underline underline-offset-4 hover:text-blue-700">Formulario DIEP</a></li>
-                      <li className="flex items-start gap-2"><div className="w-1.5 h-1.5 mt-2 rounded-full border border-slate-800 shrink-0"></div><a href="http://10.5.131.63/intranet/wp-content/uploads/2025/08/Rechazo_de_Atenciones_MUTUAL1.pdf" className="text-slate-800 underline underline-offset-4 hover:text-blue-700">Rechazo de atención</a></li>
-                      <li className="flex items-start gap-2"><div className="w-1.5 h-1.5 mt-2 rounded-full border border-slate-800 shrink-0"></div><a href="http://10.5.131.63/intranet/wp-content/uploads/2025/08/CONSENTIMIENTO_INFORMADO_VIH_MUTUAL1.pdf" className="text-slate-800 underline underline-offset-4 hover:text-blue-700">Consentimiento informado VIH</a></li>
-                    </ul>
+                    <ListaFiltrada palabras={["DIAT", "DIEP", "Rechazo", "VIH"]} />
                   </td>
                   <td className="border border-slate-300 p-6 align-top bg-white">
-                    <ul className="space-y-2">
-                      <li className="flex items-start gap-2"><div className="w-1.5 h-1.5 mt-2 rounded-full border border-slate-800 shrink-0"></div><a href="http://10.5.131.63/intranet/wp-content/uploads/2025/08/Horario_de_atencion1.pdf" className="text-slate-800 underline underline-offset-4 hover:text-blue-700">Horario de atención</a></li>
-                      <li className="flex items-start gap-2"><div className="w-1.5 h-1.5 mt-2 rounded-full border border-slate-800 shrink-0"></div><a href="http://10.5.131.63/intranet/wp-content/uploads/2025/11/FLUJO-DE-DERIVACION.pdf" className="text-slate-800 underline underline-offset-4 hover:text-blue-700">Flujo de derivación</a></li>
-                    </ul>
+                    <ListaFiltrada palabras={["Horario", "derivacion"]} />
                   </td>
                 </tr>
               </tbody>
@@ -134,24 +179,15 @@ const PrevencionRiesgos = () => {
                 </tr>
                 <tr>
                   <td className="border border-slate-300 p-6 align-top bg-white">
-                    <ul className="space-y-2">
-                      <li className="flex items-start gap-2">
-                        <div className="w-1.5 h-1.5 mt-2 rounded-full border border-slate-500 shrink-0"></div>
-                        <a href="http://10.5.131.63/intranet/wp-content/uploads/2025/11/PPT-RESULTADOS-CEAL-SM-2024.pdf" className="text-slate-800 underline underline-offset-4 hover:text-blue-700">Resultados CEAL-SM 2024</a>
-                      </li>
-                    </ul>
+                    <ListaFiltrada palabras={["CEAL-SM", "Resultados"]} />
                   </td>
                   <td className="border border-slate-300 p-6 align-top bg-white">
-                    <ul className="space-y-2">
-                      <li className="flex items-start gap-2"><div className="w-1.5 h-1.5 mt-2 rounded-full border border-slate-500 shrink-0"></div><a href="http://10.5.131.63/intranet/wp-content/uploads/2025/08/Difusion_para_funcionarios_TMERT1.pdf" className="text-slate-800 underline underline-offset-4 hover:text-blue-700">Difusión para funcionarios</a></li>
-                      <li className="flex items-start gap-2"><div className="w-1.5 h-1.5 mt-2 rounded-full border border-slate-500 shrink-0"></div><a href="http://10.5.131.63/intranet/wp-content/uploads/2025/08/TRIPTICO_DIFUSION_TMERT1.pdf" className="text-slate-800 underline underline-offset-4 hover:text-blue-700">Tríptico difusión</a></li>
-                    </ul>
+                    <ListaFiltrada palabras={["TMERT", "Difusion para funcionarios"]} />
+
+                    <ListaFiltrada palabras={["TMERT", "Tríptico difusión"]} />
                   </td>
                   <td className="border border-slate-300 p-6 align-top bg-white">
-                    <ul className="space-y-2">
-                      <li className="flex items-start gap-2"><div className="w-1.5 h-1.5 mt-2 rounded-full border border-slate-500 shrink-0"></div><a href="http://10.5.131.63/intranet/wp-content/uploads/2025/09/ppt-difusion-y-capacitacion-de-prexor-v2021.pdf" className="text-slate-800 underline underline-offset-4 hover:text-blue-700">Difusión y capacitación de prexor</a></li>
-                      <li className="flex items-start gap-2"><div className="w-1.5 h-1.5 mt-2 rounded-full border border-slate-500 shrink-0"></div><a href="http://10.5.131.63/intranet/wp-content/uploads/2025/09/ficha-ruido-v4.pdf" className="text-slate-800 underline underline-offset-4 hover:text-blue-700">Fecha Ruido</a></li>
-                    </ul>
+                    <ListaFiltrada palabras={["prexor", "Ruido"]} />
                   </td>
                 </tr>
               </tbody>
@@ -183,12 +219,7 @@ const PrevencionRiesgos = () => {
                 </tr>
                 <tr>
                   <td className="border border-slate-300 p-6 align-top bg-white">
-                    <ul className="space-y-2">
-                      <li className="flex items-start gap-2">
-                        <div className="w-1.5 h-1.5 mt-2 rounded-full border border-slate-500 shrink-0"></div>
-                        <a href="http://10.5.131.63/intranet/wp-content/uploads/2025/08/RESOLUCION-PLAN-DE-EMERGENCIA-2023.pdf" className="text-slate-800 underline underline-offset-4 hover:text-blue-700 uppercase">RESOLUCION PLAN DE EMERGENCIA 2023</a>
-                      </li>
-                    </ul>
+                    <ListaFiltrada palabras={["EMERGENCIA 2023"]} />
                   </td>
                   <td className="border border-slate-300 p-6 bg-white"></td>
                   <td className="border border-slate-300 p-6 bg-white"></td>
@@ -226,28 +257,20 @@ const PrevencionRiesgos = () => {
                 </tr>
                 <tr>
                   <td className="border border-slate-300 p-6 align-top bg-white">
-                    <ul className="space-y-2">
-                      <li className="flex items-start gap-2"><div className="w-1.5 h-1.5 mt-2 rounded-full border border-slate-500 shrink-0"></div><a href="http://10.5.131.63/intranet/wp-content/uploads/2025/08/Formilario_de_denuncia1.pdf" className="text-slate-800 underline underline-offset-4 hover:text-blue-700">Formulario denuncia</a></li>
-                      <li className="flex items-start gap-2"><div className="w-1.5 h-1.5 mt-2 rounded-full border border-slate-500 shrink-0"></div><a href="http://10.5.131.63/intranet/wp-content/uploads/2025/08/Flujo_Activacion_APT1.pdf" className="text-slate-800 underline underline-offset-4 hover:text-blue-700">Flujo activación APT</a></li>
-                    </ul>
+                    <ListaFiltrada palabras={["denuncia", "APT"]} />
                   </td>
                   <td className="border border-slate-300 p-6 align-top bg-white">
-                    <ul className="space-y-2">
-                      <li className="flex items-start gap-2"><div className="w-1.5 h-1.5 mt-2 rounded-full border border-slate-500 shrink-0"></div><a href="http://10.5.131.63/intranet/wp-content/uploads/2025/08/F.A.F_formulario_Agresiones_Funcionarios1.pdf" className="text-slate-800 underline underline-offset-4 hover:text-blue-700">Formulario F.A.F</a></li>
-                    </ul>
+                    <ListaFiltrada palabras={["F.A.F"]} />
                   </td>
                   <td className="border border-slate-300 p-6 align-top bg-white">
-                    <ul className="space-y-2">
-                      <li className="flex items-start gap-2"><div className="w-1.5 h-1.5 mt-2 rounded-full border border-slate-500 shrink-0"></div><a href="http://10.5.131.63/intranet/wp-content/uploads/2025/08/Protocolo-de-prev-AS-AL-y-VT-Ley-21.6431.pdf" className="text-slate-800 underline underline-offset-4 hover:text-blue-700">Protocolo de prevención AS-AL-VT</a></li>
-                      <li className="flex items-start gap-2"><div className="w-1.5 h-1.5 mt-2 rounded-full border border-slate-500 shrink-0"></div><a href="http://10.5.131.63/intranet/wp-content/uploads/2025/08/Manual_de_buenas_practicas_laborales1.pdf" className="text-slate-800 underline underline-offset-4 hover:text-blue-700">Manual de buenas practicas</a></li>
-                      <li className="flex items-start gap-2"><div className="w-1.5 h-1.5 mt-2 rounded-full border border-slate-500 shrink-0"></div><a href="http://10.5.131.63/intranet/wp-content/uploads/2025/08/POLITICA_DE_CONCILIACIO%CC%81N_DE_LA_VIDA_LABORAL_Y_FAMILIAR_HSJM_20241.pdf" className="text-slate-800 underline underline-offset-4 hover:text-blue-700">Política de conciliación</a></li>
-                    </ul>
+                    <ListaFiltrada palabras={["AS-AL-VT", "buenas practicas", "conciliacion"]} />
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div> 
+
         {/* TABLA 5: ACTIVIDADES REALIZADAS */}
         <div>
           <div className="text-center mb-6">
@@ -258,30 +281,7 @@ const PrevencionRiesgos = () => {
               <tbody>
                 <tr>
                   <td className="border border-slate-300 p-6 align-top bg-white w-1/3">
-                    <ul className="space-y-2">
-                      <li className="flex items-start gap-2">
-                        <div className="w-1.5 h-1.5 mt-2 rounded-full border border-slate-500 shrink-0"></div>
-                        <a 
-                          href="http://10.5.131.63/intranet/wp-content/uploads/2025/08/Capacitacion_uso_y_manejo_de_extintor_17_al_20_de_marzo_20251.pdf" 
-                          target="_blank" 
-                          rel="noreferrer" 
-                          className="text-slate-800 underline underline-offset-4 hover:text-blue-700 transition-colors"
-                        >
-                          Capacitación uso y manejo de extintor
-                        </a>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <div className="w-1.5 h-1.5 mt-2 rounded-full border border-slate-500 shrink-0"></div>
-                        <a 
-                          href="http://10.5.131.63/intranet/wp-content/uploads/2025/08/Capacitacion_de_dosimetros1.pdf" 
-                          target="_blank" 
-                          rel="noreferrer" 
-                          className="text-slate-800 underline underline-offset-4 hover:text-blue-700 transition-colors"
-                        >
-                          Capacitación de dosímetros
-                        </a>
-                      </li>
-                    </ul>
+                    <ListaFiltrada palabras={["extintor", "dosimetros"]} />
                   </td>
                   <td className="border border-slate-300 p-6 align-top bg-white w-1/3"></td>
                   <td className="border border-slate-300 p-6 align-top bg-white w-1/3"></td>
@@ -290,6 +290,10 @@ const PrevencionRiesgos = () => {
             </table>
           </div>
         </div>
+      </div>
+      
+      <div className="text-center text-[10px] text-slate-300 font-bold mt-10 uppercase tracking-[0.4em]">
+        Total Archivos: {documentos.length}
       </div>
     </section>
   );

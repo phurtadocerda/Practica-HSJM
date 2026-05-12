@@ -4,7 +4,7 @@ import {
   Home, FileText, Phone, Map, LogOut, ChevronDown, Menu, X, 
   ShieldCheck, History, Pill, Calendar, UserCircle, FolderTree, 
   BarChart3, Microscope, Activity, Scale, LayoutList, ClipboardCheck, 
-  Heart, FileWarning, HelpCircle, AlertTriangle 
+  Heart, FileWarning, HelpCircle, AlertTriangle, UserPlus 
 } from 'lucide-react';
 import logoHospital from '../assets/logo.png';
 const Navbar = ({ onLogout, userName, userRole, onOpenAdminRegister }) => {
@@ -104,7 +104,8 @@ const Navbar = ({ onLogout, userName, userRole, onOpenAdminRegister }) => {
               onClick={onOpenAdminRegister} 
               className="bg-[#ffb81c] hover:bg-yellow-500 text-[#003876] px-4 py-2 rounded-xl flex items-center gap-2 transition-all shadow-md active:scale-95"
             >
-              <span className="hidden md:inline font-black text-xs uppercase">Registro Admin</span>
+              <UserPlus size={18} />
+              <span className="hidden md:inline font-black text-xs uppercase">Nuevo   Registro</span>
             </button>
           )}
 
@@ -165,7 +166,7 @@ const Navbar = ({ onLogout, userName, userRole, onOpenAdminRegister }) => {
                 </div>
               )}
             </li>
-
+            {/* <NavItem icon={<FileText size={22}/>} text="NOTICIAS" active={location.pathname === '/noticias'} onClick={() => navigate('/noticias')} /> */}
             <NavItem icon={<UserCircle size={22}/>} text="AUTOCONSULTA" onClick={() => window.open('http://10.8.64.31/autoconsulta', '_blank')} />
             <NavItem icon={<Phone size={22}/>} text="ANEXOS" active={location.pathname === '/anexos'} onClick={() => navigate('/anexos')} />
             <NavItem icon={<Map size={22}/>} text="PLANOS" active={location.pathname === '/planos'} onClick={() => navigate('/planos')} />
