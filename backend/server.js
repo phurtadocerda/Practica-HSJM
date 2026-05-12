@@ -7,6 +7,7 @@ const cors = require('cors');
 const authRoutes = require('./src/routes/authRoutes');
 const cumpleanosRoutes = require('./src/routes/cumpleanosRoutes');
 const documentoRoutes = require('./src/routes/documentoRoutes');
+const anexoRoutes = require('./src/routes/anexoRoutes');
 const path = require('path');
 
 // Middleware de autenticación
@@ -21,6 +22,7 @@ app.use(express.json());
 
 // Rutas Publicas
 app.use('/api/auth', authRoutes); // Login y Register
+app.use('/api/anexos', anexoRoutes);
 app.use('/api/documentos', documentoRoutes);
 
 //Rutas Protegidas
