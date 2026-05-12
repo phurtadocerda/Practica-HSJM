@@ -37,4 +37,18 @@ model Documento {
   createdAt DateTime @default(now())
 
   @@map("documentos") // Nombre de la tabla en PostgreSQL
+  createdAt DateTime @default(now())
+
+  @@map("documentos") // Nombre de la tabla en PostgreSQL
+}
+
+model Anexo {
+  id       Int     @id @default(autoincrement())
+  anexo    String  @unique
+  unidad   String  
+  cargo    String?  
+  usuario  String?  
+  email    String? 
+  
+  @@map("anexos")
 }
