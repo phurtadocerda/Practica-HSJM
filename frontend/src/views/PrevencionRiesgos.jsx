@@ -3,8 +3,6 @@ import PageHeader from '../components/PageHeader';
 import api from '../api/axios';
 import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
-
-// Importación de imágenes (Assets locales)
 import imgProcedimiento from '../assets/foto_procedimiento.jpg'; 
 import imgCarpeta from '../assets/foto_carpeta.png'; 
 import imgMutual from '../assets/foto_mutual.png'; 
@@ -20,7 +18,7 @@ const PrevencionRiesgos = () => {
   const [documentos, setDocumentos] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Carga de datos desde la API
+
   useEffect(() => {
     const cargarDatos = async () => {
       try {
@@ -39,7 +37,6 @@ const PrevencionRiesgos = () => {
     cargarDatos();
   }, []);
 
-  // Función de filtrado flexible para encontrar documentos por palabras clave
   const filtrarDocs = (palabrasClave) => {
     return documentos.filter(doc => {
       const tituloNormalizado = doc.titulo.toLowerCase()
@@ -53,7 +50,7 @@ const PrevencionRiesgos = () => {
     });
   };
 
-  // Componente pequeño para listar los documentos filtrados en cada celda
+
   const ListaFiltrada = ({ palabras }) => {
     const docsEncontrados = filtrarDocs(palabras);
     
@@ -101,7 +98,7 @@ const PrevencionRiesgos = () => {
 
       <div className="max-w-6xl mx-auto space-y-16 pt-4">
         
-        {/* PARTE SUPERIOR: LISTA DE DESCARGAS */}
+
         <div>
           <p className="text-slate-600 mb-4 text-lg font-bold">Descargar los siguientes Archivos:</p>
           <div className="pl-4">
@@ -109,7 +106,7 @@ const PrevencionRiesgos = () => {
           </div>
         </div>
 
-        {/* TABLA 1: ACCIDENTES Y ENFERMEDADES PROFESIONALES */}
+
         <div>
           <div className="text-center mb-6">
             <h3 className="text-xl md:text-2xl text-slate-700 font-bold uppercase tracking-tight">Accidentes y Enfermedades Profesionales</h3>
@@ -151,7 +148,7 @@ const PrevencionRiesgos = () => {
           </div>
         </div>
 
-        {/* TABLA 2: PROTOCOLOS MINSAL */}
+ 
         <div>
           <div className="text-center mb-6">
             <h3 className="text-xl md:text-2xl text-slate-700 font-bold uppercase tracking-tight">Protocolos Minsal</h3>
@@ -195,7 +192,6 @@ const PrevencionRiesgos = () => {
           </div>
         </div>
 
-        {/* TABLA 3: COGRID */}
         <div>
           <div className="text-center mb-6">
             <h3 className="text-xl md:text-2xl text-slate-700 font-bold uppercase tracking-tight">COGRID (Comité gestión de riesgos y desastres)</h3>
@@ -229,7 +225,7 @@ const PrevencionRiesgos = () => {
           </div>
         </div>
 
-        {/* TABLA 4: PREVENCIÓN VIOLENCIA (LEY KARIN) */}
+
         <div>
           <div className="text-center mb-6">
             <h3 className="text-xl md:text-2xl text-slate-700 font-bold uppercase tracking-tight">Prevención de la violencia, acoso Laboral y/o Sexual</h3>
@@ -271,7 +267,6 @@ const PrevencionRiesgos = () => {
           </div>
         </div> 
 
-        {/* TABLA 5: ACTIVIDADES REALIZADAS */}
         <div>
           <div className="text-center mb-6">
             <h3 className="text-xl md:text-2xl text-slate-700 font-bold uppercase tracking-tight">Actividades Realizadas</h3>

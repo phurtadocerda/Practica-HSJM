@@ -22,7 +22,7 @@ const EspecialidadOdontologia = () => {
         badgeIconColor="text-teal-500"
       />
 
-      {/* LISTADO DE PROTOCOLOS */}
+
       <div className="max-w-5xl mx-auto">
         <div className="bg-slate-50 p-8 md:p-10 rounded-3xl border border-slate-100 shadow-sm">
           <h3 className="text-sm font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center gap-2 border-b border-slate-200 pb-4">
@@ -38,9 +38,7 @@ const EspecialidadOdontologia = () => {
                   rel="noreferrer"
                   className="flex items-start gap-3 w-fit"
                 >
-                  {/* El puntito que cambia de color */}
                   <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-slate-300 group-hover:bg-teal-500 transition-colors shrink-0"></span>
-                  {/* El texto del enlace */}
                   <span className="text-slate-700 font-bold underline decoration-slate-200 group-hover:decoration-teal-500 group-hover:text-teal-700 underline-offset-4 transition-all text-sm md:text-base tracking-wide">
                     {doc.titulo}
                   </span>

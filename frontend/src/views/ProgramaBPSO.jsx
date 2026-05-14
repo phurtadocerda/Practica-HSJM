@@ -3,8 +3,6 @@ import PageHeader from '../components/PageHeader';
 import api from '../api/axios';
 import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
-
-// Importación de fotos locales (fijas)
 import foto1 from '../assets/afiche_bpso.png'; 
 import foto2 from '../assets/foto_bpso_2.png'; 
 import foto3 from '../assets/foto_bpso_3.png'; 
@@ -30,7 +28,7 @@ const ProgramaBPSO = () => {
     cargarDatos();
   }, []);
 
-  // Función de filtrado para el enlace destacado
+
   const filtrarDocs = (palabrasClave) => {
     return documentos.filter(doc => {
       const tituloNormalizado = doc.titulo.toLowerCase()
@@ -53,7 +51,7 @@ const ProgramaBPSO = () => {
     );
   }
 
-  // Obtenemos el documento específico para el botón final
+
   const docClasificacion = filtrarDocs(["SISTEMA DE CLASIFICACION", "LESIONES POR PRESION"])[0];
 
   return (
@@ -68,7 +66,7 @@ const ProgramaBPSO = () => {
 
       <div className="w-full max-w-3xl mx-auto flex flex-col items-center gap-8 pt-4">
         
-        {/* FOTOS FIJAS */}
+ 
         <div className="w-full max-w-xl">
           <img 
             src={foto1} 
@@ -93,7 +91,7 @@ const ProgramaBPSO = () => {
           />
         </div>
 
-        {/* ENLACE DINÁMICO FINAL */}
+     
         <div className="w-full pt-8 pb-4 border-t border-slate-200 flex justify-center mt-2">
           {docClasificacion ? (
             <a 

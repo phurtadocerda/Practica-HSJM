@@ -3,8 +3,6 @@ import { FileText, Download, X, ZoomIn, Loader2, AlertCircle } from 'lucide-reac
 import PageHeader from '../components/PageHeader';
 import api from '../api/axios';
 import { toast } from 'sonner';
-
-// === IMPORTACIÓN DE LAS 20 FOTOS EXACTAS (Assets locales) ===
 import reacre1 from '../assets/reacreditacion1.png';
 import reacre2 from '../assets/reacreditacion2.png';
 import reacre3 from '../assets/reacreditacion3.png';
@@ -74,7 +72,7 @@ const Reacreditacion = () => {
 
       <div className="max-w-7xl mx-auto space-y-16">
         
-        {/* SECCIÓN 1: DESCARGAS DINÁMICAS */}
+
         <div className="bg-slate-50 p-8 rounded-3xl border border-slate-100 shadow-sm">
           <div className="flex items-center gap-3 mb-6">
             <Download className="text-[#00a19a]" size={26} strokeWidth={2.5}/>
@@ -108,7 +106,7 @@ const Reacreditacion = () => {
           )}
         </div>
 
-        {/* SECCIÓN 2: GALERÍA DE INFOGRAFÍAS */}
+
         <div className="pt-4 pb-12">
           <div className="border-l-4 border-[#00a19a] pl-4 mb-10">
             <h3 className="text-3xl font-black text-slate-800 uppercase tracking-tighter">Infografías y Protocolos</h3>
@@ -138,13 +136,13 @@ const Reacreditacion = () => {
         </div>
       </div>
 
-      {/* VISOR DE IMAGEN (MODAL) - CORREGIDO PARA SER MÁS GRANDE */}
+
       {selectedPhoto && (
         <div 
           className="fixed inset-0 bg-black/95 z-[999] flex items-center justify-center p-2 sm:p-4 md:p-6 animate-in fade-in duration-300 backdrop-blur-sm cursor-zoom-out"
           onClick={() => setSelectedPhoto(null)} // Cerrar al hacer clic fuera
         >
-          {/* Botón de cerrar más visible */}
+ 
           <button 
             onClick={() => setSelectedPhoto(null)} 
             className="absolute top-4 right-4 text-white bg-black/50 hover:bg-red-600 rounded-full p-3 transition-colors shadow-lg z-10"
@@ -153,17 +151,16 @@ const Reacreditacion = () => {
             <X size={28} strokeWidth={2.5}/>
           </button>
 
-          {/* Contenedor principal del modal - Crecido al máximo alto */}
+
           <div 
             className="relative w-full h-full flex items-center justify-center animate-in zoom-in duration-300 cursor-default"
-            onClick={(e) => e.stopPropagation()} // No cerrar al hacer clic en la imagen
+            onClick={(e) => e.stopPropagation()} 
           >
             <img 
               src={selectedPhoto.src} 
               alt={selectedPhoto.alt} 
-              /* Claves del cambio: h-full, max-h-[95vh], object-contain */
               className="max-w-[95%] h-full max-h-[60vh] object-contain rounded-2xl shadow-2xl border-4 border-white/20 select-none cursor-zoom-out"
-              onClick={() => setSelectedPhoto(null)} // También cierra al hacer clic en la imagen misma
+              onClick={() => setSelectedPhoto(null)} 
             />
           </div>
         </div>

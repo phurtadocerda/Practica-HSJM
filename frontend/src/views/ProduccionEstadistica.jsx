@@ -71,7 +71,7 @@ const ProduccionEstadistica = () => {
                       {doc.titulo}
                     </span>
                     
-                    {/* Badge de Manual automático basado en el título */}
+                    
                     {doc.titulo.toLowerCase().includes('manual') && (
                       <span className="text-[9px] bg-orange-100 text-orange-600 px-2 py-0.5 rounded-md font-black uppercase tracking-tighter">
                         Manual

@@ -72,7 +72,7 @@ const AgendamientoGis = () => {
           </div>
         ) : (
           <>
-            {/* SECCIÓN 1: MANUALES (LISTA DE ENLACES) */}
+
             <div>
               <h3 className="text-2xl font-black text-slate-800 mb-6 flex items-center gap-2">
                 <FileText className="text-[#00a19a]" size={28} /> Manuales:
@@ -86,13 +86,13 @@ const AgendamientoGis = () => {
                 ))}
               </div>
             </div>
-            {/* SECCIÓN 2: VIDEOS TUTORIALES */}
+
             <div>
               <h3 className="text-2xl font-black text-slate-800 mb-8 flex items-center gap-2 border-t pt-10 border-slate-100">
                 <PlayCircle className="text-red-500" size={28} /> Videos Tutoriales:
               </h3>
 
-              {/* Grilla de Videos */}
+
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {videos.map((video) => (
                   <SafeVideoPlayer

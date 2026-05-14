@@ -11,7 +11,7 @@ const ReglamentoProtocolos = () => {
   useEffect(() => {
     const cargarDatos = async () => {
       try {
-        // Usamos la categoría exacta de tu seed
+
         const response = await api.get('/documentos/reglamentointernoprotocolo');
         const data = response.data;
 

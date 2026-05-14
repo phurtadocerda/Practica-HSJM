@@ -2,7 +2,7 @@ import React from 'react';
 import { AlertCircle, Mail, FileText, FolderOpen } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
 
-const EventoAdverso = () => { // 2. Quitamos onNavigate
+const EventoAdverso = () => { 
 
   const destinatarios = [
     "eventocentinela@minsal.cl",
@@ -30,7 +30,7 @@ const EventoAdverso = () => { // 2. Quitamos onNavigate
      
       <div className="max-w-5xl mx-auto space-y-10">
         
-        {/* DESCARGA DE FORMULARIO */}
+        
         <div className="bg-red-50 p-8 rounded-3xl border border-red-100 shadow-sm">
           <h3 className="text-sm font-black text-red-800 uppercase tracking-widest mb-6 flex items-center gap-2">
             <FileText size={20} /> Formulario de Descarga
@@ -40,7 +40,7 @@ const EventoAdverso = () => { // 2. Quitamos onNavigate
           </a>
         </div>
 
-        {/* DESTINATARIOS */}
+        
         <div className="space-y-6">
           <h3 className="text-lg font-black text-[#003876] uppercase tracking-tight flex items-center gap-2">
             <Mail size={20} className="text-red-600" /> Destinatarios de Notificaciones (Eventos Centinela)

@@ -1,4 +1,3 @@
-// src/components/ClinicalSystemCard.jsx
 import React from 'react';
 
 const ClinicalSystemCard = ({ image, title, desc, link, onClick }) => {

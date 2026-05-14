@@ -3,16 +3,15 @@ import { X, Gift, Cake, PartyPopper, CalendarDays } from 'lucide-react';
 import api from '../api/axios';
 
 const ModalCumpleanos = () => {
-  // 1. Revisa si el usuario ya cerró los globos hoy
+
   const [isOpen, setIsOpen] = useState(() => {
     const yaSeMostro = localStorage.getItem('cumpleanosMostrado');
     return yaSeMostro !== 'true'; 
   });
 
-  // 2. AHORA ES UN ESTADO: Aquí se guardará la lista real que mande la Base de Datos
+
   const [cumpleanerosHoy, setCumpleanerosHoy] = useState([]);
 
-  // 3. LA MAGIA: Esto va a buscar los datos a tu servidor (Node.js) apenas carga la página
   useEffect(() => {
     const buscarCumpleanos = async () => {
       try {
@@ -25,7 +24,7 @@ const ModalCumpleanos = () => {
     };
     
     buscarCumpleanos();
-  }, []); // Los corchetes vacíos aseguran que solo busque 1 vez al iniciar sesión
+  }, []); 
 
   const cerrarModal = () => {
     setIsOpen(false);
@@ -38,11 +37,11 @@ const ModalCumpleanos = () => {
     }).format(new Date());
   };
 
-  // 4. Si la base de datos responde que la lista está vacía (nadie cumple hoy), no muestra nada
+ 
   if (cumpleanerosHoy.length === 0) return null;
   return (
     <>
-      {/* BOTÓN FLOTANTE (Adaptado para móvil) */}
+      
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
@@ -94,7 +93,7 @@ const ModalCumpleanos = () => {
             <div className="party-item item-md left-[75%]" style={{ animationDuration: '12s', animationDelay: '-7s' }}>🎈</div>
             <div className="party-item item-md left-[92%]" style={{ animationDuration: '9s', animationDelay: '-2.5s' }}>🍰</div>
 
-            {/* CAPA 3: Pequeños y lentos (dan profundidad) */}
+            {/* CAPA 3: Pequeños y lentos  */}
             <div className="party-item item-sm left-[10%]" style={{ animationDuration: '14s', animationDelay: '-0.5s' }}>✨</div>
             <div className="party-item item-sm left-[35%]" style={{ animationDuration: '13s', animationDelay: '-8s' }}>🎈</div>
             <div className="party-item item-sm left-[48%]" style={{ animationDuration: '15s', animationDelay: '-4.5s' }}>🎁</div>
@@ -102,14 +101,14 @@ const ModalCumpleanos = () => {
             <div className="party-item item-sm left-[95%]" style={{ animationDuration: '16s', animationDelay: '-3.5s' }}>🎉</div>
           </div>
 
-          {/* CONTENEDOR DE LA TARJETA CON ALTURA MÁXIMA PARA QUE NO SE CORTE EN CELULARES */}
+          
           <div className="bg-white rounded-[2rem] md:rounded-[3.5rem] w-full max-w-xl shadow-2xl relative z-10 border-4 border-[#ffb81c] overflow-hidden animate-in zoom-in-95 duration-500 text-center flex flex-col max-h-[90vh]">
             
             <button onClick={cerrarModal} className="absolute top-4 right-4 md:top-6 md:right-6 bg-white/20 hover:bg-red-500 text-white p-1.5 md:p-2 rounded-full transition-all z-20 border-2 border-white/50">
               <X size={20} strokeWidth={3} />
             </button>
 
-            {/* CABECERA */}
+           
             <div className="bg-gradient-to-br from-[#00a19a] to-[#003876] p-6 md:p-10 relative shrink-0">
               <PartyPopper className="w-10 h-10 md:w-16 md:h-16 mx-auto text-[#ffb81c] mb-2 md:mb-4" />
               <h2 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter drop-shadow-lg leading-tight">
@@ -121,7 +120,7 @@ const ModalCumpleanos = () => {
               </div>
             </div>
 
-            {/* LISTA DE CUMPLEAÑEROS (Con Scroll si son muchos) */}
+            
             <div className="p-4 md:p-10 bg-slate-50 overflow-y-auto">
               <div className="space-y-3 md:space-y-5">
                 {cumpleanerosHoy.map((persona) => (

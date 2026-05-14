@@ -18,10 +18,10 @@ const Login = ({ onLogin }) => {
     onLogin(rut, password);
   };
 
-  // ESTILOS CORREGIDOS PARA QUE AMBOS SEAN IGUALES (Hermanos gemelos)
+
   const inputStyleCompacto = { 
     width: '100%', 
-    height: '45px', // Altura fija obligatoria
+    height: '45px', 
     padding: '0 15px', 
     borderRadius: '8px', 
     border: '1px solid #ccc', 
@@ -33,13 +33,13 @@ const Login = ({ onLogin }) => {
 
   const campoContainerStyle = { marginBottom: '12px', textAlign: 'left', position: 'relative' };
 
-  // Estilo para el botón del ojito centrado perfectamente
+
   const eyeButtonStyle = {
     position: 'absolute',
     right: '12px',
     top: '0',
     bottom: '0',
-    margin: 'auto', // Centrado vertical perfecto
+    margin: 'auto', 
     background: 'none',
     border: 'none',
     cursor: 'pointer',

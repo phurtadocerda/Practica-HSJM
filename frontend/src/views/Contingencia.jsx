@@ -3,10 +3,10 @@ import { FileText, FolderOpen } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import PageHeader from '../components/PageHeader';
 
-const Contingencia = () => { // 2. Quitamos onNavigate
-  const navigate = useNavigate(); // 3. Inicializamos el hook
+const Contingencia = () => { 
+  const navigate = useNavigate(); 
 
-  // Los 3 documentos de contingencia de tu imagen
+  
   const documentos = [
     { titulo: "FORMULARIO EGRESO HOSPITALARIO", link: "http://10.5.131.63/intranet/wp-content/uploads/2022/12/FORMULARIO-EGRESO-HOSPITALARIO.pdf" },
     { titulo: "INFORME DIARIO", link: "http://10.5.131.63/intranet/wp-content/uploads/2022/12/INFORME-DIARIO.pdf" },
@@ -26,7 +26,7 @@ const Contingencia = () => { // 2. Quitamos onNavigate
         badgeIconColor="text-orange-500"
       />
 
-      {/* LISTADO DE FORMULARIOS */}
+    
       <div className="max-w-5xl mx-auto">
         <div className="bg-orange-50/50 p-8 md:p-10 rounded-3xl border border-orange-100/50 shadow-sm">
           <h3 className="text-sm font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center gap-2 border-b border-orange-200 pb-4">

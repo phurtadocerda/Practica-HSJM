@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight, ShieldCheck, Database, Users, LogIn, Key } f
 import ModalCumpleanos from './ModalCumpleanos';
 
 const Inicio = ({ userName, images }) => {
-  const navigate = useNavigate(); // <-- Iniciamos el Hook
+  const navigate = useNavigate(); 
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const nextSlide = () => {
@@ -61,7 +61,7 @@ const Inicio = ({ userName, images }) => {
           <h3 className="text-3xl md:text-5xl font-black text-[#003876] tracking-tighter uppercase italic">Herramientas Principales</h3>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10">
-          {/* USANDO NAVIGATE EN VEZ DE ONNAVIGATE */}
+          
           <div onClick={() => navigate('/portal')} className="cursor-pointer hover:scale-105 transition-transform">
             <QuickCard icon={<Database size={48} />} title="PORTAL DIGITAL" desc="Registros Clínicos" color="border-[#00a19a]" />
           </div>

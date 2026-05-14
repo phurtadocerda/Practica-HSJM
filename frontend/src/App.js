@@ -4,7 +4,7 @@ import { MapPin, Instagram, Facebook, Youtube, Twitter } from 'lucide-react';
 import { login as loginUser, logout as logoutUser, getUser } from './services/authService';
 import { Toaster, toast } from 'sonner';
 
-// --- COMPONENTES PRINCIPALES ---
+
 import Login from './components/login';
 import Navbar from './components/Navbar';
 import AppRoutes from './routes/AppRoutes';
@@ -12,7 +12,7 @@ import ScrollToTop from './components/ScrollToTop';
 import AdminRegisterModal from './components/AdminRegisterModal';
 import './App.css';
 
-// --- IMÁGENES GLOBALES (Solo conservamos las del Slider del Inicio) ---
+
 import foto4 from './assets/foto4.jpeg'; 
 import foto5 from './assets/foto5.jpeg'; 
 import foto6 from './assets/foto6.jpeg'; 
@@ -25,21 +25,21 @@ import foto12 from './assets/foto12.jpeg';
 import foto13 from './assets/foto13.jpeg';
 
 function App() {
-  const navigate = useNavigate(); // Hook de React Router para navegar
+  const navigate = useNavigate(); 
 
-  // 1. Sacamos la información del usuario desde localStorage
+
   const user = getUser();
 
-  // 2. Configuramos los estados de sesión
+  
   const [isLoggedIn, setIsLoggedIn] = useState(!!user);
   const [userName, setUserName] = useState(user?.nombre || '');
   const [userRole, setUserRole] = useState(user?.rol || '');
   const [showAdminRegister, setShowAdminRegister] = useState(false);
 
-  // Imágenes para pasarle al componente Inicio
+
   const images = [foto4, foto5, foto6, foto7, foto8, foto9, foto10, foto11, foto12, foto13];
 
-  // --- LOGIN / LOGOUT ---
+
 
 const handleLogin = async (rutUsuario, passwordUsuario) => {
   try {
@@ -69,7 +69,7 @@ const handleLogin = async (rutUsuario, passwordUsuario) => {
     setIsLoggedIn(false);
     setUserName('');
     setUserRole('');
-    navigate('/login'); // Redirigimos al login al cerrar sesión
+    navigate('/login'); 
   };
 
   return (
@@ -82,7 +82,7 @@ const handleLogin = async (rutUsuario, passwordUsuario) => {
         <div className="min-h-screen flex flex-col bg-slate-50 overflow-x-hidden">
           <ScrollToTop />
           
-          {/* NAVEGACIÓN */}
+        
           <Navbar 
             onLogout={handleLogout} 
             userName={userName}
@@ -92,7 +92,7 @@ const handleLogin = async (rutUsuario, passwordUsuario) => {
 
           {/* CONTENEDOR DE RUTAS DINÁMICAS */}
           <main className="max-w-7xl mx-auto px-4 pt-20 md:pt-40 pb-12 flex-grow w-full">
-            {/* Aquí AppRoutes se encarga de inyectar la vista correcta según la URL */}
+            {/*  AppRoutes se encarga de inyectar la vista correcta según la URL */}
             <AppRoutes 
               userName={userName} 
               userRole={userRole} 
@@ -135,7 +135,6 @@ const handleLogin = async (rutUsuario, passwordUsuario) => {
   );
 }
 
-// Componente auxiliar que solo se usa en el Footer de este archivo
 function SocialIcon({ icon, link }) {
   return (
     <a href={link} target="_blank" rel="noreferrer" className="bg-white/10 p-3 rounded-full hover:bg-[#ffb81c] hover:text-[#003e44] transition-all duration-300 shadow-lg active:scale-95">

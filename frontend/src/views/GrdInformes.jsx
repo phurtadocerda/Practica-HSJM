@@ -2,8 +2,7 @@ import React from 'react';
 import { Microscope, BookOpen, FolderOpen } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
 
-const GrdInformes = () => { // 2. Quitamos onNavigate
-
+const GrdInformes = () => { 
   const informes2024 = [
     { titulo: "Informe Estandar diciembre 2024", link: "http://10.5.131.63/intranet/wp-content/uploads/2025/02/Informe-Estandar-diciembre-2024.xlsx" },
     { titulo: "Informe Estandar noviembre 2024.", link: "http://10.5.131.63/intranet/wp-content/uploads/2025/02/Informe-Estandar-noviembre-2024.xlsx" },

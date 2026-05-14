@@ -40,7 +40,7 @@ const ProtocoloAtencionUsuario = () => {
         backPath="/inicio"
       />
 
-      {/* CONTENIDO CENTRAL */}
+  
       <div className="max-w-4xl mx-auto pt-4">
         
         {loading ? (
@@ -70,7 +70,7 @@ const ProtocoloAtencionUsuario = () => {
                     <FileText className="text-[#003876] group-hover:text-[#00a19a]" size={36} strokeWidth={1.5} />
                   </div>
                   
-                  {/* Texto del Enlace Dinámico */}
+                 
                   <h3 className="text-xl md:text-2xl font-black text-slate-700 group-hover:text-[#003876] transition-colors underline decoration-2 decoration-transparent group-hover:decoration-[#00a19a] underline-offset-8">
                     {doc.titulo}
                   </h3>

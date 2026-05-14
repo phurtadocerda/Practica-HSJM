@@ -8,11 +8,11 @@ import SystemGrid from '../components/SystemGrid';
 import BackButton from '../components/BackButton';
 import logoServicio from '../assets/logo.png';
 
-const Capacitacion = () => { // 2. Quitamos el prop onNavigate
+const Capacitacion = () => { 
   const [subView, setSubView] = useState('principal');
   const [searchTerm, setSearchTerm] = useState('');
 
-  // --- DATOS: 25 GUÍAS PDF ---
+
   const guiasPdf = [
     { nombre: "1. INDICE V.1", url: "http://10.5.131.63/intranet/wp-content/uploads/2025/10/1.-INDICE-V.1.pdf" },
     { nombre: "2. INGRESO DE SIC MANUALMENTE A TRAKCARE V.2_CM", url: "http://10.5.131.63/intranet/wp-content/uploads/2025/10/2.-INGRESO-DE-SIC-MANUALMENTE-A-TRAKCARE-V.2_CM.pdf" },
@@ -45,7 +45,7 @@ const Capacitacion = () => { // 2. Quitamos el prop onNavigate
     guia.nombre.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // --- SUB-VISTAS DE RENDERIZADO ---
+
 
   const renderGuiasPdf = () => (
     <div className="animate-in fade-in duration-500">
@@ -178,7 +178,7 @@ const Capacitacion = () => { // 2. Quitamos el prop onNavigate
   );
 };
 
-// --- COMPONENTES AUXILIARES ---
+
 function VideoCard({ title, url }) {
   return (
     <div className="bg-slate-50 p-4 rounded-3xl border border-slate-200 space-y-4 shadow-sm hover:shadow-md transition-shadow">

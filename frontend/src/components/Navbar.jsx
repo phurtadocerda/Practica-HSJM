@@ -60,13 +60,13 @@ const Navbar = ({ onLogout, userName, userRole, onOpenAdminRegister }) => {
     },
   ];
 
-  // NUEVA FUNCIÓN DE NAVEGACIÓN
+  
   const handleNavegar = (e, opcion) => {
     if (e) { e.preventDefault(); e.stopPropagation(); }
     if (opcion.external) {
       window.open(opcion.link, '_blank');
     } else {
-      // Usamos el navigate de React Router
+      
       navigate(`/${opcion.route || opcion}`);
     }
     setIsMobileMenuOpen(false);
@@ -81,7 +81,7 @@ const Navbar = ({ onLogout, userName, userRole, onOpenAdminRegister }) => {
             src={logoHospital} 
             alt="Logo" 
             className="h-8 xs:h-10 md:h-14 w-auto object-contain cursor-pointer transition-all" 
-            onClick={() => navigate('/inicio')} // <-- Cambio aquí
+            onClick={() => navigate('/inicio')} 
           />
           <div className="flex flex-col min-w-0">
             <h1 className="text-[#003876] font-black text-[10px] xs:text-xs sm:text-sm md:text-xl leading-none uppercase italic truncate">
@@ -126,7 +126,7 @@ const Navbar = ({ onLogout, userName, userRole, onOpenAdminRegister }) => {
       <div className="hidden lg:block bg-[#003876] border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4">
           <ul className="flex items-center justify-center gap-2 xl:gap-8 py-3">
-            {/* COMPROBACIÓN DE RUTA ACTUAL CON LOCATION */}
+            
             <NavItem icon={<Home size={22}/>} text="INICIO" active={location.pathname === '/inicio'} onClick={() => navigate('/inicio')} />
             
             <li 

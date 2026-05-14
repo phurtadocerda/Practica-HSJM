@@ -5,7 +5,7 @@ import PageHeader from '../components/PageHeader';
 const LaboratorioInstructivo = () => { 
   const navigate = useNavigate();
 
-  // === LISTA DE DOCUMENTOS EXACTA DE TU IMAGEN ===
+
   const documentos = [
     { name: "instructivos a pacientes PDF", url: "http://10.5.131.63/intranet/wp-content/uploads/2023/04/instructivos-a-pacientes-PDF.docx" }, 
     { name: "SARAMPION-RUBEOLA", url: "http://10.5.131.63/intranet/wp-content/uploads/2023/04/SARAMPION-RUBEOLA.pdf" }, 
@@ -25,7 +25,7 @@ const LaboratorioInstructivo = () => {
         backLabel="VOLVER A ACCESOS"
       />
       
-      {/* CONTENEDOR MÁS ANCHO PARA EVITAR ESPACIO BLANCO */}
+      
       <div className="w-full max-w-7xl mx-auto space-y-10 pt-4 flex flex-col items-start">
         
         {/* LISTA DE ENLACES */}

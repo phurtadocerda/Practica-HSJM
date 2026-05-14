@@ -25,7 +25,7 @@ const Midas = () => {
     cargarDatos();
   }, []);
 
-  // Los videos de YouTube se mantienen fijos ya que son embebidos
+ 
   const videosYouTube = [
     { titulo: "TUTORIAL USO DE PLATAFORMA", url: "https://www.youtube.com/embed/jzfQxqunuOQ" },
     { titulo: "TUTORIAL BANDEJA DE ALARMAS ", url: "https://www.youtube.com/embed/525zklJJy6A" },
@@ -44,7 +44,7 @@ const Midas = () => {
 
       <div className="max-w-5xl mx-auto space-y-12 pt-2">
         
-        {/* LISTA DE DOCUMENTOS DINÁMICOS */}
+        
         <div className="pl-2">
           {loading ? (
             <div className="flex items-center gap-3 py-6 text-slate-400 font-bold animate-pulse">
@@ -74,10 +74,10 @@ const Midas = () => {
           )}
         </div>
 
-        {/* SEPARADOR VISUAL */}
+        
         <hr className="border-slate-200" />
 
-        {/* SECCIÓN DE TUTORIALES YOUTUBE */}
+        
         <div className="pt-4">
           <div className="flex items-center gap-2 mb-8">
             <Youtube className="text-red-600" size={28} />

@@ -69,7 +69,7 @@ const Planos = () => {
 
       <div className="flex flex-col lg:flex-row gap-4 flex-grow lg:h-[650px]">
 
-        {/* COLUMNA IZQUIERDA */}
+
         <div className="w-full lg:w-1/3 flex flex-col gap-2 bg-white p-3 md:p-4 rounded-2xl border border-slate-200 shadow-sm max-h-[400px] lg:max-h-full">
 
           <div className="mb-3 border-b border-slate-100 pb-3">
@@ -93,7 +93,7 @@ const Planos = () => {
             </select>
           </div>
 
-          {/* LOADING */}
+
           {loading ? (
             <div className="flex items-center justify-center h-full text-slate-400 font-bold">
               Cargando planos...
@@ -153,7 +153,6 @@ const Planos = () => {
 
                         </div>
 
-                        {/* DESCARGAR */}
                         <a
                           href={`http://localhost:5000/uploads/${plano.url.replace('documentos/', '')}`}
                           target="_blank"

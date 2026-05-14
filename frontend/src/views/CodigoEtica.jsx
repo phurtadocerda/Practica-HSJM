@@ -3,8 +3,8 @@ import { FileText, FolderOpen } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import PageHeader from '../components/PageHeader';
 
-const CodigoEtica = () => { // 2. Quitamos onNavigate
-  const navigate = useNavigate(); // 3. Inicializamos el hook
+const CodigoEtica = () => { 
+  const navigate = useNavigate(); 
 
   const documentos = [
     { titulo: "Código de Ética", link: "http://10.5.131.63/intranet/wp-content/uploads/2023/12/Codigo-de-Etica.pdf" }
@@ -23,7 +23,7 @@ const CodigoEtica = () => { // 2. Quitamos onNavigate
         badgeIconColor="text-amber-500"
       />
 
-      {/* DOCUMENTO ÚNICO */}
+
       <div className="max-w-5xl mx-auto">
         <div className="bg-amber-50/30 p-8 md:p-10 rounded-3xl border border-amber-100/50 shadow-sm">
           <h3 className="text-sm font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center gap-2 border-b border-amber-200 pb-4">

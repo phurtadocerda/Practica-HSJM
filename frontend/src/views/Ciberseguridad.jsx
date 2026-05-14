@@ -2,18 +2,16 @@ import React, { useState } from 'react';
 import { PlayCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import PageHeader from '../components/PageHeader';
-
-// === IMPORTACIÓN DIRECTA DE IMÁGENES ===
 import resolucionImg from '../assets/resolucion.jpg';
 import SoporteImg from '../assets/soporte.png';
 
-const Ciberseguridad = () => { // 2. Quitamos props antiguos
-  const navigate = useNavigate(); // 3. Inicializamos el hook
+const Ciberseguridad = () => { 
+  const navigate = useNavigate(); 
   
-  // Estado para controlar en qué sub-página estamos ('menu', 'resolucion', o 'consejos')
+
   const [subPage, setSubPage] = useState('menu');
 
-  // Lista de videos
+
   const videos = [
     { name: "Ciberseguridad para Todos", url: "http://10.5.131.63/intranet/wp-content/uploads/2025/03/Conciencia_Digital_1.mp4?_=1" },
     { name: "Tu privacidad en internet es clave", url: "http://10.5.131.63/intranet/wp-content/uploads/2025/03/CiberTip1.mp4?_" },
@@ -46,7 +44,7 @@ const Ciberseguridad = () => { // 2. Quitamos props antiguos
         backLabel={subPage === 'menu' ? 'VOLVER A ACCESOS' : 'VOLVER AL MENÚ'}
       />
 
-      {/* ================= VISTA 1: MENÚ PRINCIPAL ================= */}
+
       {subPage === 'menu' && (
         <div className="max-w-6xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
           <p className="text-slate-600 font-bold uppercase text-sm tracking-widest leading-none">Documentación:</p>
@@ -87,7 +85,7 @@ const Ciberseguridad = () => { // 2. Quitamos props antiguos
             </ul>
           </div>
 
-          {/* CÁPSULAS INFORMATIVAS */}
+
           <div className="pt-16 border-t border-slate-100">
             <p className="text-slate-800 font-black mb-8 text-xl tracking-tight leading-none">Cápsulas Informativas:</p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -107,7 +105,7 @@ const Ciberseguridad = () => { // 2. Quitamos props antiguos
         </div>
       )}
 
-      {/* ================= VISTA 2: RESOLUCIÓN ================= */}
+
       {subPage === 'resolucion' && (
         <div className="max-w-5xl mx-auto pt-8 animate-in fade-in slide-in-from-right-8 duration-500">
           <ul className="space-y-4">
@@ -121,7 +119,7 @@ const Ciberseguridad = () => { // 2. Quitamos props antiguos
         </div>
       )}
 
-      {/* ================= VISTA 3: CONSEJOS SEGURIDAD ================= */}
+
       {subPage === 'consejos' && (
         <div className="max-w-5xl mx-auto pt-8 animate-in fade-in slide-in-from-right-8 duration-500">
           <ul className="space-y-4 mb-8">

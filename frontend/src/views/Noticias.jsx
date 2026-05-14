@@ -5,13 +5,13 @@ import {
 } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
 
-// 1. AHORA RECIBIMOS EL ROL DESDE APP.JS
+
 const Noticias = ({ userRole }) => {
   const [noticiaActiva, setNoticiaActiva] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   
   
-  // FUNCIÓN INTELIGENTE PARA LOS ICONOS (Se asignan solos según la categoría)
+
   const obtenerIcono = (categoria) => {
     switch(categoria) {
       case 'Institucional': return <Megaphone size={20} className="text-[#003876]" />;
@@ -23,13 +23,13 @@ const Noticias = ({ userRole }) => {
     }
   };
 
-  // 1. CARGAMOS LAS NOTICIAS DESDE EL DISCO DURO (Si no hay, cargamos las de prueba)
+
   const [listaNoticias, setListaNoticias] = useState(() => {
     const noticiasGuardadas = localStorage.getItem('muralNoticiasHospital');
     if (noticiasGuardadas) {
       return JSON.parse(noticiasGuardadas); // Si hay guardadas, las recupera
     }
-    // Si es la primera vez, carga estas por defecto:
+
     return [
       {
         id: 1,
@@ -61,12 +61,12 @@ const Noticias = ({ userRole }) => {
     ];
   });
 
-  // 2. EL GUARDIÁN: Cada vez que 'listaNoticias' cambia, lo guarda en el disco duro automáticamente
+
   useEffect(() => {
     localStorage.setItem('muralNoticiasHospital', JSON.stringify(listaNoticias));
   }, [listaNoticias]);
 
-  // 3. FORMULARIO
+
   const [nuevaNoticia, setNuevaNoticia] = useState({
     titulo: '', categoria: 'General', resumen: '', contenido: '', imagen: null
   });
@@ -88,15 +88,15 @@ const Noticias = ({ userRole }) => {
       fecha: new Intl.DateTimeFormat('es-CL', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date())
     };
     
-    // Ponemos la nueva noticia al principio de la lista
+
     setListaNoticias([noticiaACrear, ...listaNoticias]);
     setIsModalOpen(false);
     setNuevaNoticia({ titulo: '', categoria: 'General', resumen: '', contenido: '', imagen: null });
   };
 
-  // Función para borrar una noticia (Opcional, pero súper útil para probar)
+
   const borrarNoticia = (e, id) => {
-    e.stopPropagation(); // Evita que se abra la noticia al intentar borrarla
+    e.stopPropagation(); 
     if(window.confirm("¿Seguro que deseas borrar esta noticia?")) {
       setListaNoticias(listaNoticias.filter(noticia => noticia.id !== id));
     }
@@ -128,7 +128,7 @@ const Noticias = ({ userRole }) => {
               <p className="text-slate-400 font-bold uppercase tracking-[0.2em] text-xs pl-16">Información actualizada al día</p>
             </div>
 
-            {/* CANDADO 1: Solo el Admin ve el botón de crear */}
+           
             {userRole === 'administrador' && (
               <button 
                 onClick={() => setIsModalOpen(true)}
@@ -146,7 +146,7 @@ const Noticias = ({ userRole }) => {
                 onClick={() => setNoticiaActiva(noticia)}
                 className="bg-slate-50 hover:bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all cursor-pointer group flex flex-col h-full relative overflow-hidden"
               >
-                {/* CANDADO 2: Solo el Admin puede borrar */}
+                
                 {userRole === 'administrador' && (
                   <button 
                     onClick={(e) => borrarNoticia(e, noticia.id)}
@@ -191,7 +191,7 @@ const Noticias = ({ userRole }) => {
         </div>
       )}
 
-      {/* VISTA 2: LECTURA DE NOTICIA */}
+    
       {noticiaActiva && (
         <div className="animate-in slide-in-from-right-8 duration-500">
           <button onClick={() => setNoticiaActiva(null)} className="mb-8 bg-slate-100 hover:bg-[#ffb81c] text-[#003876] px-5 py-2.5 rounded-full font-black flex items-center gap-2 transition-all text-xs uppercase tracking-widest shadow-sm">
@@ -225,7 +225,7 @@ const Noticias = ({ userRole }) => {
         </div>
       )}
 
-      {/* MODAL / FORMULARIO: CREAR NOTICIA CON FOTO */}
+  
       {isModalOpen && (
         <div className="fixed inset-0 z-[2000] flex items-center justify-center p-4 bg-[#003876]/80 backdrop-blur-sm animate-in fade-in duration-300">
           <div className="bg-white rounded-[2.5rem] w-full max-w-2xl shadow-2xl overflow-hidden border-4 border-[#ffb81c] flex flex-col max-h-[90vh]">
@@ -283,7 +283,7 @@ const Noticias = ({ userRole }) => {
                   value={nuevaNoticia.contenido} onChange={(e) => setNuevaNoticia({...nuevaNoticia, contenido: e.target.value})}></textarea>
               </div>
               
-              {/* CANDADO 3: Solo el Admin ve el botón de guardar formulario */}
+             
               {userRole === 'administrador' && (
                 <button type="submit" className="w-full bg-[#00a19a] hover:bg-[#003876] text-white py-4 rounded-2xl font-black uppercase tracking-[0.2em] shadow-lg transition-all active:scale-95 mt-4">
                   Publicar Noticia Ahora

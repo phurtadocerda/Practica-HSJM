@@ -14,7 +14,6 @@ const VersionesAnteriores = ({ userRole }) => {
   const [showForm, setShowForm] = useState(false);
   const [newDoc, setNewDoc] = useState({ nombre: '', url: '' });
 
-  // Carga inicial desde la API
   const cargarDatos = async () => {
     try {
       const response = await api.get('/documentos/versionesAnteriores');
@@ -38,8 +37,6 @@ const VersionesAnteriores = ({ userRole }) => {
     if (!newDoc.nombre || !newDoc.url) return;
 
     try {
-      // Aquí podrías implementar un POST a la API si decides habilitar la subida
-      // Por ahora, mantenemos la lógica de visualización dinámica
       toast.info("Función de guardado conectada al flujo de administración");
       setShowForm(false);
     } catch (error) {

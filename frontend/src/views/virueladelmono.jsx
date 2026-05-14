@@ -67,8 +67,6 @@ const ViruelaDelMono = () => {
             ))}
           </ul>
         )}
-
-        {/* IMAGEN INFORMATIVA INFERIOR (Assets locales) */}
         <div className="pt-10 flex justify-start">
           <div className="max-w-md rounded-2xl overflow-hidden shadow-xl hover:scale-105 transition-all duration-300 border border-slate-100 bg-white p-2">
              <img src={aficheMpox} alt="Mpox Informativo" className="w-full h-auto rounded-xl" />

@@ -30,8 +30,6 @@ const Tuberculosis = () => {
     cargarDatos();
   }, []);
 
-  // Dividimos los documentos para mantener tu estructura visual (opcional)
-  // O simplemente los listamos todos con el nuevo estilo dinámico
   const docsPrincipales = documentos.slice(0, 30);
 
   return (

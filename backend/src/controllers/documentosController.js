@@ -1,7 +1,7 @@
 const prisma = require('../config/prisma');
 
 const getDocumentosPorCategoria = async (req, res) => {
-  const { categoria } = req.params; // Ejemplo: 'accidentes'
+  const { categoria } = req.params; 
   
   try {
     const documentos = await prisma.documento.findMany({

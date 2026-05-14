@@ -3,10 +3,10 @@ const prisma = require('../config/prisma');
 const getAnexos = async (req, res) => {
   try {
     const anexos = await prisma.anexo.findMany({
-      orderBy: { unidad: 'asc' } // Los ordena alfabéticamente por unidad
+      orderBy: { unidad: 'asc' } 
     });
     
-    // Respondemos con el formato que espera tu Frontend
+    
     res.json({ success: true, anexos });
   } catch (error) {
     console.error("Error en getAnexos:", error);
@@ -20,7 +20,7 @@ const getAnexos = async (req, res) => {
 const createAnexo = async (req, res) => {
   const { anexo, unidad, usuario, cargo, mail } = req.body;
 
-  // Validación de seguridad por rol
+  
   if (req.user.rol !== 'administrador') {
     return res.status(403).json({ success: false, message: "No autorizado" });
   }
@@ -32,7 +32,7 @@ const createAnexo = async (req, res) => {
         unidad,
         usuario,
         cargo,
-        email: mail // Mapeo de mail a email (Prisma)
+        email: mail 
       }
     });
     
@@ -76,7 +76,7 @@ const updateAnexo = async (req, res) => {
     const actualizado = await prisma.anexo.update({
       where: { id: Number(id) },
       data: {
-        anexo: anexo, // Mapeamos 'anexo' del form al campo 'numero' de la DB
+        anexo: anexo, 
         unidad,
         usuario,
         cargo,

@@ -11,7 +11,7 @@ const Procuramiento = () => {
   useEffect(() => {
     const cargarDatos = async () => {
       try {
-        // Buscamos los documentos. Asegúrate de que tu backend use 'procuramiento' en minúsculas.
+        
         const response = await api.get('/documentos/procuramiento');
         const data = response.data;
 
@@ -31,7 +31,7 @@ const Procuramiento = () => {
     cargarDatos();
   }, []);
 
-  // Filtramos: Documentos (PPTX, PDF) vs Videos (MP4)
+  
   const documentos = archivos.filter(doc => !doc.url.toLowerCase().endsWith('.mp4'));
   const videos = archivos.filter(doc => doc.url.toLowerCase().endsWith('.mp4'));
 
@@ -58,7 +58,7 @@ const Procuramiento = () => {
 
       <div className="max-w-5xl mx-auto space-y-12">
         
-        {/* SECCIÓN 1: DOCUMENTOS (PPTX / PDF) */}
+
         <div className="bg-rose-50/30 p-6 md:p-8 rounded-3xl border border-rose-100/50">
           <h3 className="text-sm font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center gap-2 border-b border-rose-100 pb-4">
             <FileText size={16} className="text-rose-500" /> Material de Estudio
@@ -86,7 +86,7 @@ const Procuramiento = () => {
           )}
         </div>
 
-        {/* SECCIÓN 2: VIDEOS */}
+       
         <div className="space-y-8">
           <h3 className="text-sm font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
             <Video size={16} className="text-rose-500" /> Clases Grabadas

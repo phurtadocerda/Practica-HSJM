@@ -8,7 +8,7 @@ const Concurso = ({ userRole }) => {
   const navigate = useNavigate();
   const isAdministrador = userRole === 'administrador';
 
-  // 1. Estado para las noticias/tablas (Cargar de localStorage o usar iniciales)
+  
   const [concursos, setConcursos] = useState(() => {
     const saved = localStorage.getItem('concursos_hsjm');
     const iniciales = [
@@ -27,14 +27,14 @@ const Concurso = ({ userRole }) => {
     return saved ? JSON.parse(saved) : iniciales;
   });
 
-  // 2. Estado para el formulario
+  
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
     titulo: '', plataforma: '', cargo: '', unidad: '', 
     fechaDesde: '', fechaHasta: '', resolucionTexto: '', resolucionLink: ''
   });
 
-  // 3. Guardar cambios permanentemente
+  
   useEffect(() => {
     localStorage.setItem('concursos_hsjm', JSON.stringify(concursos));
   }, [concursos]);
@@ -66,7 +66,7 @@ const Concurso = ({ userRole }) => {
         }
       />
 
-      {/* FORMULARIO (Solo Jefe) */}
+     
       {showForm && (
         <div className="mb-12 p-8 bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200 animate-in slide-in-from-top duration-500">
           <div className="flex justify-between items-center mb-6">

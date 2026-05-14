@@ -5,7 +5,7 @@ const prisma = require('../config/prisma');
 const login = async (req, res) => {
   const { rut, password } = req.body;
   try {
-    // Buscar usuario por RUT
+    
     const usuarioEncontrado = await prisma.usuario.findUnique({
       where: {
         rut: rut
@@ -19,11 +19,11 @@ const login = async (req, res) => {
       }
     });
 
-    // Verificar si el usuario existe y la contraseña coincide
+    
     if (usuarioEncontrado && await bcrypt.compare(password, usuarioEncontrado.password)) {
       const nombreCompleto = `${usuarioEncontrado.nombres} ${usuarioEncontrado.apellido_paterno}`;
 
-      // Generar token JWT
+      
       const token = jwt.sign(
         {
           rut: usuarioEncontrado.rut,
@@ -66,7 +66,7 @@ const register = async (req, res) => {
   } = req.body;
   
   try {
-    // 1. Verificar si el funcionario ya existe en TU base de datos
+    
     const existeFuncionario = await prisma.usuario.findUnique({
       where: { rut: rut }
     });
@@ -76,9 +76,9 @@ const register = async (req, res) => {
         message: 'El funcionario ya está registrado' 
       });
     }
-    // Hashear la contraseña
+    
     const hashedPassword = await bcrypt.hash(password, 10);
-    // Guardar el nuevo funcionario en la base de datos
+   
     await prisma.usuario.create({
       data: {
         nombres: nombres,

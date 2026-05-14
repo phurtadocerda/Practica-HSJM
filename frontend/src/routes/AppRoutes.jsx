@@ -123,7 +123,7 @@ const AppRoutes = ({ userRole, userName, images }) => {
       <Route path="/anexos" element={<Anexos userRole={userRole}/>} />
       <Route path="/planos" element={<Planos />} />
 
-      {/* --- RUTA 404 CATCH-ALL (SI ESCRIBEN ALGO MAL EN LA URL) --- */}
+     
       <Route path="*" element={<Navigate to="/inicio" />} />
     </Routes>
   );

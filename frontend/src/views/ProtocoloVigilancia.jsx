@@ -30,7 +30,7 @@ const ProtocoloVigilancia = () => {
     cargarDatos();
   }, []);
 
-  // Filtramos solo los videos (.mp4)
+  
   const videos = documentos.filter(doc => doc.url.toLowerCase().endsWith('.mp4'));
 
   if (loading) {
@@ -55,7 +55,7 @@ const ProtocoloVigilancia = () => {
 
       <div className="max-w-6xl mx-auto space-y-10 pt-2">
         
-        {/* TEXTO DESCRIPTIVO */}
+      
         <div className="bg-slate-50 p-8 rounded-3xl border border-slate-200 shadow-sm">
           <h3 className="text-2xl font-black text-[#003876] mb-4 uppercase italic tracking-tighter">Protocolo de vigilancia de riesgos psicosociales</h3>
           <p className="text-slate-700 font-medium text-lg leading-relaxed">
@@ -63,7 +63,7 @@ const ProtocoloVigilancia = () => {
           </p>
         </div>
 
-        {/* SECCIÓN DE VIDEOS DINÁMICOS */}
+       
         {videos.length === 0 ? (
           <div className="bg-slate-50/50 p-10 rounded-[2.5rem] border-2 border-dashed border-slate-200 text-center max-w-4xl mx-auto">
             <AlertCircle className="mx-auto text-slate-300 mb-4" size={48} />

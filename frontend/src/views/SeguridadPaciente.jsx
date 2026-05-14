@@ -3,8 +3,6 @@ import { X, ZoomIn, PlayCircle, ShieldAlert, Loader2, AlertCircle, FileText } fr
 import PageHeader from '../components/PageHeader';
 import api from '../api/axios';
 import { toast } from 'sonner';
-
-// Assets locales fijos
 import foto1 from '../assets/seguridad_foto1.png'; 
 import foto2 from '../assets/seguridad_foto2.png';
 import foto3 from '../assets/seguridad_foto3.png';
@@ -32,7 +30,6 @@ const SeguridadPaciente = () => {
     cargarDatos();
   }, []);
 
-  // Separamos documentos de videos
   const documentos = archivos.filter(doc => !doc.url.toLowerCase().endsWith('.mp4'));
   const videos = archivos.filter(doc => doc.url.toLowerCase().endsWith('.mp4'));
 

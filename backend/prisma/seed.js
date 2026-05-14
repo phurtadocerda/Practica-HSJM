@@ -4,15 +4,15 @@ const { PrismaClient } = require('@prisma/client');
 const { PrismaPg } = require('@prisma/adapter-pg');
 const { Pool } = require('pg');
 
-// 1. Configuración del Pool de conexión
+
 const pool = new Pool({ 
   connectionString: process.env.DATABASE_URL 
 });
 
-// 2. Creamos el adaptador para Prisma
+
 const adapter = new PrismaPg(pool);
 
-// 3. Inicializamos el cliente usando el adaptador
+
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
@@ -40,12 +40,12 @@ async function main() {
 
   console.log('✅ Tabla de áreas poblada');
 
-  // Usuario Jefe
+  
   const admin = await prisma.usuario.upsert({
     where: { rut: '18869522-1' },
     update: {},
     create: {
-      rut: '21245882-1',
+      rut: '18869522-1',
       nombres: 'Patricio Eduardo',
       apellido_paterno: 'Hurtado',
       apellido_materno: 'Cerda',
@@ -492,9 +492,9 @@ async function main() {
     { titulo: "RH 4.2 acreditación 2023 (RESOL ED 5)", url: "versionesAnteriores/RH-4.2-RESOL-ED-5.pdf", categoria: "versionesAnteriores" },
     { titulo: "RH 4.2 ED 5 MANEJO ACP 2019", url: "versionesAnteriores/RH-4-2-ED-5-MANEJO-DE-ACP-final-13-6-19-.pdf", categoria: "versionesAnteriores" },
     { titulo: "RH 4.3 acreditación 2023 Hepatitis", url: "versionesAnteriores/RH-4.3-ED.-2-Inmunizacion-Hepatitis.pdf", categoria: "versionesAnteriores" },
-    { titulo: "Resolución RH 4.3 Edición 2 2017", url: "versionesAnteriores/Resolucion-RH-4.3-Edicion-2-2017.pdf", categoria: "versionesAnteriores" }
+    { titulo: "Resolución RH 4.3 Edición 2 2017", url: "versionesAnteriores/Resolucion-RH-4.3-Edicion-2-2017.pdf", categoria: "versionesAnteriores" },
     // === CATEGORÍA: ACCIDENTES DE TRABAJO ===
-    {titulo: "Unidad de salud Ocupacional y Gestión Ambiental", url: "accidentes/USOAMBIENTAL.pdf", categoria: "accidentes" },
+    { titulo: "Unidad de salud Ocupacional y Gestión Ambiental", url: "accidentes/USOAMBIENTAL.pdf", categoria: "accidentes" },
     { titulo: "Flujo de accidente trabajo", url: "accidentes/FLUJOAT.pdf", categoria: "accidentes" },
     { titulo: "Flujo de accidente trabajo con exposición a fluidos", url: "accidentes/FLUJO_ACCIDENTES_CON_EXPOSICION_A_FLUIDOS_CORPORALES_(MUTUAL_2017).pdf", categoria: "accidentes" },
     { titulo: "DIAT", url: "accidentes/DIAT-mutual.pdf", categoria: "accidentes" },

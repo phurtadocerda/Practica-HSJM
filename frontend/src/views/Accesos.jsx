@@ -1,4 +1,4 @@
-// src/views/Accesos.jsx
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Lock } from 'lucide-react';
@@ -6,7 +6,7 @@ import PageHeader from '../components/PageHeader';
 import SystemGrid from '../components/SystemGrid';
 import SystemCard from '../components/SystemCard';
 
-// Importa todas las imágenes específicas de accesos
+
 import Concurso from '../assets/ConcursoInterno.png'; 
 import Bienestar from '../assets/bien.png'; 
 import imagen from '../assets/imagenologia.png';

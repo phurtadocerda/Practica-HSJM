@@ -2,10 +2,10 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
 import PageHeader from '../components/PageHeader';
 
-const Innovacion_pagina = () => { // 2. Quitamos el prop onNavigate
-  const navigate = useNavigate(); // 3. Inicializamos el hook para navegar
+const Innovacion_pagina = () => { 
+  const navigate = useNavigate(); 
 
-  // === CONFIGURACIÓN DE VIDEOS ===
+  
   const videoNaranja = "http://10.5.131.63/intranet/wp-content/uploads/2023/12/Innovacion.mp4?_=1";
   const videoMorado = "http://10.5.131.63/intranet/wp-content/uploads/2023/10/INNOVACION.mp4?_=2";
 
@@ -20,7 +20,7 @@ const Innovacion_pagina = () => { // 2. Quitamos el prop onNavigate
 
       <div className="max-w-6xl mx-auto space-y-12">
         
-        {/* TEXTOS Y LINKS SUPERIORES */}
+        
         <div className="space-y-6 text-lg">
           <div>
             <p className="font-bold text-slate-700">Video de Taller Intro Innovación Pública en siguiente link:</p>
@@ -42,10 +42,10 @@ const Innovacion_pagina = () => { // 2. Quitamos el prop onNavigate
           </div>
         </div>
 
-        {/* SECCIÓN DE VIDEOS */}
+        
         <div className="space-y-20">
           
-          {/* VIDEO 1 (NARANJA) */}
+          
           <div className="space-y-4">
             <a href="http://10.5.131.63/intranet/wp-content/uploads/2023/12/1-PARTE-SOBRE-INNOVACION-_JK_.pdf" className="text-slate-900 font-bold underline hover:text-blue-700 text-xl uppercase italic">
               1-PARTE-SOBRE-INNOVACIÓN-_JK_
@@ -61,7 +61,7 @@ const Innovacion_pagina = () => { // 2. Quitamos el prop onNavigate
             </div>
           </div>
 
-          {/* VIDEO 2 (MORADO) Y LINKS INFERIORES */}
+          
           <div className="space-y-8">
             <div className="aspect-video bg-purple-700 rounded-3xl overflow-hidden shadow-2xl border-4 border-white relative">
               <video 

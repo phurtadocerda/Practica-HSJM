@@ -27,7 +27,7 @@ const Gremio = ({ userRole }) => { // Recibe el rol desde App.js -> AppRoutes
 
   const selectedNotice = noticias.find(n => n.id === selectedNoticeId);
 
-  // --- FUNCIONES DE JEFE ---
+ 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -75,7 +75,7 @@ const Gremio = ({ userRole }) => { // Recibe el rol desde App.js -> AppRoutes
     }
   };
 
-  // --- RENDERIZADO ---
+
   if (showForm) {
     return (
       <div className="max-w-4xl mx-auto bg-slate-50 p-8 rounded-3xl border border-slate-200 mt-6 shadow-inner animate-in fade-in">

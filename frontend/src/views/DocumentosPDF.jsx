@@ -3,8 +3,8 @@ import { FileText } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import PageHeader from '../components/PageHeader';
 
-const DocumentosPDF = () => { // 2. Quitamos onNavigate
-  const navigate = useNavigate(); // 3. Inicializamos el hook
+const DocumentosPDF = () => { 
+  const navigate = useNavigate(); 
 
   return (
     <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[600px] w-full font-sans animate-in fade-in zoom-in duration-500">

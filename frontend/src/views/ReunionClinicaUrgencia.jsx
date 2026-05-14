@@ -11,7 +11,7 @@ const ReunionClinicaUrgencia = () => {
   useEffect(() => {
     const cargarDatos = async () => {
       try {
-        // Llamada a la categoría 'urgencia'
+
         const response = await api.get('/documentos/reuniones');
         const data = response.data;
 

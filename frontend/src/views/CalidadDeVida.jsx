@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import PageHeader from '../components/PageHeader';
 
-// === IMPORTACIÓN DIRECTA DE IMÁGENES ===
+
 import ley from '../assets/ley.png';
 import ley2 from '../assets/ley2.png';
 import violencia from '../assets/violencia.png';
@@ -37,7 +37,7 @@ const CalidadDeVida = () => {
         backLabel="VOLVER A ACCESOS"
       />
      
-        {/* 3. CARRUSEL "PAUSA SALUDABLE" */}
+        {/* CARRUSEL  */}
         <div className="max-w-2xl mx-auto mb-10 relative group">
           <div className="relative h-[250px] md:h-[350px] overflow-hidden rounded-xl border border-slate-200 shadow-md bg-slate-100">
             
@@ -68,7 +68,7 @@ const CalidadDeVida = () => {
           </div>
         </div>
 
-        {/* 4. LISTADO DE DOCUMENTOS */}
+    
         <div className="max-w-5xl mx-auto pt-6 pl-4">
           <ul className="space-y-4">
             {documentos.map((doc, index) => (

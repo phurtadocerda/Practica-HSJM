@@ -11,7 +11,6 @@ const Resoluciones = () => {
   useEffect(() => {
     const cargarDatos = async () => {
       try {
-        // Llamada a la categoría 'resoluciones'
         const response = await api.get('/documentos/resoluciones');
         const data = response.data;
 
@@ -45,7 +44,7 @@ const Resoluciones = () => {
         backPath="/inicio"
       />
 
-      {/* LISTADO DE RESOLUCIONES */}
+     
       <div className="max-w-5xl mx-auto">
         <div className="bg-indigo-50/30 p-8 md:p-10 rounded-3xl border border-indigo-100/50 shadow-sm">
           <h3 className="text-sm font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center gap-2 border-b border-indigo-100 pb-4">

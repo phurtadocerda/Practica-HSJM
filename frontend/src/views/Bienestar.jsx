@@ -6,12 +6,12 @@ import imagenHeroes from '../assets/heroes.png';
 
 const Bienestar = () => {
   const navigate = useNavigate();
-  const [view, setView] = useState('main'); // 'main', 'formularios', 'informativos', 'marco'
+  const [view, setView] = useState('main'); 
 
   return (
     <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[600px] animate-in fade-in zoom-in duration-500 w-full">
       
-      {/* VISTA PRINCIPAL DE BIENESTAR */}
+    
       {view === 'main' && (
         <>
           <PageHeader
@@ -35,7 +35,7 @@ const Bienestar = () => {
         </>
       )}
 
-      {/* SUBVISTA: FORMULARIOS */}
+
       {view === 'formularios' && (
         <>
           <HeaderSubvista titulo="Formularios" onVolver={() => setView('main')} />
@@ -55,7 +55,7 @@ const Bienestar = () => {
         </>
       )}
 
-      {/* SUBVISTA: INFORMATIVOS */}
+
       {view === 'informativos' && (
         <>
           <HeaderSubvista titulo="Informativos" onVolver={() => setView('main')} />
@@ -71,7 +71,7 @@ const Bienestar = () => {
         </>
       )}
 
-      {/* SUBVISTA: MARCO NORMATIVO */}
+
       {view === 'marco' && (
         <>
           <HeaderSubvista titulo="Marco Normativo" onVolver={() => setView('main')} />
@@ -89,7 +89,7 @@ const Bienestar = () => {
   );
 };
 
-// Componentes auxiliares exclusivos de Bienestar
+
 const HeaderSubvista = ({ titulo, onVolver }) => (
   <PageHeader
     title={titulo}

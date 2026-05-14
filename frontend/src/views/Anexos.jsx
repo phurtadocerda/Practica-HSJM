@@ -15,7 +15,7 @@ const Anexos = ({ userRole }) => {
   const errorToastShown = useRef(false);
   const [anexos, setAnexos] = useState([]);
 
-  // ESTADO FORMULARIO Y EDICIÓN
+
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [formData, setFormData] = useState({
@@ -23,7 +23,7 @@ const Anexos = ({ userRole }) => {
     unidad: '',
     usuario: '',
     cargo: '',
-    email: '' // Estandarizado a email para Prisma
+    email: '' 
   });
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const Anexos = ({ userRole }) => {
     cargarAnexos();
   }, []);
 
-  // --- FUNCIONES LÓGICA DE UI ---
+ 
 
   const cancelarEdicion = () => {
     setShowAddForm(false);
@@ -63,24 +63,24 @@ const Anexos = ({ userRole }) => {
       cargo: anexo.cargo,
       email: anexo.email || ''
     });
-    setShowAddForm(true); // Abre el formulario con los datos cargados
+    setShowAddForm(true); 
     window.scrollTo({ top: 0, behavior: 'smooth' }); 
   };
 
-  // --- PETICIONES API ---
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       if (editingId) {
-        // EDICIÓN
+
         const response = await api.put(`/anexos/${editingId}`, formData);
         if (response.data.success) {
           setAnexos(anexos.map(a => a.id === editingId ? { ...a, ...formData } : a));
           toast.success("Registro actualizado");
         }
       } else {
-        // CREACIÓN
+    
         const response = await api.post('/anexos', formData);
         if (response.data.success) {
           setAnexos([response.data.anexo, ...anexos]);
@@ -106,7 +106,7 @@ const Anexos = ({ userRole }) => {
     }
   };
 
-  // --- FILTRADO Y PAGINACIÓN ---
+
   const filteredAnexos = anexos.filter(anexo => {
     const busq = busqueda.toLowerCase();
     return (
@@ -130,8 +130,8 @@ const Anexos = ({ userRole }) => {
             {isAdministrador && (
               <AddButton 
                 onClick={() => {
-                   if (showAddForm && !editingId) setShowAddForm(false); // Si esta vacío y abierto, cierra
-                   else { cancelarEdicion(); setShowAddForm(true); } // Si no, limpia y abre para nuevo
+                   if (showAddForm && !editingId) setShowAddForm(false); 
+                   else { cancelarEdicion(); setShowAddForm(true); } 
                 }} 
               />
             )}
@@ -140,7 +140,7 @@ const Anexos = ({ userRole }) => {
         }
       />
 
-      {/* FORMULARIO ÚNICO (ADAPTATIVO) */}
+      
       {showAddForm && (
         <div className={`mb-10 p-8 rounded-3xl border-2 border-dashed animate-in slide-in-from-top duration-500 ${editingId ? 'bg-blue-50 border-blue-200' : 'bg-slate-50 border-cyan-200'}`}>
           <div className="flex justify-between items-center mb-6">
@@ -162,7 +162,7 @@ const Anexos = ({ userRole }) => {
         </div>
       )}
 
-      {/* TABLA */}
+   
       <div className="overflow-x-auto bg-white rounded-2xl border border-slate-200 shadow-sm">
         <table className="w-full text-left border-collapse min-w-[800px]">
           <thead>
@@ -221,7 +221,7 @@ const Anexos = ({ userRole }) => {
         </table>
       </div>
 
-      {/* PAGINACIÓN */}
+     
       <div className="mt-8 flex justify-center items-center gap-4">
         <button disabled={paginaActual === 1} onClick={() => setPaginaActual(paginaActual - 1)} className="flex items-center gap-2 px-4 py-2 rounded-xl border-2 border-slate-200 text-[#003876] font-bold text-xs hover:bg-slate-50 disabled:opacity-30 transition-all">
           <ChevronLeftIcon size={16} /> ANTERIOR

@@ -5,7 +5,7 @@ import PageHeader from '../components/PageHeader';
 const ArsenalFarmacologico = () => {
   const navigate = useNavigate();
 
-  // === LINKS DEL ARSENAL ===
+
   const linkImagen = "http://10.5.131.63/intranet/wp-content/uploads/2020/01/Arsenal2020.pdf"; 
   const linkTexto = "http://10.5.131.63/intranet/wp-content/uploads/2025/01/Arsenal-Farmacologico-2025-HSJM.pdf";  
 
@@ -19,10 +19,9 @@ const ArsenalFarmacologico = () => {
         backLabel="VOLVER"
       />
 
-      {/* CONTENIDO CENTRAL */}
       <div className="max-w-4xl mx-auto flex flex-col items-start pt-8 pl-4 md:pl-12">
         
-        {/* LINK DE LA IMAGEN (ICONO PDF) */}
+
         <a 
           href={linkImagen} 
           target="_blank" 
@@ -43,7 +42,7 @@ const ArsenalFarmacologico = () => {
           <div className="w-full h-1 bg-[#00a19a] mt-6"></div>
         </a>
 
-        {/* LINK DEL TEXTO SUBRAYADO */}
+
         <a 
           href={linkTexto}
           target="_blank" 

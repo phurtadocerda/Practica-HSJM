@@ -10,7 +10,7 @@ const CalidadVigente = ({ userRole }) => {
   const isAdministrador = userRole === 'administrador';
   const [searchTerm, setSearchTerm] = useState('');
 
-  // === ESTADO DE DOCUMENTOS CON LISTA COMPLETA ===
+  
   const [documentos, setDocumentos] = useState(() => {
     const saved = localStorage.getItem('calidad_vigente_final');
     if (saved) return JSON.parse(saved);
@@ -167,16 +167,16 @@ const CalidadVigente = ({ userRole }) => {
     ];
   });
 
-  // === ESTADOS ADMIN ===
+
   const [showForm, setShowForm] = useState(false);
   const [newDoc, setNewDoc] = useState({ nombre: '', url: '' });
 
-  // Guardar en localStorage
+
   useEffect(() => {
     localStorage.setItem('calidad_vigente_final', JSON.stringify(documentos));
   }, [documentos]);
 
-  // === FUNCIONES JEFE ===
+
   const handleAddDocument = (e) => {
     e.preventDefault();
     if (!newDoc.nombre || !newDoc.url) return;

@@ -1,11 +1,8 @@
-// src/views/Portal.jsx
 import React, { useState } from 'react';
 import { MapPin } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
 import SystemGrid from '../components/SystemGrid';
 import SystemCard from '../components/SystemCard';
-
-// Importa las imágenes que usa el Portal
 import logoServicio from '../assets/logo.png'; 
 import logoMedicap from '../assets/Medicap.jpg';
 import logosynaspe from '../assets/Synapse.png';
@@ -15,7 +12,7 @@ import logohospitalmeli from '../assets/Hospitalmeli.png';
 import logotalagante from '../assets/Talagante.png';
 
 const Portal = () => {
-  // Este estado ahora vive solo aquí, donde pertenece
+
   const [portalView, setPortalView] = useState('main');
 
   return (

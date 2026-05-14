@@ -3,10 +3,9 @@ import { ChevronLeft, ShieldCheck } from 'lucide-react';
 import { useNavigate } from 'react-router-dom'; // 1. Importamos el hook
 import PageHeader from '../components/PageHeader';
 
-const Iaas = () => { // 2. Quitamos el prop onNavigate antiguo
-  const navigate = useNavigate(); // 3. Inicializamos el hook para navegar
-
-  // === CONFIGURACIÓN DEL VIDEO ===
+const Iaas = () => { 
+  const navigate = useNavigate(); 
+ 
   const urlVideoIaas = "http://10.5.131.63/intranet/wp-content/uploads/2025/02/iaas-final_1CPdjwZy.mp4?_=1";
 
   return (
@@ -25,7 +24,7 @@ const Iaas = () => { // 2. Quitamos el prop onNavigate antiguo
       <div className="max-w-6xl mx-auto">
         <div className="aspect-video bg-slate-950 rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white relative group">
           
-          {/* Reproductor de Video Nativo */}
+          
           <video 
             src={urlVideoIaas} 
             controls 
@@ -35,7 +34,7 @@ const Iaas = () => { // 2. Quitamos el prop onNavigate antiguo
             Tu navegador no soporta la reproducción de video.
           </video>
 
-          {/* Superposición decorativa */}
+          
           <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none flex items-center justify-center">
             <div className="bg-white/20 p-6 rounded-full backdrop-blur-sm">
                 <ShieldCheck className="text-white" size={60} strokeWidth={1}/>
@@ -43,7 +42,7 @@ const Iaas = () => { // 2. Quitamos el prop onNavigate antiguo
           </div>
         </div>
 
-        {/* Texto descriptivo */}
+        
         <div className="mt-8 text-center bg-slate-50 p-6 rounded-2xl border border-slate-100 max-w-3xl mx-auto">
             <p className="text-slate-700 font-medium text-lg">
                 Visualiza el video instructivo sobre los protocolos y medidas de prevención de Infecciones Asociadas a la Atención de Salud (IAAS) en nuestro establecimiento.

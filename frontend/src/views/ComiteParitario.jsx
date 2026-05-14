@@ -1,16 +1,12 @@
-// src/views/ComiteParitario.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FolderOpen, FileText } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
-
-// --- IMPORTACIÓN DE IMÁGENES ---
 import ComiteIntegrantes from '../assets/integrantes_comite.png'; 
 import ComiteFunciones from '../assets/funciones_comite.png';    
 import Calendario from '../assets/calendario.png';
 import fiesta from '../assets/clavefiestas.png';
 import paso from '../assets/campañapaso.png';
-// Galería de fotos
 import f1 from '../assets/1.jpg'; import f2 from '../assets/2.jpg'; import f3 from '../assets/3.jpg';
 import f4 from '../assets/4.png'; import f5 from '../assets/5.png'; import f6 from '../assets/6.png';
 import f7 from '../assets/7.png'; import f8 from '../assets/8.png'; import f9 from '../assets/9.png';
@@ -19,14 +15,13 @@ import f13 from '../assets/13.png';
 
 const ComiteParitario = () => {
   const navigate = useNavigate();
-  // Estado para controlar qué sub-vista mostrar
   const [view, setView] = useState('main'); 
   const [showPasoAPasoImage, setShowPasoAPasoImage] = useState(false);
 
   return (
     <section className="bg-white rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 min-h-[600px] animate-in fade-in zoom-in duration-500 w-full">
       
-      {/* VISTA PRINCIPAL: MENÚ DEL COMITÉ */}
+      
       {view === 'main' && (
         <>
           <PageHeader
@@ -54,7 +49,7 @@ const ComiteParitario = () => {
           </div>
         </>
       )}
-      {/* SUB-VISTA: ESTADÍSTICAS */}
+      
       {view === 'estadisticas' && (
         <>
           <HeaderSubvista titulo="Estadísticas" onVolver={() => setView('main')} />
@@ -99,7 +94,7 @@ const ComiteParitario = () => {
           </div>
         </>
       )}
-      {/* SUB-VISTA: ACTAS Y RESOLUCIONES */}
+
       {view === 'actas' && (
         <>
           <HeaderSubvista titulo="Resolución / Actas" onVolver={() => setView('main')} uppercase={true} />
@@ -177,7 +172,7 @@ const ComiteParitario = () => {
         </>
       )}
 
-      {/* SUB-VISTA: CALENDARIO */}
+  
       {view === 'calendario' && (
         <>
           <HeaderSubvista titulo="Calendario" onVolver={() => setView('main')} uppercase={true} />
@@ -218,7 +213,7 @@ const ComiteParitario = () => {
         </>
       )}
 
-      {/* SUB-VISTA: FORMULARIOS */}
+     
       {view === 'formularios' && (
         <>
           <HeaderSubvista titulo="Formularios" onVolver={() => setView('main')} uppercase={true} />
@@ -258,7 +253,7 @@ const ComiteParitario = () => {
         </>
       )}
 
-      {/* SUB-VISTA: CAMPAÑAS */}
+   
       {view === 'campanas' && (
         <>
           <HeaderSubvista titulo="Campañas y/o Actividades" onVolver={() => setView('main')} uppercase={true} />
@@ -300,7 +295,7 @@ const ComiteParitario = () => {
   );
 };
 
-// COMPONENTES AUXILIARES ESPECÍFICOS DE COMITÉ
+
 
 const HeaderSubvista = ({ titulo, onVolver, uppercase }) => (
   <PageHeader
